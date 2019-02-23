@@ -59,6 +59,7 @@ public class TrendingFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
+    int spanCount = 2;
 
     public TrendingFragment() {
 
@@ -129,23 +130,23 @@ public class TrendingFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
+        setSpanCount();
+        gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(rvAdapter);
+        setRecyclerViewScroll();
+    }
 
-        // Decide the number of columns based on the screen width
+    private void setSpanCount(){
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         int width = displayMetrics.widthPixels;
-        int spanCount = 2;
         if (width > 1400) {
             spanCount = 5;
         } else if (width > 700) {
             spanCount = 3;
         }
-
-        gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(rvAdapter);
-        setRecyclerViewScroll();
     }
 
     private void setRecyclerViewScroll() {
