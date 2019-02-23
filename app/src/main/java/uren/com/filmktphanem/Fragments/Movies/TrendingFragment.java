@@ -1,4 +1,4 @@
-package uren.com.filmktphanem.Fragments.Trending;
+package uren.com.filmktphanem.Fragments.Movies;
 
 
 import android.annotation.SuppressLint;

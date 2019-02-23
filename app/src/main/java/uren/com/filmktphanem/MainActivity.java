@@ -4,9 +4,7 @@ import android.graphics.PorterDuff;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -19,7 +17,7 @@ import uren.com.filmktphanem.FragmentControllers.FragmentHistory;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Library.LibraryFragment;
 import uren.com.filmktphanem.Fragments.Search.SearchFragment;
-import uren.com.filmktphanem.Fragments.Trending.TrendingFragment;
+import uren.com.filmktphanem.Fragments.Movies.TrendingFragment;
 
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_DOWN_TO_UP;
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_LEFT_TO_RIGHT;

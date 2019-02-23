@@ -1,7 +1,6 @@
 package uren.com.filmktphanem.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -18,13 +17,12 @@ import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uren.com.filmktphanem.Fragments.BaseFragment;
-import uren.com.filmktphanem.Fragments.Trending.MovieDetailFragment;
+import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
 import uren.com.filmktphanem.Interfaces.ReturnCallback;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.models.Movie;
