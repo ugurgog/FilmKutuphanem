@@ -8,4 +8,6 @@ public class StringConstants {
     public static final String ANIMATE_DOWN_TO_UP = "ANIMATE_DOWN_TO_UP";
     public static final String ANIMATE_UP_TO_DOWN = "ANIMATE_UP_TO_DOWN";
 
+    public static final String TYPE_TRENDING = "trending";
+
 }

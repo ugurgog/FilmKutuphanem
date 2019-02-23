@@ -39,8 +39,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/GhostWhite"
-                app:tabTextAppearance="@style/MainTabLayoutTextAppearance" />
+                android:background="#121212"
+                app:tabTextAppearance="@style/MainTabLayoutTextAppearance"
+                app:tabTextColor="@color/White"
+                app:tabSelectedTextColor="@color/OrangeRed"/>
 
         </LinearLayout>
 

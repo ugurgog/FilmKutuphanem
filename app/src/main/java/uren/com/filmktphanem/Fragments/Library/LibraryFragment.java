@@ -107,7 +107,7 @@ public class LibraryFragment extends BaseFragment {
     }
 
     private void populateRecyclerView() {
-        MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getContext(), movies, mFragmentNavigation);
+        //MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getContext(), movies, mFragmentNavigation);
 
         // Decide the number of columns based on the screen width
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -122,7 +122,7 @@ public class LibraryFragment extends BaseFragment {
         }
 
         rvMovieList.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
-        rvMovieList.setAdapter(rvAdapter);
+        //rvMovieList.setAdapter(rvAdapter);
     }
 
     private void initMovies(Cursor cursorMovies) {

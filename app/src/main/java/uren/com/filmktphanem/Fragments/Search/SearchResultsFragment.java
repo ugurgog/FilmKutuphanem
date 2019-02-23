@@ -156,9 +156,9 @@ public class SearchResultsFragment extends BaseFragment {
      * Populates the recyclerview with the retrieved movies.
      */
     private void populateRecyclerView() {
-        MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getContext(), movies, mFragmentNavigation);
+        //MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getContext(), movies, mFragmentNavigation);
         rvMovieList.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        rvMovieList.setAdapter(rvAdapter);
+        //rvMovieList.setAdapter(rvAdapter);
     }
 
     /**

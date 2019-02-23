@@ -24,30 +24,41 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uren.com.filmktphanem.AsyncFunctions.TMDBQueryProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
+import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.MainActivity;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
 
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
+
 public class TrendingFragment extends BaseFragment {
 
     View mView;
 
-    private TextView tvErrorMessage;
-    private ProgressBar pbLoadingIndicator;
-    private RecyclerView recyclerView;
-    private ArrayList<Movie> movies;
+    @BindView(R.id.rv_movie_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.tv_error_message)
+    TextView tvErrorMessage;
+    @BindView(R.id.pb_loading_indicator)
+    ProgressBar pbLoadingIndicator;
 
     private int pastVisibleItems, visibleItemCount, totalItemCount;
     private GridLayoutManager gridLayoutManager;
-    private int pageCount = 0;
+    private int pageCount = 1;
     private boolean loading = true;
     private MovieRecyclerViewAdapter rvAdapter;
+
+    private static final int CODE_FIRST_LOAD = 0;
+    private static final int CODE_MORE_LOAD = 1;
+    private int loadCode = CODE_FIRST_LOAD;
 
     public TrendingFragment() {
 
@@ -65,7 +76,8 @@ public class TrendingFragment extends BaseFragment {
             mView = inflater.inflate(R.layout.fragment_trending, container, false);
             ButterKnife.bind(this, mView);
             initVariables();
-            makeTMDBTrendingQuery();
+            populateRecyclerView();
+            getTMDBTrendingQuery();
         }
         return mView;
     }
@@ -76,15 +88,33 @@ public class TrendingFragment extends BaseFragment {
     }
 
     private void initVariables() {
-        recyclerView = mView.findViewById(R.id.rv_movie_list);
-        recyclerView.setNestedScrollingEnabled(false);
-        tvErrorMessage = mView.findViewById(R.id.tv_error_message);
-        pbLoadingIndicator = mView.findViewById(R.id.pb_loading_indicator);
+
     }
 
-    private void makeTMDBTrendingQuery() {
-        URL TMDBTrendingURL = NetworkUtils.buildTrendingUrl();
-        new TMDBQueryTask().execute(TMDBTrendingURL);
+    private void getTMDBTrendingQuery() {
+        TMDBQueryProcess tmdbQueryProcess = new TMDBQueryProcess(new OnEventListener() {
+            @Override
+            public void onSuccess(Object object) {
+                if(object != null){
+                    setUpRecyclerView((List<Movie>) object);
+                }
+                pbLoadingIndicator.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                showErrorMessage();
+                pbLoadingIndicator.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onTaskContinue() {
+                if (loadCode == CODE_FIRST_LOAD)
+                    pbLoadingIndicator.setVisibility(View.VISIBLE);
+            }
+        }, pageCount, TYPE_TRENDING);
+
+        tmdbQueryProcess.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void showRecyclerView() {
@@ -97,26 +127,8 @@ public class TrendingFragment extends BaseFragment {
         tvErrorMessage.setVisibility(View.VISIBLE);
     }
 
-    private void parseMovies(String moviesJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(moviesJSONString);
-        JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
-        movies = new ArrayList<>();
-
-        // Loop throught the JSON array results
-        for (int i = 0; i < moviesJSONArray.length(); i++) {
-            JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            if (!movieJSONObject.isNull("poster_path")) {
-                String posterPath = movieJSONObject.getString("poster_path");
-                int movieId = movieJSONObject.getInt("id");
-
-                // Add new movie object to the movie array
-                movies.add(new Movie(movieId, posterPath));
-            }
-        }
-    }
-
     private void populateRecyclerView() {
-        rvAdapter = new MovieRecyclerViewAdapter(getContext(), movies, mFragmentNavigation);
+        rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
 
         // Decide the number of columns based on the screen width
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -133,9 +145,10 @@ public class TrendingFragment extends BaseFragment {
         gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);
+        setRecyclerViewScroll();
     }
 
-    /*private void setRecyclerViewScroll() {
+    private void setRecyclerViewScroll() {
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -151,9 +164,10 @@ public class TrendingFragment extends BaseFragment {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                             loading = false;
                             pageCount++;
-                            adapter.addProgressLoading();
+                            rvAdapter.addProgressLoading();
                             loadCode = CODE_MORE_LOAD;
-                            getFollowingList();
+                            showRecyclerView();
+                            getTMDBTrendingQuery();
                         }
                     }
                 }
@@ -161,50 +175,13 @@ public class TrendingFragment extends BaseFragment {
         });
     }
 
-    private void setUpRecyclerView(FollowInfoListResponse followInfoListResponse) {
+    private void setUpRecyclerView(List<Movie> movieList) {
         loading = true;
 
-        if (page != 1)
-            followingAdapter.removeProgressLoading();
+        if (pageCount != 1)
+            rvAdapter.removeProgressLoading();
 
-        followingAdapter.addAll(followInfoListResponse.getItems());
-    }*/
-
-    public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(URL... urls) {
-            URL searchUrl = urls[0];
-            String TMDBTrendingResults = null;
-            try {
-                TMDBTrendingResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return TMDBTrendingResults;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            pbLoadingIndicator.setVisibility(View.INVISIBLE);
-            if (s != null && !s.equals("")) {
-                showRecyclerView();
-                try {
-                    parseMovies(s);
-                    populateRecyclerView();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    showErrorMessage();
-                }
-            } else {
-                showErrorMessage();
-            }
-        }
+        rvAdapter.addAll(movieList);
     }
+
 }

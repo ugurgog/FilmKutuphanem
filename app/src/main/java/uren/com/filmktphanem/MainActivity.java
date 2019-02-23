@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity implements
     public FragNavTransactionOptions transactionOptions;
 
     private int[] mTabIconsSelected = {
-            R.drawable.icon_trending,
+            R.drawable.icon_movies,
             R.drawable.icon_search,
             R.drawable.icon_library};
 
@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        unSelectedTabColor = this.getResources().getColor(R.color.DarkGray);
+        unSelectedTabColor = this.getResources().getColor(R.color.White);
         selectedTabColor = this.getResources().getColor(R.color.OrangeRed);
 
         initValues();
@@ -131,6 +131,7 @@ public class MainActivity extends FragmentActivity implements
 
                 if (tab != null) {
                     tab.setIcon(mTabIconsSelected[i]);
+                    tab.setText(TABS[i]);
                 }
                 bottomTabLayout.getTabAt(0).getIcon().setColorFilter(selectedTabColor, PorterDuff.Mode.SRC_IN);
             }

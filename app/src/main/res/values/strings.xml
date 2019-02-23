@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Film Kütüphanem</string>
+    <string name="app_name">My Movie Library</string>
 
     <array name="tab_name">
-        <item>Trending</item>
+        <item>Movies</item>
         <item>Search</item>
         <item>Library</item>
     </array>

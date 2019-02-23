@@ -32,22 +32,25 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    private final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
     private final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    private final static String TMDB_POPULER_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
+    private final static String TMDB_TOP_RATED_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated";
+    private final static String TMDB_UPCOMING_BASE_URL = "https://api.themoviedb.org/3/movie/upcoming";
+    private final static String TMDB_NOW_PLAYING_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
+    private final static String TMDB_GENRE_LIST_BASE_URL = "https://api.themoviedb.org/3/genre/movie/list";
+    private final static String TMDB_GENRE_LIST_DETAIL_BASE_URL = "https://api.themoviedb.org/3/list";
+
+    private final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
     private final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
     private final static String PARAM_QUERY = "query";
     private final static String PARAM_API_KEY = "api_key";
+    private final static String PARAM_PAGE = "page";
     private final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
     private final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
     private final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
     private final static String PARAM_LANGUAGE = "language";
 
-    /**
-     * Builds the URL used to query on TMDB.
-     *
-     * @param TMDBSearchQuery The keyword that will be queried for.
-     * @return The URL to use to query the TMDB server.
-     */
+
     public static URL buildSearchUrl(String TMDBSearchQuery) {
         Uri builtUri = Uri.parse(TMDB_SEARCH_BASE_URL).buildUpon()
             .appendQueryParameter(PARAM_QUERY, TMDBSearchQuery)
@@ -65,15 +68,11 @@ public class NetworkUtils {
         return url;
     }
 
-    /**
-     * Builds the URL used to get trending movies on TMDB.
-     *
-     * @return The URL to use to query the TMDB server.
-     */
-    public static URL buildTrendingUrl() {
+    public static URL buildTrendingUrl(int page) {
         Uri builtUri = Uri.parse(TMDB_TRENDING_BASE_URL).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
                 .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
                 .build();
 
         URL url = null;
@@ -86,12 +85,100 @@ public class NetworkUtils {
         return url;
     }
 
-    /**
-     * Builds the URL used to query movie details.
-     *
-     * @param movieId The movie id
-     * @return The URL to use to query the TMDB server.
-     */
+    public static URL buildPopularUrl(int page) {
+        Uri builtUri = Uri.parse(TMDB_POPULER_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildTopratedUrl(int page) {
+        Uri builtUri = Uri.parse(TMDB_TOP_RATED_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildUpcomingUrl(int page) {
+        Uri builtUri = Uri.parse(TMDB_UPCOMING_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildNowPlayingUrl(int page) {
+        Uri builtUri = Uri.parse(TMDB_NOW_PLAYING_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildGenreListUrl(int page) {
+        Uri builtUri = Uri.parse(TMDB_GENRE_LIST_BASE_URL).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildGenreListDetailUrl(int listId) {
+        Uri builtUri = Uri.parse(TMDB_GENRE_LIST_DETAIL_BASE_URL + "/" + String.valueOf(listId)).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
     public static URL buildMovieDetailUrl(int movieId) {
         String detailUrl = TMDB_DETAIL_BASE_URL + movieId;
         Uri detailUri = Uri.parse(detailUrl).buildUpon()
@@ -110,13 +197,6 @@ public class NetworkUtils {
         return url;
     }
 
-    /**
-     * This method returns the entire result from the HTTP response.
-     *
-     * @param url The URL to fetch the HTTP response from.
-     * @return The contents of the HTTP response.
-     * @throws IOException Related to network and stream reading
-     */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -139,11 +219,6 @@ public class NetworkUtils {
         }
     }
 
-    /**
-     * Gets the current system language used as a parameter in the API calls.
-     * @return String
-     * The system language as a string
-     */
     private static String getLanguage() {
         String language = Locale.getDefault().getLanguage();
         if (language.equals("nl")) {

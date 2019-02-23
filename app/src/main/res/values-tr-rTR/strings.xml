@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Film Kütüphanem</string>
+
+    <array name="tab_name">
+        <item>Filmler</item>
+        <item>Ara</item>
+        <item>Kütüphane</item>
+    </array>
+
+    <string name="favorites">Favoriler</string>
+    <string name="error_message">Sonuçlar alınamadı, lütfen tekrar deneyin.</string>
+    <string name="trending_movies">Trend Filmler</string>
+    <string name="search_a_movie">Film ara</string>
+    <string name="search_movie">Film ara</string>
+    <string name="add_to_my_favorites">Favorilerime ekle</string>
+    <string name="general">Genel</string>
+    <string name="release">Yayın tarihi</string>
+    <string name="duration">Süre</string>
+    <string name="genres">Türler</string>
+    <string name="producers">Yapımcılar</string>
+    <string name="trailer">Fragman</string>
+    <string name="watch_trailer">Fragmanı İzle</string>
+    <string name="cast">Oyuncular</string>
+    <string name="crew">Ekip</string>
+    <string name="favorite_movies">Favori Filmler</string>
+    <string name="remove_from_favorites">Favorilerimden Çikar</string>
+    <string name="add_to_favorites">Favorilerime Ekle</string>
+    <string name="favorites_removed_1">Çıkarıldı</string>
+    <string name="favorites_removed_2">favorilerinden</string>
+    <string name="favorites_added_1">Eklendi</string>
+    <string name="favorites_added_2">favorilerine</string>
+    <string name="minutes">dakika</string>
+    <string name="unknown">Onbekend</string>
+    <string name="results_heading">için sonuçlar</string>
+    <string name="no_favorite_movies">Favori filmin yok. Bir filmin ayrıntı sayfasına giderek bir tane ekleyin.</string>
+    <string name="no_description">Açıklama mevcut değil</string>
+    <string name="no_trailer">Fragman mevcut değil</string>
+</resources>
