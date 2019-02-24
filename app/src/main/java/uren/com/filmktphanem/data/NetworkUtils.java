@@ -38,7 +38,7 @@ public class NetworkUtils {
     private final static String TMDB_UPCOMING_BASE_URL = "https://api.themoviedb.org/3/movie/upcoming";
     private final static String TMDB_NOW_PLAYING_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
     private final static String TMDB_GENRE_LIST_BASE_URL = "https://api.themoviedb.org/3/genre/movie/list";
-    private final static String TMDB_GENRE_LIST_DETAIL_BASE_URL = "https://api.themoviedb.org/3/list";
+    private final static String TMDB_GENRE_LIST_DETAIL_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
 
     private final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
     private final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
@@ -49,6 +49,7 @@ public class NetworkUtils {
     private final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
     private final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
     private final static String PARAM_LANGUAGE = "language";
+    private final static String PARAM_WITH_GENRES = "with_genres";
 
 
     public static URL buildSearchUrl(String TMDBSearchQuery) {
@@ -164,11 +165,15 @@ public class NetworkUtils {
         return url;
     }
 
-    public static URL buildGenreListDetailUrl(int listId) {
-        Uri builtUri = Uri.parse(TMDB_GENRE_LIST_DETAIL_BASE_URL + "/" + String.valueOf(listId)).buildUpon()
+    public static URL buildGenreListDetailUrl(int listId, int page) {
+        Uri builtUri = Uri.parse(TMDB_GENRE_LIST_DETAIL_BASE_URL).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
                 .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .appendQueryParameter(PARAM_WITH_GENRES, String.valueOf(listId))
                 .build();
+
+        System.out.println("buildGenreListDetailUrl builtUri:" + builtUri);
 
         URL url = null;
         try {

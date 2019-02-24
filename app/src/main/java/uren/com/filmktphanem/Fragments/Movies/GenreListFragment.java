@@ -37,7 +37,7 @@ import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
 
-public class GenreListFragment extends BaseFragment{
+public class GenreListFragment extends BaseFragment {
 
     View mView;
 
@@ -95,11 +95,11 @@ public class GenreListFragment extends BaseFragment{
         recyclerView.setAdapter(genreListAdapter);
     }
 
-    private void getGenreList(){
+    private void getGenreList() {
         TMDBGenreListProcess tmdbGenreListProcess = new TMDBGenreListProcess(new OnEventListener() {
             @Override
             public void onSuccess(Object object) {
-                if(object != null){
+                if (object != null) {
                     genreList = (List<Genre>) object;
                     setAdapter();
                 }
@@ -113,7 +113,7 @@ public class GenreListFragment extends BaseFragment{
 
             @Override
             public void onTaskContinue() {
-
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
         tmdbGenreListProcess.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

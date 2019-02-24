@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import uren.com.filmktphanem.Fragments.BaseFragment;
+import uren.com.filmktphanem.Fragments.Movies.GenreMoviesFragment;
 import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
 import uren.com.filmktphanem.R;
 
@@ -58,11 +59,10 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.Genr
             llGenreItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    mFragmentNavigation.pushFragment(new GenreMoviesFragment(genre));
                 }
             });
         }
-
 
         public void setData(Genre genre, int position) {
             this.genre = genre;
