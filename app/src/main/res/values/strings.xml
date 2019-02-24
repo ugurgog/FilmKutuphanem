@@ -34,6 +34,22 @@
     <string name="no_favorite_movies">You don\'t have any favorite movies. Add one by going to a movie\'s detail page.</string>
     <string name="no_description">No description available</string>
     <string name="no_trailer">No trailer available</string>
+    <string name="add_my_library">Add My Library</string>
+    <string name="update_in_library">Update in My Library</string>
+    <string name="rate_movie">Rate Movie</string>
+    <string name="add_to_watched">Add To Watched</string>
+    <string name="remove_from_watched">Remove From Watched</string>
+    <string name="add_to_will_watched">Add To Will Watch</string>
+    <string name="remove_from_will_watched">Remove From Will Watch</string>
+    <string name="add_comment_about_film">Add comments about the film</string>
+    <string name="write_something">Write Something...</string>
+    <string name="movie_added">Movie is added</string>
+    <string name="movie_updated">Movie is updated</string>
+    <string name="movie_deleted">Movie is deleted</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="update">Update</string>
+    <string name="movie_not_in_library">This movie is not already in the library</string>
 
     <string name="trending_movies">Trending Movies</string>
     <string name="popular_movies">Popular Movies</string>

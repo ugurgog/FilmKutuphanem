@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -43,15 +46,24 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import uren.com.filmktphanem.Fragments.BaseFragment;
+import uren.com.filmktphanem.Fragments.Library.LibraryUpdateFragment;
+import uren.com.filmktphanem.Interfaces.OnLibraryEventCallback;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.ShapeUtil;
 import uren.com.filmktphanem.adapters.CastRecyclerViewAdapter;
 import uren.com.filmktphanem.adapters.CrewRecyclerViewAdapter;
 import uren.com.filmktphanem.data.FavoritesContract;
 import uren.com.filmktphanem.data.FavoritesDbHelper;
+import uren.com.filmktphanem.data.MyLibraryItem;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Cast;
 import uren.com.filmktphanem.models.Crew;
 import uren.com.filmktphanem.models.Movie;
+
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_ADDED;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_DELETED;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPDATED;
 
 @SuppressLint("ValidFragment")
 public class MovieDetailFragment extends BaseFragment {
@@ -68,7 +80,7 @@ public class MovieDetailFragment extends BaseFragment {
     private TextView tvCrew;
     private TextView tvCast;
     private TextView tvErrorMessage;
-    private Button btnFavorites;
+    private Button btn_favorites;
     private ProgressBar pbLoadingIndicator;
     private LinearLayout llMovieInfoHolder;
     private RatingBar rbRatingBar;
@@ -78,6 +90,9 @@ public class MovieDetailFragment extends BaseFragment {
     private int movieId;
     private Movie movie;
     private SQLiteDatabase mDatabase;
+    private FavoritesDbHelper favoritesDbHelper;
+    private MyLibraryItem myLibraryItem;
+    private boolean isInLibrary = false;
 
     public MovieDetailFragment(int movieId) {
         this.movieId = movieId;
@@ -105,34 +120,69 @@ public class MovieDetailFragment extends BaseFragment {
         FavoritesDbHelper dbHelper = new FavoritesDbHelper(getContext());
         mDatabase = dbHelper.getWritableDatabase();
 
-        // Set favorites button text
-        String txtBtnFavorites;
-        if (isInFavorites()) {
-            txtBtnFavorites = getResources().getString(R.string.remove_from_favorites);
-        } else {
-            txtBtnFavorites = getResources().getString(R.string.add_to_favorites);
-        }
-        btnFavorites.setText(txtBtnFavorites);
+        setAddLibraryBtn();
 
-        // Set on click listener on favorite button
-        btnFavorites.setOnClickListener(new View.OnClickListener() {
+        return mView;
+    }
+
+    private void setLibraryBtnText(){
+        String txtBtnFavorites = null;
+
+        if (favoritesDbHelper.isInMyLibrary(movieId)) {
+            isInLibrary = true;
+            txtBtnFavorites = getResources().getString(R.string.update_in_library);
+            btn_favorites.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DodgerBlue),
+                    0, GradientDrawable.RECTANGLE, 30, 0));
+        } else {
+            isInLibrary = false;
+            txtBtnFavorites = getResources().getString(R.string.add_my_library);
+            btn_favorites.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.library_btn_color),
+                    0, GradientDrawable.RECTANGLE, 30, 0));
+        }
+
+        btn_favorites.setText(txtBtnFavorites);
+    }
+
+    private void setAddLibraryBtn() {
+        setLibraryBtnText();
+
+        btn_favorites.setOnClickListener(new View.OnClickListener() {
             int duration = Toast.LENGTH_LONG;
 
             public void onClick(View v) {
-                if (isInFavorites() && removeFromFavorites()) {
+
+                if (favoritesDbHelper.isInMyLibrary(movieId)) {
+                    myLibraryItem = favoritesDbHelper.getLibraryItem(movieId);
+                } else {
+                    myLibraryItem = new MyLibraryItem(movie.getMovieId(), movie.getTitle(), movie.getPosterPath(),
+                            0, 0, 0, null, 0,
+                            movie.getPosterSmall(), movie.getPosterLarge(), movie.getBackDropLarge());
+                }
+
+                mFragmentNavigation.pushFragment(new LibraryUpdateFragment(myLibraryItem, isInLibrary,
+                        new OnLibraryEventCallback() {
+                            @Override
+                            public void onReturn(String value) {
+                                if(value.equals(TYPE_ADDED))
+                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_added), Toast.LENGTH_SHORT);
+                                else if(value.equals(TYPE_DELETED))
+                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_deleted), Toast.LENGTH_SHORT);
+                                else if(value.equals(TYPE_UPDATED))
+                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_updated), Toast.LENGTH_SHORT);
+                            }
+                        }));
+
+                /*if (isInFavorites() && removeFromFavorites()) {
                     Toast toast = Toast.makeText(getContext(),getResources().getString(R.string.favorites_removed_1)+" '" + movie.getTitle() + "' " + getResources().getString(R.string.favorites_removed_2), duration);
                     toast.show();
-                    btnFavorites.setText(getResources().getString(R.string.add_to_favorites));
+                    btn_favorites.setText(getResources().getString(R.string.add_to_favorites));
                 } else if (addToFavorites()) {
                     Toast toast = Toast.makeText(getContext(), getResources().getString(R.string.favorites_added_1)+" '" + movie.getTitle() + "' "+getResources().getString(R.string.favorites_added_2), duration);
                     toast.show();
-                    btnFavorites.setText(getResources().getString(R.string.remove_from_favorites));
-                }
+                    btn_favorites.setText(getResources().getString(R.string.remove_from_favorites));
+                }*/
             }
         });
-
-
-        return mView;
     }
 
     @Override
@@ -152,12 +202,13 @@ public class MovieDetailFragment extends BaseFragment {
         pbLoadingIndicator = mView.findViewById(R.id.pb_loading_indicator);
         llMovieInfoHolder = mView.findViewById(R.id.ll_movie_info_holder);
         rbRatingBar = mView.findViewById(R.id.rb_movie_rating);
-        btnFavorites = mView.findViewById(R.id.btn_favorites);
+        btn_favorites = mView.findViewById(R.id.btn_favorites);
         rvCast = mView.findViewById(R.id.rv_cast);
         rvCrew = mView.findViewById(R.id.rv_crew);
         tvCrew = mView.findViewById(R.id.tv_crew);
         tvCast = mView.findViewById(R.id.tv_cast);
         btnTrailer = mView.findViewById(R.id.btn_trailer);
+        favoritesDbHelper = new FavoritesDbHelper(getContext());
     }
 
     /**
@@ -168,7 +219,7 @@ public class MovieDetailFragment extends BaseFragment {
     private void makeTMDBMovieDetailQuery(int movieId) {
         URL TMDBMovieDetailURL = NetworkUtils.buildMovieDetailUrl(movieId);
         new MovieDetailFragment.TMDBQueryTask().execute(TMDBMovieDetailURL);
-       // new MovieDetailActivity.TMDBQueryTask().execute(TMDBMovieDetailURL);
+        // new MovieDetailActivity.TMDBQueryTask().execute(TMDBMovieDetailURL);
     }
 
     /**
@@ -282,8 +333,7 @@ public class MovieDetailFragment extends BaseFragment {
         ImageView headerBackdrop = mView.findViewById(R.id.header_backdrop);
         if (movie.getBackDropLarge() != null) {
             Picasso.get().load(movie.getBackDropLarge()).into(headerBackdrop);
-        }
-        else {
+        } else {
             Picasso.get().load(R.drawable.backdrop_fallback).into(headerBackdrop);
         }
 
@@ -305,13 +355,17 @@ public class MovieDetailFragment extends BaseFragment {
 
         if (movie.getReleaseDate() != null) {
             tvMovieReleaseDate.setText(movie.getReleaseDate());
-        }
-        else {
+        } else {
             tvMovieReleaseDate.setText(R.string.unknown);
         }
 
-        // Load images
-        Picasso.get().load(movie.getPosterLarge()).into(ivMoviePoster);
+        Glide.with(getContext())
+                .load(movie.getPosterLarge())
+                .apply(RequestOptions.circleCropTransform())
+                .into(ivMoviePoster);
+
+        ivMoviePoster.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.Black),
+                0, GradientDrawable.OVAL, 50, 0));
 
         // Animations
         Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
@@ -390,12 +444,6 @@ public class MovieDetailFragment extends BaseFragment {
 
     }
 
-    /**
-     * Checks if the current movie is in the user's favorites.
-     *
-     * @return Boolean
-     * The movie is in the user's favorites.
-     */
     private Boolean isInFavorites() {
         Cursor mCursor = mDatabase.rawQuery(
                 "SELECT * FROM " + FavoritesContract.FavoritesEntry.TABLE_NAME +
@@ -405,12 +453,6 @@ public class MovieDetailFragment extends BaseFragment {
         return mCursor.moveToFirst();
     }
 
-    /**
-     * Adds the current movie to the user's favorites using local storage.
-     *
-     * @return
-     * Succeeded to add the movie to the user's favorites.
-     */
     private Boolean addToFavorites() {
         ContentValues values = new ContentValues();
         // add values to record keys
@@ -419,19 +461,10 @@ public class MovieDetailFragment extends BaseFragment {
         return mDatabase.insert(FavoritesContract.FavoritesEntry.TABLE_NAME, null, values) > 0;
     }
 
-    /**
-     * Removes the movie from the user's favorites.
-     *
-     * @return
-     * Succeeded to remove the movie from the user's favorites.
-     */
     private Boolean removeFromFavorites() {
         return mDatabase.delete(FavoritesContract.FavoritesEntry.TABLE_NAME, FavoritesContract.FavoritesEntry.COLUMN_MOVIE_ID + " = " + movieId, null) > 0;
     }
 
-    /**
-     * Inner class that takes care of the query task.
-     */
     public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override

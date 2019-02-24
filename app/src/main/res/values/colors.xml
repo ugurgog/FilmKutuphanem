@@ -29,6 +29,7 @@
     <color name="egg_shell">#EFEEED</color>
     <color name="red_record">#CE0B24</color>
     <color name="transparentBlack">#80000000</color>
+    <color name="library_btn_color">#b9090b</color>
 
     <!--Indigo 500-->
     <color name="primary_500">#3F51B5</color>

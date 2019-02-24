@@ -24,10 +24,11 @@
             <ImageView
                 android:id="@+id/iv_movie_poster"
                 android:layout_width="150dp"
-                android:layout_height="220dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-165dp"
+                android:layout_marginTop="-95dp"
                 android:background="@android:color/transparent"
+                android:padding="5dp"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -85,13 +86,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:textColor="#ffffff"
-                    android:textSize="16sp"
                     android:height="40dp"
+                    android:background="@drawable/btn_styling"
                     android:maxHeight="40dp"
                     android:minHeight="40dp"
-                    android:text="@string/add_to_my_favorites"
-                    android:background="@drawable/btn_styling" />
+                    android:text="@string/add_my_library"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_movie_overview"

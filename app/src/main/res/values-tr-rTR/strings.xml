@@ -35,6 +35,22 @@
     <string name="no_favorite_movies">Favori filmin yok. Bir filmin ayrıntı sayfasına giderek bir tane ekleyin.</string>
     <string name="no_description">Açıklama mevcut değil</string>
     <string name="no_trailer">Fragman mevcut değil</string>
+    <string name="add_my_library">Kütüphaneme Ekle</string>
+    <string name="update_in_library">Kütüphanemde Güncelle</string>
+    <string name="rate_movie">Oy Ver</string>
+    <string name="add_to_watched">İzlenenlere Ekle</string>
+    <string name="remove_from_watched">İzlenenlerden Çıkar</string>
+    <string name="add_to_will_watched">İzleneceklere Ekle</string>
+    <string name="remove_from_will_watched">İzleneceklerden Çıkar</string>
+    <string name="add_comment_about_film">Film hakkındaki yorumlarını ekle</string>
+    <string name="write_something">Bir şeyler yaz...</string>
+    <string name="movie_added">Film eklendi</string>
+    <string name="movie_updated">Film güncellendi</string>
+    <string name="movie_deleted">Film silindi</string>
+    <string name="add">Ekle</string>
+    <string name="remove">Çıkar</string>
+    <string name="update">Güncelle</string>
+    <string name="movie_not_in_library">Bu film zaten kütüphanede degil</string>
 
     <string name="trending_movies">Trend Filmler</string>
     <string name="popular_movies">Popüler Filmler</string>

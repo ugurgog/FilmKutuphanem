@@ -45,19 +45,21 @@ public class NetworkUtils {
     private final static String PARAM_QUERY = "query";
     private final static String PARAM_API_KEY = "api_key";
     private final static String PARAM_PAGE = "page";
-    private final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
+    //private final static String VALUE_API_KEY = "977da42f84c289b566542292c3343bc6";
+    private final static String VALUE_API_KEY = "3e815e3ab893b6c7da4a48fce51fe168";
+
     private final static String PARAM_APPEND_TO_RESPONSE = "append_to_response";
     private final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
     private final static String PARAM_LANGUAGE = "language";
     private final static String PARAM_WITH_GENRES = "with_genres";
 
-
-    public static URL buildSearchUrl(String TMDBSearchQuery) {
+    public static URL buildSearchUrl(String TMDBSearchQuery, int page) {
         Uri builtUri = Uri.parse(TMDB_SEARCH_BASE_URL).buildUpon()
-            .appendQueryParameter(PARAM_QUERY, TMDBSearchQuery)
-            .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
-            .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
-            .build();
+                .appendQueryParameter(PARAM_QUERY, TMDBSearchQuery)
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .build();
 
         URL url = null;
         try {
@@ -173,8 +175,6 @@ public class NetworkUtils {
                 .appendQueryParameter(PARAM_WITH_GENRES, String.valueOf(listId))
                 .build();
 
-        System.out.println("buildGenreListDetailUrl builtUri:" + builtUri);
-
         URL url = null;
         try {
             url = new URL(builtUri.toString());
@@ -193,7 +193,6 @@ public class NetworkUtils {
                 .build();
         URL url = null;
         try {
-            Log.e("info", detailUri.toString());
             url = new URL(detailUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -216,10 +215,10 @@ public class NetworkUtils {
             } else {
                 return null;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }finally {
+        } finally {
             urlConnection.disconnect();
         }
     }
@@ -228,10 +227,9 @@ public class NetworkUtils {
         String language = Locale.getDefault().getLanguage();
         if (language.equals("nl")) {
             return "nl";
-        }
-        else if (language.equals("de")) {
+        } else if (language.equals("de")) {
             return "de";
-        }else if(language.equals("tr")){
+        } else if (language.equals("tr")) {
             return "tr";
         }
         return "en";

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#121212"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/header_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/iv_movie_poster"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-95dp"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:id="@+id/ll_movie_info_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tv_movie_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/tvRateMovie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/rate_movie"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <RatingBar
+                    android:id="@+id/rb_movie_rating"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:isIndicator="true"
+                    android:numStars="10"
+                    android:stepSize="0.1" />
+
+                <Button
+                    android:id="@+id/btn_favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:height="40dp"
+                    android:background="@drawable/btn_styling"
+                    android:maxHeight="40dp"
+                    android:minHeight="40dp"
+                    android:text="@string/add_to_favorites"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_watched"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:height="40dp"
+                    android:maxHeight="40dp"
+                    android:minHeight="40dp"
+                    android:text="@string/add_to_watched"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_will_watch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:height="40dp"
+                    android:maxHeight="40dp"
+                    android:minHeight="40dp"
+                    android:text="@string/add_to_will_watched"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:text="@string/add_comment_about_film"/>
+
+                <EditText
+                    android:id="@+id/edtComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/White"
+                    android:focusable="true"
+                    android:gravity="top"
+                    android:hint="@string/write_something"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:lines="8"
+                    android:maxLines="16"
+                    android:padding="7dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/Black"
+                    android:textColorHint="@color/transparentBlack"
+                    android:textCursorDrawable="@null"
+                    android:textSize="16sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnAdd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/add"
+                        android:textAllCaps="false"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"/>
+
+                    <Button
+                        android:id="@+id/btnRemove"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/remove"
+                        android:textAllCaps="false"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

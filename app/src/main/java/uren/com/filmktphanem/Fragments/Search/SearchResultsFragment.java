@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
+import uren.com.filmktphanem.AsyncFunctions.TMDBQueryProcess;
+import uren.com.filmktphanem.AsyncFunctions.TMDBSearchMovieProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
+import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.NetworkUtils;
@@ -44,6 +49,17 @@ public class SearchResultsFragment extends BaseFragment {
     private RecyclerView rvMovieList;
     private ArrayList<Movie> movies;
 
+    private int pastVisibleItems, visibleItemCount, totalItemCount;
+    private GridLayoutManager gridLayoutManager;
+    private int pageCount = 1;
+    private boolean loading = true;
+    private MovieRecyclerViewAdapter rvAdapter;
+
+    private static final int CODE_FIRST_LOAD = 0;
+    private static final int CODE_MORE_LOAD = 1;
+    private int loadCode = CODE_FIRST_LOAD;
+    int spanCount = 2;
+
     public SearchResultsFragment(String searchQuery) {
         this.searchQuery = searchQuery;
     }
@@ -56,10 +72,13 @@ public class SearchResultsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mView = inflater.inflate(R.layout.fragment_search_results, container, false);
-        ButterKnife.bind(this, mView);
-        initVariables();
-        addListeners();
+        if(mView == null) {
+            mView = inflater.inflate(R.layout.fragment_search_results, container, false);
+            ButterKnife.bind(this, mView);
+            initVariables();
+            populateRecyclerView();
+            getTMDBQuery();
+        }
         return mView;
     }
 
@@ -73,109 +92,100 @@ public class SearchResultsFragment extends BaseFragment {
         pbLoadingIndicator = mView.findViewById(R.id.pb_loading_indicator);
         tvResultsTitle = mView.findViewById(R.id.tv_results_title);
         rvMovieList = mView.findViewById(R.id.rv_movie_list);
-        rvMovieList.setNestedScrollingEnabled(false);
-
-        URL TMDBSearchURL = NetworkUtils.buildSearchUrl(searchQuery);
-        new SearchResultsFragment.TMDBQueryTask().execute(TMDBSearchURL);
+        tvResultsTitle.setText(searchQuery);
     }
 
-    private void addListeners() {
-
-    }
-
-
-    public class TMDBQueryTask extends AsyncTask<URL, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pbLoadingIndicator.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(URL... urls) {
-            URL searchUrl = urls[0];
-            String TMDBSearchResults = null;
-            try {
-                TMDBSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return TMDBSearchResults;
-        }
-
-        /**
-         * Executes when the API call is finished.
-         */
-        @Override
-        protected void onPostExecute(String s) {
-            pbLoadingIndicator.setVisibility(View.INVISIBLE);
-            if (s != null && !s.equals("")) {
-                showRecyclerView();
-                try {
-                    parseMovies(s);
-                    populateRecyclerView();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    showErrorMessage();
+    private void getTMDBQuery() {
+        TMDBSearchMovieProcess tmdbSearchMovieProcess = new TMDBSearchMovieProcess(new OnEventListener() {
+            @Override
+            public void onSuccess(Object object) {
+                if (object != null) {
+                    setUpRecyclerView((List<Movie>) object);
                 }
-            } else {
+                pbLoadingIndicator.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
                 showErrorMessage();
+                pbLoadingIndicator.setVisibility(View.GONE);
             }
-        }
+
+            @Override
+            public void onTaskContinue() {
+                if (loadCode == CODE_FIRST_LOAD)
+                    pbLoadingIndicator.setVisibility(View.VISIBLE);
+            }
+        }, pageCount, searchQuery);
+
+        tmdbSearchMovieProcess.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    /**
-     * Parses the movie JSON string and inserts the results as a new Movie object into the Movie array.
-     *
-     * @param moviesJSONString
-     * The JSON string containing the results.
-     */
-    private void parseMovies(String moviesJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(moviesJSONString);
-        JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
-        movies = new ArrayList<Movie>();
-
-        // Loop through json array
-        for (int i = 0; i < moviesJSONArray.length(); i++) {
-            JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            if (!movieJSONObject.isNull("poster_path")) {
-                int movieId = movieJSONObject.getInt("id");
-                String posterPath = movieJSONObject.getString("poster_path");
-
-                // Add movie object
-                movies.add(new Movie(movieId, posterPath));
-            }
-        }
-
-        // Set result count
-        tvResultsTitle.setText(movies.size() + " " +  getResources().getString(R.string.results_heading) + " '" + searchQuery + "'");
-    }
-
-    /**
-     * Populates the recyclerview with the retrieved movies.
-     */
     private void populateRecyclerView() {
-        //MovieRecyclerViewAdapter rvAdapter = new MovieRecyclerViewAdapter(getContext(), movies, mFragmentNavigation);
-        rvMovieList.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        //rvMovieList.setAdapter(rvAdapter);
+        rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
+        setSpanCount();
+        gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
+        rvMovieList.setLayoutManager(gridLayoutManager);
+        rvMovieList.setAdapter(rvAdapter);
+        setRecyclerViewScroll();
     }
 
-    /**
-     * Show recycler view.
-     */
+    private void setSpanCount() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int width = displayMetrics.widthPixels;
+        if (width > 1400) {
+            spanCount = 5;
+        } else if (width > 700) {
+            spanCount = 3;
+        }
+    }
+
     private void showRecyclerView() {
         tvErrorMessage.setVisibility(View.INVISIBLE);
         rvMovieList.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * Show error message.
-     */
+    private void setRecyclerViewScroll() {
+
+        rvMovieList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0) {
+                    visibleItemCount = gridLayoutManager.getChildCount();
+                    totalItemCount = gridLayoutManager.getItemCount();
+                    pastVisibleItems = gridLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                            loading = false;
+                            pageCount++;
+                            rvAdapter.addProgressLoading();
+                            loadCode = CODE_MORE_LOAD;
+                            showRecyclerView();
+                            getTMDBQuery();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     private void showErrorMessage() {
         rvMovieList.setVisibility(View.INVISIBLE);
         tvErrorMessage.setVisibility(View.VISIBLE);
     }
 
+    private void setUpRecyclerView(List<Movie> movieList) {
+        loading = true;
+
+        if (pageCount != 1)
+            rvAdapter.removeProgressLoading();
+
+        rvAdapter.addAll(movieList);
+    }
 
 }
