@@ -9,5 +9,10 @@ public class StringConstants {
     public static final String ANIMATE_UP_TO_DOWN = "ANIMATE_UP_TO_DOWN";
 
     public static final String TYPE_TRENDING = "trending";
+    public static final String TYPE_POPULAR = "popular";
+    public static final String TYPE_TOP_RATED = "top_rated";
+    public static final String TYPE_UPCOMING = "upcoming";
+    public static final String TYPE_NOW_PLAYING = "now_playing";
+    public static final String TYPE_BY_GENRE = "by_genre";
 
 }

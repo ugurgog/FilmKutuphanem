@@ -16,6 +16,8 @@ import uren.com.filmktphanem.FragmentControllers.FragNavTransactionOptions;
 import uren.com.filmktphanem.FragmentControllers.FragmentHistory;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Library.LibraryFragment;
+import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
+import uren.com.filmktphanem.Fragments.Movies.MoviesFragment;
 import uren.com.filmktphanem.Fragments.Search.SearchFragment;
 import uren.com.filmktphanem.Fragments.Movies.TrendingFragment;
 
@@ -278,7 +280,7 @@ public class MainActivity extends FragmentActivity implements
         switch (index) {
 
             case TAB1:
-                return new TrendingFragment();
+                return new MoviesFragment();
             case FragNavController.TAB2:
                 return new SearchFragment();
             case FragNavController.TAB3:

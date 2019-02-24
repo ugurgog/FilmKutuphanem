@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "464697841161",
+    "firebase_url": "https://my-movie-library-d6a16.firebaseio.com",
+    "project_id": "my-movie-library-d6a16",
+    "storage_bucket": "my-movie-library-d6a16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464697841161:android:b25e97da1c5c5914",
+        "android_client_info": {
+          "package_name": "uren.com.filmktphanem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464697841161-5482acl5gk6an2are1b6bhj5hk3bv1na.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7Ei9yvP9AhHiGyAAGJJ8dAjxplnntDtM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -149,7 +149,7 @@ public class NetworkUtils {
         return url;
     }
 
-    public static URL buildGenreListUrl(int page) {
+    public static URL buildGenreListUrl() {
         Uri builtUri = Uri.parse(TMDB_GENRE_LIST_BASE_URL).buildUpon()
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
                 .appendQueryParameter(PARAM_LANGUAGE, getLanguage())

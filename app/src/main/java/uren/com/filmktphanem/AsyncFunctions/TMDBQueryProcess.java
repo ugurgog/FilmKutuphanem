@@ -14,7 +14,11 @@ import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
 
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
 
 public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
 
@@ -22,6 +26,7 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
     public Exception mException;
     private int pageCount;
     private String type;
+    private URL TMDBURL = null;
 
     public TMDBQueryProcess(OnEventListener callback, int pageCount, String type) {
         mCallBack = callback;
@@ -41,10 +46,7 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
 
-        URL TMDBURL = null;
-        if(type.equals(TYPE_TRENDING))
-            TMDBURL = NetworkUtils.buildTrendingUrl(pageCount);
-
+        setTMDBURL();
         String TMDBTrendingResults = null;
         try {
             TMDBTrendingResults = NetworkUtils.getResponseFromHttpUrl(TMDBURL);
@@ -68,6 +70,19 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
         } else {
             mCallBack.onFailure(mException);
         }
+    }
+
+    private void setTMDBURL(){
+        if(type.equals(TYPE_TRENDING))
+            TMDBURL = NetworkUtils.buildTrendingUrl(pageCount);
+        else if(type.equals(TYPE_POPULAR))
+            TMDBURL = NetworkUtils.buildPopularUrl(pageCount);
+        else if(type.equals(TYPE_TOP_RATED))
+            TMDBURL = NetworkUtils.buildTopratedUrl(pageCount);
+        else if(type.equals(TYPE_UPCOMING))
+            TMDBURL = NetworkUtils.buildUpcomingUrl(pageCount);
+        else if(type.equals(TYPE_NOW_PLAYING))
+            TMDBURL = NetworkUtils.buildNowPlayingUrl(pageCount);
     }
 
     private void parseMovies(String moviesJSONString) throws JSONException {

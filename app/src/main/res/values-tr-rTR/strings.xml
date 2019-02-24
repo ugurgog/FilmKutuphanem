@@ -10,7 +10,6 @@
 
     <string name="favorites">Favoriler</string>
     <string name="error_message">Sonuçlar alınamadı, lütfen tekrar deneyin.</string>
-    <string name="trending_movies">Trend Filmler</string>
     <string name="search_a_movie">Film ara</string>
     <string name="search_movie">Film ara</string>
     <string name="add_to_my_favorites">Favorilerime ekle</string>
@@ -36,4 +35,11 @@
     <string name="no_favorite_movies">Favori filmin yok. Bir filmin ayrıntı sayfasına giderek bir tane ekleyin.</string>
     <string name="no_description">Açıklama mevcut değil</string>
     <string name="no_trailer">Fragman mevcut değil</string>
+
+    <string name="trending_movies">Trend Filmler</string>
+    <string name="popular_movies">Popüler Filmler</string>
+    <string name="top_rated_movies">En Çok Oy Alan Filmler</string>
+    <string name="upcoming_movies">Yaklaşan Filmler</string>
+    <string name="now_playing_movies">Vizyondakiler</string>
+    <string name="by_genre_movies">Türlere Göre</string>
 </resources>
