@@ -7,7 +7,7 @@ public class MyLibraryItem {
     private String posterPath;
     private int watched;
     private int willWatch;
-    private int myRate;
+    private float myRate;
     private String myComment;
     private int inFavorites;
     private String posterSmall;
@@ -18,7 +18,7 @@ public class MyLibraryItem {
 
     }
 
-    public MyLibraryItem(int movieId, String name, String posterPath, int watched, int willWatch, int myRate, String myComment,
+    public MyLibraryItem(int movieId, String name, String posterPath, int watched, int willWatch, float myRate, String myComment,
                          int inFavorites, String posterSmall, String posterLarge, String backDropLarge) {
         this.movieId = movieId;
         this.name = name;
@@ -73,11 +73,11 @@ public class MyLibraryItem {
         this.watched = watched;
     }
 
-    public int getMyRate() {
+    public float getMyRate() {
         return myRate;
     }
 
-    public void setMyRate(int myRate) {
+    public void setMyRate(float myRate) {
         this.myRate = myRate;
     }
 

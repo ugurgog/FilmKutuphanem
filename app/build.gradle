@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.6'
     implementation 'com.google.android.gms:play-services-ads:17.1.2'
     implementation 'com.google.firebase:firebase-ads:17.1.2'
+
+    implementation 'com.github.ome450901:SimpleRatingBar:1.4.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

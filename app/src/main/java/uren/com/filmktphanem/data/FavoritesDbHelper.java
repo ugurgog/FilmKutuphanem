@@ -36,7 +36,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 FavoritesContract.FavoritesEntry.COLUMN_BACK_DROP_LARGE + " STRING, " +
                 FavoritesContract.FavoritesEntry.COLUMN_WATCHED + "  INTEGER DEFAULT 0," +
                 FavoritesContract.FavoritesEntry.COLUMN_WILL_WATCH+ "  INTEGER DEFAULT 0," +
-                FavoritesContract.FavoritesEntry.COLUMN_MY_RATE + "  INTEGER DEFAULT 0," +
+                FavoritesContract.FavoritesEntry.COLUMN_MY_RATE + "  REAL DEFAULT 0," +
                 FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES + "  INTEGER DEFAULT 0," +
                 FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT + " STRING , " +
                 FavoritesContract.FavoritesEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
@@ -118,7 +118,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 cursor.getString(2),
                 cursor.getInt(6),
                 cursor.getInt(7),
-                cursor.getInt(8),
+                cursor.getFloat(8),
                 cursor.getString(9),
                 cursor.getInt(10),
                 cursor.getString(3),
@@ -145,7 +145,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
 
                 myLibraryItem.setWatched(cursor.getInt(6));
                 myLibraryItem.setWillWatch(cursor.getInt(7));
-                myLibraryItem.setMyRate(cursor.getInt(8));
+                myLibraryItem.setMyRate(cursor.getFloat(8));
                 myLibraryItem.setMyComment(cursor.getString(9));
                 myLibraryItem.setInFavorites(cursor.getInt(10));
                 myLibraryItems.add(myLibraryItem);
@@ -185,7 +185,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 myLibraryItem.setBackDropLarge(cursor.getString(5));
                 myLibraryItem.setWatched(cursor.getInt(6));
                 myLibraryItem.setWillWatch(cursor.getInt(7));
-                myLibraryItem.setMyRate(cursor.getInt(8));
+                myLibraryItem.setMyRate(cursor.getFloat(8));
                 myLibraryItem.setMyComment(cursor.getString(9));
                 myLibraryItem.setInFavorites(cursor.getInt(10));
                 myLibraryItems.add(myLibraryItem);
@@ -225,7 +225,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 myLibraryItem.setBackDropLarge(cursor.getString(5));
                 myLibraryItem.setWatched(cursor.getInt(6));
                 myLibraryItem.setWillWatch(cursor.getInt(7));
-                myLibraryItem.setMyRate(cursor.getInt(8));
+                myLibraryItem.setMyRate(cursor.getFloat(8));
                 myLibraryItem.setMyComment(cursor.getString(9));
                 myLibraryItem.setInFavorites(cursor.getInt(10));
                 myLibraryItems.add(myLibraryItem);
@@ -265,7 +265,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 myLibraryItem.setBackDropLarge(cursor.getString(5));
                 myLibraryItem.setWatched(cursor.getInt(6));
                 myLibraryItem.setWillWatch(cursor.getInt(7));
-                myLibraryItem.setMyRate(cursor.getInt(8));
+                myLibraryItem.setMyRate(cursor.getFloat(8));
                 myLibraryItem.setMyComment(cursor.getString(9));
                 myLibraryItem.setInFavorites(cursor.getInt(10));
                 myLibraryItems.add(myLibraryItem);
@@ -304,7 +304,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 myLibraryItem.setBackDropLarge(cursor.getString(5));
                 myLibraryItem.setWatched(cursor.getInt(6));
                 myLibraryItem.setWillWatch(cursor.getInt(7));
-                myLibraryItem.setMyRate(cursor.getInt(8));
+                myLibraryItem.setMyRate(cursor.getFloat(8));
                 myLibraryItem.setMyComment(cursor.getString(9));
                 myLibraryItem.setInFavorites(cursor.getInt(10));
                 myLibraryItems.add(myLibraryItem);

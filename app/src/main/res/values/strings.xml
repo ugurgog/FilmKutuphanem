@@ -50,6 +50,7 @@
     <string name="remove">Remove</string>
     <string name="update">Update</string>
     <string name="movie_not_in_library">This movie is not already in the library</string>
+    <string name="my_library">My Library</string>
 
     <string name="trending_movies">Trending Movies</string>
     <string name="popular_movies">Popular Movies</string>

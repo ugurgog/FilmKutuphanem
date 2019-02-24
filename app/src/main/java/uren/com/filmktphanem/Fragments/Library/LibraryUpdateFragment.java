@@ -12,7 +12,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -29,6 +31,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
+import com.willy.ratingbar.BaseRatingBar;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +65,8 @@ public class LibraryUpdateFragment extends BaseFragment {
     ImageView iv_movie_poster;
     @BindView(R.id.tv_movie_title)
     TextView tv_movie_title;
-    @BindView(R.id.rb_movie_rating)
-    RatingBar rb_movie_rating;
+    /*@BindView(R.id.rb_movie_rating)
+    RatingBar rb_movie_rating;*/
     @BindView(R.id.btn_favorites)
     Button btn_favorites;
     @BindView(R.id.btn_watched)
@@ -75,6 +79,8 @@ public class LibraryUpdateFragment extends BaseFragment {
     Button btnAdd;
     @BindView(R.id.btnRemove)
     Button btnRemove;
+    @BindView(R.id.scaleRatingBar)
+    ScaleRatingBar scaleRatingBar;
 
     private MyLibraryItem myLibraryItem;
     private boolean isInLibrary;
@@ -84,7 +90,7 @@ public class LibraryUpdateFragment extends BaseFragment {
     private int inFavorites = 0;
     private int watched = 0;
     private int willWatched = 0;
-    private int rateValue = 0;
+    private float rateValue = 0.0f;
 
     public LibraryUpdateFragment(MyLibraryItem myLibraryItem, boolean isInLibrary, OnLibraryEventCallback onLibraryEventCallback) {
         this.myLibraryItem = myLibraryItem;
@@ -124,7 +130,7 @@ public class LibraryUpdateFragment extends BaseFragment {
         setMovieTitle();
         setImages();
         startAnimations();
-        setRatingBar();
+        //setRatingBar();
         setButtonsInitialValues();
         setButtonShapes();
         //setAddRemoveButtonText();
@@ -133,7 +139,7 @@ public class LibraryUpdateFragment extends BaseFragment {
 
     private void setButtonsInitialValues() {
 
-        if(isInLibrary){
+        if (isInLibrary) {
             btnAdd.setText(getResources().getString(R.string.update));
 
             if (myLibraryItem != null) {
@@ -141,39 +147,42 @@ public class LibraryUpdateFragment extends BaseFragment {
                 watched = myLibraryItem.getWatched();
                 willWatched = myLibraryItem.getWillWatch();
 
+                rateValue = myLibraryItem.getMyRate();
+                scaleRatingBar.setRating( myLibraryItem.getMyRate());
+
                 if (inFavorites == 1)
                     btn_favorites.setText(getResources().getString(R.string.remove_from_favorites));
                 else
                     btn_favorites.setText(getResources().getString(R.string.add_to_favorites));
 
-                if(watched == 1) {
+                if (watched == 1) {
                     btn_watched.setText(getResources().getString(R.string.remove_from_watched));
                     btn_will_watch.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DarkGray),
                             0, GradientDrawable.RECTANGLE, 30, 0));
                     btn_will_watch.setEnabled(false);
-                }else {
+                } else {
                     btn_watched.setText(getResources().getString(R.string.add_to_watched));
                     btn_will_watch.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.MediumTurquoise),
                             0, GradientDrawable.RECTANGLE, 30, 0));
                     btn_will_watch.setEnabled(true);
                 }
 
-                if(willWatched == 1) {
+                if (willWatched == 1) {
                     btn_will_watch.setText(getResources().getString(R.string.remove_from_will_watched));
                     btn_watched.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DarkGray),
                             0, GradientDrawable.RECTANGLE, 30, 0));
                     btn_watched.setEnabled(false);
-                }else {
+                } else {
                     btn_will_watch.setText(getResources().getString(R.string.add_to_will_watched));
                     btn_watched.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DodgerBlue),
                             0, GradientDrawable.RECTANGLE, 30, 0));
                     btn_watched.setEnabled(true);
                 }
 
-                if(myLibraryItem.getMyComment() != null)
+                if (myLibraryItem.getMyComment() != null)
                     edtComment.setText(myLibraryItem.getMyComment());
             }
-        }else {
+        } else {
             btnAdd.setText(getResources().getString(R.string.add));
             btn_favorites.setText(getResources().getString(R.string.add_to_favorites));
             btn_watched.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DodgerBlue),
@@ -223,13 +232,13 @@ public class LibraryUpdateFragment extends BaseFragment {
         header_backdrop.startAnimation(fadeInAnimation);
     }
 
-    private void setRatingBar() {
-        Drawable progress = rb_movie_rating.getProgressDrawable();
-        DrawableCompat.setTint(progress, Color.parseColor("#b9090b"));
+    /*private void setRatingBar() {
+        //Drawable progress = rb_movie_rating.getProgressDrawable();
+        //DrawableCompat.setTint(progress, Color.parseColor("#b9090b"));
 
         if (myLibraryItem != null)
-            rb_movie_rating.setRating((float) myLibraryItem.getMyRate());
-    }
+            scaleRatingBar.setRating((float) myLibraryItem.getMyRate());
+    }*/
 
     private void setButtonShapes() {
         btn_favorites.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.library_btn_color),
@@ -240,28 +249,29 @@ public class LibraryUpdateFragment extends BaseFragment {
                 0, GradientDrawable.RECTANGLE, 40, 0));
     }
 
-    private void fillLibraryItem(){
+    private void fillLibraryItem() {
         myLibraryItem.setWillWatch(willWatched);
         myLibraryItem.setWatched(watched);
         myLibraryItem.setInFavorites(inFavorites);
         myLibraryItem.setMyRate(rateValue);
 
-        if(edtComment.getText() != null)
+        if (edtComment.getText() != null)
             myLibraryItem.setMyComment(edtComment.getText().toString());
         else
             myLibraryItem.setMyComment("");
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void addListeners() {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInLibrary){
+                if (isInLibrary) {
                     fillLibraryItem();
                     dbHelper.updateLibraryItem(myLibraryItem);
                     onLibraryEventCallback.onReturn(TYPE_UPDATED);
                     getActivity().onBackPressed();
-                }else {
+                } else {
                     fillLibraryItem();
                     dbHelper.addToMyLibrary(myLibraryItem);
                     onLibraryEventCallback.onReturn(TYPE_ADDED);
@@ -274,11 +284,11 @@ public class LibraryUpdateFragment extends BaseFragment {
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isInLibrary) {
+                if (isInLibrary) {
                     dbHelper.deleteLibraryItem(myLibraryItem);
                     onLibraryEventCallback.onReturn(TYPE_DELETED);
                     getActivity().onBackPressed();
-                }else
+                } else
                     Toast.makeText(getContext(), getResources().getString(R.string.movie_not_in_library), Toast.LENGTH_SHORT);
             }
         });
@@ -333,5 +343,15 @@ public class LibraryUpdateFragment extends BaseFragment {
                 }
             }
         });
+
+
+        scaleRatingBar.setOnRatingChangeListener(new BaseRatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(BaseRatingBar ratingBar, float rating) {
+                rateValue = rating;
+                Log.d("xxxx", "ScaleRatingBar onRatingChange: " + rating);
+            }
+        });
+
     }
 }

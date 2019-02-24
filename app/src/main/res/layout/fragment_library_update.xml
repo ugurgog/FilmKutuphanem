@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,7 +58,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"/>
 
-                <RatingBar
+                <!--<RatingBar
                     android:id="@+id/rb_movie_rating"
                     style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
@@ -66,13 +67,50 @@
                     android:layout_marginBottom="15dp"
                     android:isIndicator="true"
                     android:numStars="10"
-                    android:stepSize="0.1" />
+                    android:stepSize="0.1" />-->
+
+                <!--<com.willy.ratingbar.BaseRatingBar
+                    android:id="@+id/baseratingbar_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_main_baseratingbar_title"
+                    app:srb_starWidth="20dp"
+                    app:srb_starHeight="20dp"
+                    app:srb_starPadding="5dp"
+                    app:srb_numStars="10"
+                    app:srb_rating="2.5"
+                    android:layout_gravity="center"/>-->
+
+                <com.willy.ratingbar.ScaleRatingBar
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/scaleRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srb_numStars="10"
+                    app:srb_starWidth="20dp"
+                    app:srb_starHeight="20dp"
+                    app:srb_starPadding="7dp"
+                    app:srb_stepSize="0.5"
+                    app:srb_isIndicator="false"
+                    app:srb_clickable="true"
+                    app:srb_scrollable="true"
+                    app:srb_clearRatingEnabled="true"
+                    app:srb_drawableEmpty="@drawable/icon_star_not_filled"
+                    app:srb_drawableFilled="@drawable/icon_star_filled"
+                    android:layout_gravity="center">
+                </com.willy.ratingbar.ScaleRatingBar>
 
                 <Button
                     android:id="@+id/btn_favorites"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginTop="7dp"
                     android:height="40dp"
                     android:background="@drawable/btn_styling"
                     android:maxHeight="40dp"

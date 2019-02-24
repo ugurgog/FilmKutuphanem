@@ -51,6 +51,7 @@
     <string name="remove">Çıkar</string>
     <string name="update">Güncelle</string>
     <string name="movie_not_in_library">Bu film zaten kütüphanede degil</string>
+    <string name="my_library">Kütüphanem</string>
 
     <string name="trending_movies">Trend Filmler</string>
     <string name="popular_movies">Popüler Filmler</string>
