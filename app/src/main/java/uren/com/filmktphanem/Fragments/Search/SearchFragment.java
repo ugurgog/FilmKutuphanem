@@ -19,6 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,9 +30,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
@@ -41,8 +46,17 @@ public class SearchFragment extends BaseFragment {
     private EditText etSearchBox;
     private Button btnSearchMovie;
 
+    @BindView(R.id.adView)
+    AdView adView;
+
     public SearchFragment() {
 
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        super.onStart();
     }
 
     @Override
@@ -69,6 +83,8 @@ public class SearchFragment extends BaseFragment {
     private void initVariables() {
         etSearchBox = mView.findViewById(R.id.et_search_box);
         btnSearchMovie = mView.findViewById(R.id.btn_search_movie);
+        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
     }
 
     private void addListeners() {

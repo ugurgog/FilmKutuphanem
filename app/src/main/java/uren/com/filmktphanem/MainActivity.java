@@ -10,7 +10,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 
+import com.crashlytics.android.Crashlytics;
+
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 import uren.com.filmktphanem.FragmentControllers.FragNavController;
 import uren.com.filmktphanem.FragmentControllers.FragNavTransactionOptions;
 import uren.com.filmktphanem.FragmentControllers.FragmentHistory;
@@ -20,7 +23,6 @@ import uren.com.filmktphanem.Fragments.Library.LibraryListFragment;
 import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
 import uren.com.filmktphanem.Fragments.Movies.MoviesFragment;
 import uren.com.filmktphanem.Fragments.Search.SearchFragment;
-import uren.com.filmktphanem.Fragments.Movies.TrendingFragment;
 
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_DOWN_TO_UP;
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_LEFT_TO_RIGHT;
@@ -60,6 +62,7 @@ public class MainActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fabric.with(this, new Crashlytics());
 
         unSelectedTabColor = this.getResources().getColor(R.color.White);
         selectedTabColor = this.getResources().getColor(R.color.OrangeRed);

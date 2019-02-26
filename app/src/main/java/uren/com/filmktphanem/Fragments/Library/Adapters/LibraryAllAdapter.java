@@ -65,8 +65,8 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
         TextView tvMovieName;
         TextView tvCommentEx;
         TextView tvRate;
-        Button btnFavorites;
-        Button btnIzlendi;
+        TextView tvFavorites;
+        TextView tvIzlendi;
 
         public LibraryHolder(View view) {
             super(view);
@@ -77,8 +77,8 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             tvMovieName = view.findViewById(R.id.tvMovieName);
             tvCommentEx = view.findViewById(R.id.tvCommentEx);
             tvRate = view.findViewById(R.id.tvRate);
-            btnFavorites = view.findViewById(R.id.btnFavorites);
-            btnIzlendi = view.findViewById(R.id.btnIzlendi);
+            tvFavorites = view.findViewById(R.id.tvFavorites);
+            tvIzlendi = view.findViewById(R.id.tvIzlendi);
 
             llMain.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -156,27 +156,24 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
 
         private void setButtons(){
             if (myLibraryItem != null){
-                btnFavorites.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.Red),
-                        0, GradientDrawable.RECTANGLE, 30, 0));
+                tvFavorites.setTextColor(context.getResources().getColor(R.color.Red));
 
                 if(myLibraryItem.getInFavorites() == 1)
-                    btnFavorites.setVisibility(View.VISIBLE);
+                    tvFavorites.setVisibility(View.VISIBLE);
                 else
-                    btnFavorites.setVisibility(View.GONE);
+                    tvFavorites.setVisibility(View.GONE);
 
                 if(myLibraryItem.getWatched() == 1) {
-                    btnIzlendi.setVisibility(View.VISIBLE);
-                    btnIzlendi.setText(context.getResources().getString(R.string.in_watched));
-                    btnIzlendi.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.DodgerBlue),
-                            0, GradientDrawable.RECTANGLE, 30, 0));
+                    tvIzlendi.setVisibility(View.VISIBLE);
+                    tvIzlendi.setText(context.getResources().getString(R.string.in_watched));
+                    tvIzlendi.setTextColor(context.getResources().getColor(R.color.DodgerBlue));
                 }else {
                     if(myLibraryItem.getWillWatch() == 1){
-                        btnIzlendi.setVisibility(View.VISIBLE);
-                        btnIzlendi.setText(context.getResources().getString(R.string.in_will_watched));
-                        btnIzlendi.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.MediumTurquoise),
-                                0, GradientDrawable.RECTANGLE, 30, 0));
+                        tvIzlendi.setVisibility(View.VISIBLE);
+                        tvIzlendi.setText(context.getResources().getString(R.string.in_will_watched));
+                        tvIzlendi.setTextColor(context.getResources().getColor(R.color.MediumTurquoise));
                     }else {
-                        btnIzlendi.setVisibility(View.GONE);
+                        tvIzlendi.setVisibility(View.GONE);
                     }
 
                 }

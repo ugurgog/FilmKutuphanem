@@ -65,12 +65,27 @@
 
     <string name="comment_exist">You made comments</string>
     <string name="comment_not_exist">You have no comments</string>
-    
+
     <string name="high_rated_first">High-rated ones before</string>
     <string name="low_rated_first">Low-rated ones before</string>
     <string name="favorites_first">Favorites first</string>
     <string name="watched_first">Watched first</string>
     <string name="will_watch_first">Will watch first</string>
+
+    <string name="ok">OK</string>
+    <string name="next">Next</string>
+    <string name="close">Close</string>
+    <string name="SKIP">SKIP</string>
+    <string name="GOT_IT">GOT IT</string>
+
+    <string name="list_movies">List Movies</string>
+    <string name="search_movies">Search Movies</string>
+    <string name="library_movies">Movies in My Library</string>
+
+    <string name="list_movies_desc">You can list the trend movies, now playing movies and the upcoming movies and add them to your library</string>
+    <string name="search_movies_desc">You can search for the movies you want to add to your library</string>
+    <string name="library_movies_desc">You can add your movies to your favorites. You can mark it as watched or will be watched. You can vote movies.</string>
+
 
     <string name="total_fil_count">Total movie count:</string>
 

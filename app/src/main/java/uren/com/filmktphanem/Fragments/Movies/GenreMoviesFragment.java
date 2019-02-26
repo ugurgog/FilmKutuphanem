@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,6 +28,7 @@ import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.models.Movie;
 
@@ -48,6 +52,8 @@ public class GenreMoviesFragment extends BaseFragment {
     ProgressBar pbLoadingIndicator;
     @BindView(R.id.tvMovieType)
     TextView tvMovieType;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private int pastVisibleItems, visibleItemCount, totalItemCount;
     private GridLayoutManager gridLayoutManager;
@@ -63,6 +69,12 @@ public class GenreMoviesFragment extends BaseFragment {
 
     public GenreMoviesFragment(Genre genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        super.onStart();
     }
 
     @Override
@@ -90,6 +102,9 @@ public class GenreMoviesFragment extends BaseFragment {
 
     private void initVariables() {
         setGenreType();
+        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
+        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setGenreType() {

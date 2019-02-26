@@ -91,9 +91,9 @@
                                     app:srb_isIndicator="false"
                                     app:srb_numStars="10"
                                     app:srb_scrollable="false"
-                                    app:srb_starHeight="10dp"
-                                    app:srb_starPadding="5dp"
-                                    app:srb_starWidth="10dp"
+                                    app:srb_starHeight="8dp"
+                                    app:srb_starPadding="3dp"
+                                    app:srb_starWidth="8dp"
                                     app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
 
                                 <TextView
@@ -135,7 +135,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.7dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -147,7 +147,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white" />
+                    android:background="@android:color/darker_gray" />
 
             </LinearLayout>
 

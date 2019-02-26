@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,6 +26,7 @@ import uren.com.filmktphanem.AsyncFunctions.TMDBQueryProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.models.Movie;
 
@@ -47,6 +51,8 @@ public class MoviesGetFragment extends BaseFragment {
     ProgressBar pbLoadingIndicator;
     @BindView(R.id.tvMovieType)
     TextView tvMovieType;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private int pastVisibleItems, visibleItemCount, totalItemCount;
     private GridLayoutManager gridLayoutManager;
@@ -57,11 +63,17 @@ public class MoviesGetFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
-    int spanCount = 2;
+    int spanCount = 3;
     private String type;
 
     public MoviesGetFragment(String type) {
         this.type = type;
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        super.onStart();
     }
 
     @Override
@@ -89,6 +101,9 @@ public class MoviesGetFragment extends BaseFragment {
 
     private void initVariables() {
         setMovieType();
+        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
+        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setMovieType() {
@@ -155,7 +170,7 @@ public class MoviesGetFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        setSpanCount();
+        //setSpanCount();
         gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);

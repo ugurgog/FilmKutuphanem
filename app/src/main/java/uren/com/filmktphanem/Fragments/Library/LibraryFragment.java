@@ -23,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ import uren.com.filmktphanem.Fragments.Library.Adapters.LibraryAdapter;
 import uren.com.filmktphanem.Fragments.Search.SearchResultsFragment;
 import uren.com.filmktphanem.Interfaces.ReturnCallback;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.FavoritesContract;
 import uren.com.filmktphanem.data.FavoritesDbHelper;
@@ -62,6 +66,8 @@ public class LibraryFragment extends BaseFragment {
     TextView tvMovieType;
     @BindView(R.id.imgvSettings)
     ImageView imgvSettings;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private String type;
     private FavoritesDbHelper dbHelper;
@@ -72,6 +78,12 @@ public class LibraryFragment extends BaseFragment {
 
     public LibraryFragment(String type) {
         this.type = type;
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.GONE);
+        super.onStart();
     }
 
     @Override
@@ -101,6 +113,9 @@ public class LibraryFragment extends BaseFragment {
     private void initVariables() {
         dbHelper = new FavoritesDbHelper(getContext());
         myLibraryItemList = new ArrayList<>();
+        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
+        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setTitle() {

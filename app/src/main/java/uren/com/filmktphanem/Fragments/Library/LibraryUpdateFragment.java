@@ -97,6 +97,12 @@ public class LibraryUpdateFragment extends BaseFragment {
     }
 
     @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.GONE);
+        super.onStart();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }

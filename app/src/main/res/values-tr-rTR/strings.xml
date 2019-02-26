@@ -70,6 +70,20 @@
     <string name="watched_first">İzlenenler önce</string>
     <string name="will_watch_first">İzlenecekler önce</string>
 
+    <string name="ok">TAMAM</string>
+    <string name="next">İleri</string>
+    <string name="close">Kapat</string>
+    <string name="SKIP">GEÇ</string>
+    <string name="GOT_IT">ANLADIM</string>
+
+    <string name="list_movies">Film Listeleme</string>
+    <string name="search_movies">Film Arama</string>
+    <string name="library_movies">Kütüphanemdeki Filmler</string>
+
+    <string name="list_movies_desc">Trend filmleri, vizyondaki filmleri, yaklaşmakta olan filmleri listeleyebilir ve kütüphanenize ekleyebilirsiniz</string>
+    <string name="search_movies_desc">Kütüphanenize eklemek istediğiniz filmleri aratabilirsiniz</string>
+    <string name="library_movies_desc">Favorilerinize ekleyebilir, izlendi veya izlenecek olarak işaretleyebilirsiniz. Ayrıca kaç adet film izlediniz yada izleyeceksiniz bilgisini görüntüleyebilir ve listeleyebilirsiniz</string>
+
     <string name="total_fil_count">Toplam film sayısı:</string>
 
     <string name="comment_exist">Yorumunuz var</string>

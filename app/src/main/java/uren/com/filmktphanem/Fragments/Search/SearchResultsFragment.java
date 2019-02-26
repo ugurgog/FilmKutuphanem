@@ -18,6 +18,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +30,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import uren.com.filmktphanem.AsyncFunctions.TMDBQueryProcess;
 import uren.com.filmktphanem.AsyncFunctions.TMDBSearchMovieProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
@@ -41,6 +46,9 @@ import uren.com.filmktphanem.models.Movie;
 public class SearchResultsFragment extends BaseFragment {
 
     View mView;
+
+    @BindView(R.id.adView)
+    AdView adView;
 
     private String searchQuery;
     private TextView tvErrorMessage;
@@ -62,6 +70,12 @@ public class SearchResultsFragment extends BaseFragment {
 
     public SearchResultsFragment(String searchQuery) {
         this.searchQuery = searchQuery;
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        super.onStart();
     }
 
     @Override
@@ -92,6 +106,8 @@ public class SearchResultsFragment extends BaseFragment {
         pbLoadingIndicator = mView.findViewById(R.id.pb_loading_indicator);
         tvResultsTitle = mView.findViewById(R.id.tv_results_title);
         rvMovieList = mView.findViewById(R.id.rv_movie_list);
+        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
         tvResultsTitle.setText(searchQuery);
     }
 
