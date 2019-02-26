@@ -16,6 +16,7 @@ import uren.com.filmktphanem.FragmentControllers.FragNavTransactionOptions;
 import uren.com.filmktphanem.FragmentControllers.FragmentHistory;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Library.LibraryFragment;
+import uren.com.filmktphanem.Fragments.Library.LibraryListFragment;
 import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
 import uren.com.filmktphanem.Fragments.Movies.MoviesFragment;
 import uren.com.filmktphanem.Fragments.Search.SearchFragment;
@@ -284,7 +285,7 @@ public class MainActivity extends FragmentActivity implements
             case FragNavController.TAB2:
                 return new SearchFragment();
             case FragNavController.TAB3:
-                return new LibraryFragment();
+                return new LibraryListFragment();
 
         }
         throw new IllegalStateException("Need to send an index that we know");

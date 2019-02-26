@@ -35,7 +35,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 FavoritesContract.FavoritesEntry.COLUMN_POSTER_LARGE + " STRING, " +
                 FavoritesContract.FavoritesEntry.COLUMN_BACK_DROP_LARGE + " STRING, " +
                 FavoritesContract.FavoritesEntry.COLUMN_WATCHED + "  INTEGER DEFAULT 0," +
-                FavoritesContract.FavoritesEntry.COLUMN_WILL_WATCH+ "  INTEGER DEFAULT 0," +
+                FavoritesContract.FavoritesEntry.COLUMN_WILL_WATCH + "  INTEGER DEFAULT 0," +
                 FavoritesContract.FavoritesEntry.COLUMN_MY_RATE + "  REAL DEFAULT 0," +
                 FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES + "  INTEGER DEFAULT 0," +
                 FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT + " STRING , " +
@@ -67,6 +67,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         values.put(FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT, myLibraryItem.getMyComment());
         values.put(FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES, myLibraryItem.getInFavorites());
         sqLiteDatabase.insert(FavoritesContract.FavoritesEntry.TABLE_NAME, null, values);
+        //sqLiteDatabase.setTransactionSuccessful();
         sqLiteDatabase.close();
     }
 
@@ -126,14 +127,14 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 cursor.getString(5));
     }
 
-    public List<MyLibraryItem> getAllLibraryItems(){
+    public List<MyLibraryItem> getAllLibraryItems() {
         List<MyLibraryItem> myLibraryItems = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + FavoritesContract.FavoritesEntry.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery,null);
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 MyLibraryItem myLibraryItem = new MyLibraryItem();
                 myLibraryItem.setMovieId(cursor.getInt(0));
                 myLibraryItem.setName(cursor.getString(1));
@@ -155,7 +156,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         return myLibraryItems;
     }
 
-    public List<MyLibraryItem> getWatchedLibraryItems(int watchedValue){
+    public List<MyLibraryItem> getWatchedLibraryItems(int watchedValue, String orderByValue) {
         List<MyLibraryItem> myLibraryItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -172,10 +173,11 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                         FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT,
                         FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES},
                 FavoritesContract.FavoritesEntry.COLUMN_WATCHED + " =?",
-                new String[]{String.valueOf(watchedValue)}, null, null, null, null);
+                new String[]{String.valueOf(watchedValue)}, null, null,
+                FavoritesContract.FavoritesEntry.COLUMN_MY_RATE + " " + orderByValue, null);
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 MyLibraryItem myLibraryItem = new MyLibraryItem();
                 myLibraryItem.setMovieId(cursor.getInt(0));
                 myLibraryItem.setName(cursor.getString(1));
@@ -195,7 +197,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         return myLibraryItems;
     }
 
-    public List<MyLibraryItem> getWillWatchLibraryItems(int willWatch){
+    public List<MyLibraryItem> getWillWatchLibraryItems(int willWatch, String orderByValue) {
         List<MyLibraryItem> myLibraryItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -212,10 +214,11 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                         FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT,
                         FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES},
                 FavoritesContract.FavoritesEntry.COLUMN_WILL_WATCH + " =?",
-                new String[]{String.valueOf(willWatch)}, null, null, null, null);
+                new String[]{String.valueOf(willWatch)}, null, null,
+                FavoritesContract.FavoritesEntry.COLUMN_MY_RATE + " " + orderByValue, null);
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 MyLibraryItem myLibraryItem = new MyLibraryItem();
                 myLibraryItem.setMovieId(cursor.getInt(0));
                 myLibraryItem.setName(cursor.getString(1));
@@ -235,7 +238,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         return myLibraryItems;
     }
 
-    public List<MyLibraryItem> getFavoritesItems(int favoriteValue){
+    public List<MyLibraryItem> getFavoritesItems(int favoriteValue, String orderByValue) {
         List<MyLibraryItem> myLibraryItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -251,11 +254,12 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                         FavoritesContract.FavoritesEntry.COLUMN_MY_RATE,
                         FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT,
                         FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES},
-                FavoritesContract.FavoritesEntry.COLUMN_WATCHED + " =?",
-                new String[]{String.valueOf(favoriteValue)}, null, null, null, null);
+                FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES + " =?",
+                new String[]{String.valueOf(favoriteValue)}, null, null,
+                FavoritesContract.FavoritesEntry.COLUMN_MY_RATE + " " + orderByValue, null);
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 MyLibraryItem myLibraryItem = new MyLibraryItem();
                 myLibraryItem.setMovieId(cursor.getInt(0));
                 myLibraryItem.setName(cursor.getString(1));
@@ -275,7 +279,7 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
         return myLibraryItems;
     }
 
-    public List<MyLibraryItem> getItemsByRate(String orderByType){
+    public List<MyLibraryItem> getItemsByRate(String orderByType) {
         List<MyLibraryItem> myLibraryItems = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -291,10 +295,50 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                         FavoritesContract.FavoritesEntry.COLUMN_MY_RATE,
                         FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT,
                         FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES},
-                null,null, null, null, orderByType, null);
+                null, null, null, null, orderByType, null);
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
+                MyLibraryItem myLibraryItem = new MyLibraryItem();
+                myLibraryItem.setMovieId(cursor.getInt(0));
+                myLibraryItem.setName(cursor.getString(1));
+                myLibraryItem.setPosterPath(cursor.getString(2));
+                myLibraryItem.setPosterSmall(cursor.getString(3));
+                myLibraryItem.setPosterLarge(cursor.getString(4));
+                myLibraryItem.setBackDropLarge(cursor.getString(5));
+                myLibraryItem.setWatched(cursor.getInt(6));
+                myLibraryItem.setWillWatch(cursor.getInt(7));
+                myLibraryItem.setMyRate(cursor.getFloat(8));
+                myLibraryItem.setMyComment(cursor.getString(9));
+                myLibraryItem.setInFavorites(cursor.getInt(10));
+                myLibraryItems.add(myLibraryItem);
+            }
+            while (cursor.moveToNext());
+        }
+        return myLibraryItems;
+    }
+
+    public List<MyLibraryItem> getAllItemsByValue(String orderByStr, String orderByValue) {
+        List<MyLibraryItem> myLibraryItems = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(FavoritesContract.FavoritesEntry.TABLE_NAME,
+                new String[]{FavoritesContract.FavoritesEntry.COLUMN_MOVIE_ID,
+                        FavoritesContract.FavoritesEntry.COLUMN_MOVIE_NAME,
+                        FavoritesContract.FavoritesEntry.COLUMN_POSTER_PATH,
+                        FavoritesContract.FavoritesEntry.COLUMN_POSTER_SMALL,
+                        FavoritesContract.FavoritesEntry.COLUMN_POSTER_LARGE,
+                        FavoritesContract.FavoritesEntry.COLUMN_BACK_DROP_LARGE,
+                        FavoritesContract.FavoritesEntry.COLUMN_WATCHED,
+                        FavoritesContract.FavoritesEntry.COLUMN_WILL_WATCH,
+                        FavoritesContract.FavoritesEntry.COLUMN_MY_RATE,
+                        FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT,
+                        FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES},
+                null, null, null, null,
+                orderByStr + " " + orderByValue, null);
+
+        if (cursor.moveToFirst()) {
+            do {
                 MyLibraryItem myLibraryItem = new MyLibraryItem();
                 myLibraryItem.setMovieId(cursor.getInt(0));
                 myLibraryItem.setName(cursor.getString(1));

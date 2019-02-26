@@ -2,22 +2,17 @@ package uren.com.filmktphanem.Fragments.Library;
 
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -30,23 +25,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Library.Adapters.LibraryAdapter;
-import uren.com.filmktphanem.Fragments.Search.SearchResultsFragment;
+import uren.com.filmktphanem.Fragments.Library.Adapters.LibraryAllAdapter;
 import uren.com.filmktphanem.Interfaces.ReturnCallback;
 import uren.com.filmktphanem.R;
-import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.FavoritesContract;
 import uren.com.filmktphanem.data.FavoritesDbHelper;
 import uren.com.filmktphanem.data.MyLibraryItem;
-import uren.com.filmktphanem.models.Movie;
 
 import static uren.com.filmktphanem.Constants.StringConstants.LIB_ITEM_FAVORITES;
 import static uren.com.filmktphanem.Constants.StringConstants.LIB_ITEM_WATCHED;
 import static uren.com.filmktphanem.Constants.StringConstants.LIB_ITEM_WILL_WATCH;
 import static uren.com.filmktphanem.Constants.StringConstants.ORDER_BY_ASC;
 import static uren.com.filmktphanem.Constants.StringConstants.ORDER_BY_DESC;
+import static uren.com.filmktphanem.data.FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES;
 
 @SuppressLint("ValidFragment")
-public class LibraryFragment extends BaseFragment {
+public class LibraryAllFragment extends BaseFragment {
 
     View mView;
 
@@ -63,15 +57,15 @@ public class LibraryFragment extends BaseFragment {
     @BindView(R.id.imgvSettings)
     ImageView imgvSettings;
 
-    private String type;
     private FavoritesDbHelper dbHelper;
 
     private List<MyLibraryItem> myLibraryItemList;
-    private LibraryAdapter libraryAdapter;
+    private LibraryAllAdapter libraryAllAdapter;
     private String orderByValue = ORDER_BY_DESC;
+    private String orderByStr = FavoritesContract.FavoritesEntry.COLUMN_MY_RATE;
 
-    public LibraryFragment(String type) {
-        this.type = type;
+    public LibraryAllFragment() {
+
     }
 
     @Override
@@ -86,7 +80,6 @@ public class LibraryFragment extends BaseFragment {
             mView = inflater.inflate(R.layout.fragment_library, container, false);
             ButterKnife.bind(this, mView);
             initVariables();
-            setTitle();
             getLibraryList();
             addListeners();
         }
@@ -101,37 +94,13 @@ public class LibraryFragment extends BaseFragment {
     private void initVariables() {
         dbHelper = new FavoritesDbHelper(getContext());
         myLibraryItemList = new ArrayList<>();
-    }
-
-    private void setTitle() {
-        switch (type) {
-            case LIB_ITEM_FAVORITES:
-                tvMovieType.setText(getResources().getString(R.string.favorite_movies));
-                break;
-            case LIB_ITEM_WATCHED:
-                tvMovieType.setText(getResources().getString(R.string.watched_movies));
-                break;
-            case LIB_ITEM_WILL_WATCH:
-                tvMovieType.setText(getResources().getString(R.string.will_watched_movies));
-                break;
-        }
+        tvMovieType.setText(getResources().getString(R.string.all_movies));
     }
 
     private void getLibraryList() {
-        switch (type) {
-            case LIB_ITEM_FAVORITES:
-                myLibraryItemList = dbHelper.getFavoritesItems(1, orderByValue);
-                break;
-            case LIB_ITEM_WATCHED:
-                myLibraryItemList = dbHelper.getWatchedLibraryItems(1, orderByValue);
-                break;
-            case LIB_ITEM_WILL_WATCH:
-                myLibraryItemList = dbHelper.getWillWatchLibraryItems(1, orderByValue);
-                break;
-        }
-
-        libraryAdapter = new LibraryAdapter(getContext(), myLibraryItemList, mFragmentNavigation);
-        recyclerView.setAdapter(libraryAdapter);
+        myLibraryItemList = dbHelper.getAllItemsByValue(orderByStr, orderByValue);
+        libraryAllAdapter = new LibraryAllAdapter(getContext(), myLibraryItemList, mFragmentNavigation);
+        recyclerView.setAdapter(libraryAllAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -158,8 +127,8 @@ public class LibraryFragment extends BaseFragment {
                         searchCancelImgv.setVisibility(View.GONE);
                     }
 
-                    if (libraryAdapter != null)
-                        libraryAdapter.updateAdapter(s.toString(), new ReturnCallback() {
+                    if (libraryAllAdapter != null)
+                        libraryAllAdapter.updateAdapter(s.toString(), new ReturnCallback() {
                             @Override
                             public void onReturn(Object object) {
                                 int itemSize = (int) object;
@@ -187,18 +156,38 @@ public class LibraryFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(getContext(), imgvSettings);
-                popupMenu.inflate(R.menu.menu_library_item);
+                popupMenu.inflate(R.menu.menu_library_all_item);
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.ascRate:
+                                orderByStr = FavoritesContract.FavoritesEntry.COLUMN_MY_RATE;
                                 orderByValue = ORDER_BY_DESC;
                                 getLibraryList();
                                 break;
                             case R.id.descRate:
+                                orderByStr = FavoritesContract.FavoritesEntry.COLUMN_MY_RATE;
                                 orderByValue = ORDER_BY_ASC;
+                                getLibraryList();
+                                break;
+
+                            case R.id.favoritesFirst:
+                                orderByStr = FavoritesContract.FavoritesEntry.COLUMN_IN_FAVORITES;
+                                orderByValue = ORDER_BY_DESC;
+                                getLibraryList();
+                                break;
+
+                            case R.id.watchedFirst:
+                                orderByStr = FavoritesContract.FavoritesEntry.COLUMN_WATCHED;
+                                orderByValue = ORDER_BY_DESC;
+                                getLibraryList();
+                                break;
+
+                            case R.id.willWatchFirst:
+                                orderByStr = FavoritesContract.FavoritesEntry.COLUMN_WILL_WATCH;
+                                orderByValue = ORDER_BY_DESC;
                                 getLibraryList();
                                 break;
                         }

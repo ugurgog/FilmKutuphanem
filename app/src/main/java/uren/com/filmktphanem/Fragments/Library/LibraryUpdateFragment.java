@@ -65,8 +65,6 @@ public class LibraryUpdateFragment extends BaseFragment {
     ImageView iv_movie_poster;
     @BindView(R.id.tv_movie_title)
     TextView tv_movie_title;
-    /*@BindView(R.id.rb_movie_rating)
-    RatingBar rb_movie_rating;*/
     @BindView(R.id.btn_favorites)
     Button btn_favorites;
     @BindView(R.id.btn_watched)
@@ -130,11 +128,8 @@ public class LibraryUpdateFragment extends BaseFragment {
         setMovieTitle();
         setImages();
         startAnimations();
-        //setRatingBar();
         setButtonsInitialValues();
         setButtonShapes();
-        //setAddRemoveButtonText();
-        //setFavoritesButton();
     }
 
     private void setButtonsInitialValues() {
@@ -231,14 +226,6 @@ public class LibraryUpdateFragment extends BaseFragment {
         iv_movie_poster.startAnimation(moveUpAnimation);
         header_backdrop.startAnimation(fadeInAnimation);
     }
-
-    /*private void setRatingBar() {
-        //Drawable progress = rb_movie_rating.getProgressDrawable();
-        //DrawableCompat.setTint(progress, Color.parseColor("#b9090b"));
-
-        if (myLibraryItem != null)
-            scaleRatingBar.setRating((float) myLibraryItem.getMyRate());
-    }*/
 
     private void setButtonShapes() {
         btn_favorites.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.library_btn_color),
@@ -343,7 +330,6 @@ public class LibraryUpdateFragment extends BaseFragment {
                 }
             }
         });
-
 
         scaleRatingBar.setOnRatingChangeListener(new BaseRatingBar.OnRatingChangeListener() {
             @Override

@@ -32,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <!--Favorite movies-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -39,22 +40,24 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/llFavorites"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
                         <ImageView
+                            android:id="@+id/imgvFavorites"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:id="@+id/imgvFavorites"/>
+                            android:padding="5dp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -72,60 +75,12 @@
                                 android:textColor="@color/White"
                                 android:textSize="15sp" />
 
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/White" />
-
-                    
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
-
                             <TextView
+                                android:id="@+id/tvfavtot"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/favorite_movies"
-                                android:textColor="@color/White"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="dsdsdsdsdsd"
-                                android:textColor="@color/White"
-                                android:textSize="15sp" />
+                                android:textColor="@color/DodgerBlue"
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -142,6 +97,7 @@
 
                 </LinearLayout>
 
+                <!--Watched movies-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -149,38 +105,48 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/llWatched"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
-
                         <ImageView
+                            android:id="@+id/imgvWatched"
                             android:layout_width="80dp"
-                            android:layout_height="80dp" />
+                            android:layout_height="80dp"
+                            android:padding="5dp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
+                            android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/favorite_movies"
+                                android:text="@string/watched_movies"
                                 android:textColor="@color/White"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvWatched"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="dsdsdsdsdsd"
                                 android:textColor="@color/White"
                                 android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvwatchedtot"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/DodgerBlue"
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -197,6 +163,7 @@
 
                 </LinearLayout>
 
+                <!--Will Watch movies-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -204,6 +171,73 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/llWillWatch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/imgvWillWatch"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:padding="5dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/will_watched_movies"
+                                android:textColor="@color/White"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvWillWatch"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="dsdsdsdsdsd"
+                                android:textColor="@color/White"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvwillwatchtot"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/DodgerBlue"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/White" />
+
+
+                </LinearLayout>
+
+                <!--All movies-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:id="@+id/llAll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -211,31 +245,40 @@
 
 
                         <ImageView
+                            android:id="@+id/imgvAll"
                             android:layout_width="80dp"
-                            android:layout_height="80dp" />
+                            android:layout_height="80dp"
+                            android:padding="5dp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="20dp"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
-
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/favorite_movies"
+                                android:text="@string/all_movies"
                                 android:textColor="@color/White"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvAll"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="dsdsdsdsdsd"
                                 android:textColor="@color/White"
                                 android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvalltot"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/DodgerBlue"
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 

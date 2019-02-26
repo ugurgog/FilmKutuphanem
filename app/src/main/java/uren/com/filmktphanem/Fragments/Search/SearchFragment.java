@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -73,7 +74,11 @@ public class SearchFragment extends BaseFragment {
     private void addListeners() {
         btnSearchMovie.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                submitSearch();
+                if (etSearchBox.getText() != null && etSearchBox.getText().toString() != null &&
+                        !etSearchBox.getText().toString().trim().isEmpty())
+                    submitSearch();
+                else
+                    Toast.makeText(getContext(), getResources().getString(R.string.please_write_something), Toast.LENGTH_SHORT);
             }
         });
     }

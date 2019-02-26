@@ -14,6 +14,7 @@ public class StringConstants {
     public static final String TYPE_UPCOMING = "upcoming";
     public static final String TYPE_NOW_PLAYING = "now_playing";
     public static final String TYPE_BY_GENRE = "by_genre";
+    public static final String TYPE_TOP_250 = "top_250";
 
     //Orientation constants
     public static final int ORIENTATION_LEFT_RIGHT = 0;
@@ -26,4 +27,12 @@ public class StringConstants {
     public static final String TYPE_ADDED = "added";
     public static final String TYPE_UPDATED = "updated";
     public static final String TYPE_DELETED = "deleted";
+
+    public static final String LIB_ITEM_FAVORITES = "favorites";
+    public static final String LIB_ITEM_WATCHED = "watched";
+    public static final String LIB_ITEM_WILL_WATCH = "will_watch";
+    public static final String LIB_ITEM_ALL = "all";
+
+    public static final String ORDER_BY_ASC = "ASC";
+    public static final String ORDER_BY_DESC = "DESC";
 }

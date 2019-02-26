@@ -28,6 +28,7 @@ import uren.com.filmktphanem.models.Movie;
 
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_250;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
@@ -48,6 +49,8 @@ public class MoviesFragment extends BaseFragment implements View.OnClickListener
     LinearLayout llNowPlaying;
     @BindView(R.id.llByGenre)
     LinearLayout llByGenre;
+    @BindView(R.id.llTop250)
+    LinearLayout llTop250;
 
     public MoviesFragment() {
 
@@ -81,6 +84,7 @@ public class MoviesFragment extends BaseFragment implements View.OnClickListener
         llUpcoming.setOnClickListener(this);
         llNowPlaying.setOnClickListener(this);
         llByGenre.setOnClickListener(this);
+        llTop250.setOnClickListener(this);
     }
 
 
@@ -108,6 +112,10 @@ public class MoviesFragment extends BaseFragment implements View.OnClickListener
 
         if(v == llByGenre){
             mFragmentNavigation.pushFragment(new GenreListFragment());
+        }
+
+        if(v == llTop250){
+            mFragmentNavigation.pushFragment(new MoviesGetFragment(TYPE_TOP_250));
         }
     }
 }

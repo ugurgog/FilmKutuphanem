@@ -29,6 +29,7 @@ import uren.com.filmktphanem.models.Movie;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_BY_GENRE;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_250;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
@@ -107,6 +108,9 @@ public class MoviesGetFragment extends BaseFragment {
                 break;
             case TYPE_NOW_PLAYING:
                 tvMovieType.setText(getResources().getString(R.string.now_playing_movies));
+                break;
+            case TYPE_TOP_250:
+                tvMovieType.setText(getResources().getString(R.string.by_top_twohundred));
                 break;
             default:
                 break;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/ascRate"
+        android:orderInCategory="100"
+        android:title="@string/high_rated_first"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/descRate"
+        android:orderInCategory="100"
+        android:title="@string/low_rated_first"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/favoritesFirst"
+        android:orderInCategory="100"
+        android:title="@string/favorites_first"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/watchedFirst"
+        android:orderInCategory="100"
+        android:title="@string/watched_first"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/willWatchFirst"
+        android:orderInCategory="100"
+        android:title="@string/will_watch_first"
+        app:showAsAction="never" />
+</menu>
+

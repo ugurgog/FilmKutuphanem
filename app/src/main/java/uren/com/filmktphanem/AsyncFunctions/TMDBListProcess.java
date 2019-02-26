@@ -1,5 +1,6 @@
 package uren.com.filmktphanem.AsyncFunctions;
 
+
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
@@ -16,23 +17,19 @@ import uren.com.filmktphanem.models.Movie;
 
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
-import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_250;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
 
-public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
+public class TMDBListProcess extends AsyncTask<Void, Void, String> {
 
     private OnEventListener<List<Movie>> mCallBack;
     public Exception mException;
-    private int pageCount;
-    private String type;
-    private URL TMDBURL = null;
+    private URL TMDBURL;
 
-    public TMDBQueryProcess(OnEventListener callback, int pageCount, String type) {
+    public TMDBListProcess(OnEventListener callback, URL TMDBURL) {
         mCallBack = callback;
-        this.pageCount = pageCount;
-        this.type = type;
+        this.TMDBURL = TMDBURL;
     }
 
     @Override
@@ -47,7 +44,7 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
 
-        setTMDBURL();
+        //setTMDBURL();
         String TMDBTrendingResults = null;
         try {
             TMDBTrendingResults = NetworkUtils.getResponseFromHttpUrl(TMDBURL);
@@ -62,10 +59,7 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String s) {
         if (s != null && !s.equals("")) {
             try {
-                if (type.equals(TYPE_TOP_250))
-                    parseListMovies(s);
-                else
-                    parseMovies(s);
+                parseMovies(s);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -76,43 +70,22 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
         }
     }
 
-    private void setTMDBURL() {
-        if (type.equals(TYPE_TRENDING))
+    /*private void setTMDBURL(){
+        if(type.equals(TYPE_TRENDING))
             TMDBURL = NetworkUtils.buildTrendingUrl(pageCount);
-        else if (type.equals(TYPE_POPULAR))
+        else if(type.equals(TYPE_POPULAR))
             TMDBURL = NetworkUtils.buildPopularUrl(pageCount);
-        else if (type.equals(TYPE_TOP_RATED))
+        else if(type.equals(TYPE_TOP_RATED))
             TMDBURL = NetworkUtils.buildTopratedUrl(pageCount);
-        else if (type.equals(TYPE_UPCOMING))
+        else if(type.equals(TYPE_UPCOMING))
             TMDBURL = NetworkUtils.buildUpcomingUrl(pageCount);
-        else if (type.equals(TYPE_NOW_PLAYING))
+        else if(type.equals(TYPE_NOW_PLAYING))
             TMDBURL = NetworkUtils.buildNowPlayingUrl(pageCount);
-        else if (type.equals(TYPE_TOP_250))
-            TMDBURL = NetworkUtils.buildTop250Url(634);
-    }
+    }*/
 
     private void parseMovies(String moviesJSONString) throws JSONException {
         JSONObject resultJSONObject = new JSONObject(moviesJSONString);
         JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
-        List<Movie> movies = new ArrayList<>();
-
-        // Loop throught the JSON array results
-        for (int i = 0; i < moviesJSONArray.length(); i++) {
-            JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            if (!movieJSONObject.isNull("poster_path")) {
-                String posterPath = movieJSONObject.getString("poster_path");
-                int movieId = movieJSONObject.getInt("id");
-
-                // Add new movie object to the movie array
-                movies.add(new Movie(movieId, posterPath));
-            }
-        }
-        mCallBack.onSuccess(movies);
-    }
-
-    private void parseListMovies(String moviesJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(moviesJSONString);
-        JSONArray moviesJSONArray = resultJSONObject.getJSONArray("items");
         List<Movie> movies = new ArrayList<>();
 
         // Loop throught the JSON array results

@@ -23,6 +23,9 @@
     <string name="cast">Oyuncular</string>
     <string name="crew">Ekip</string>
     <string name="favorite_movies">Favori Filmler</string>
+    <string name="watched_movies">İzlenen Filmler</string>
+    <string name="will_watched_movies">İzlenecek Filmler</string>
+    <string name="all_movies">Tüm Filmler</string>
     <string name="remove_from_favorites">Favorilerimden Çikar</string>
     <string name="add_to_favorites">Favorilerime Ekle</string>
     <string name="favorites_removed_1">Çıkarıldı</string>
@@ -52,6 +55,25 @@
     <string name="update">Güncelle</string>
     <string name="movie_not_in_library">Bu film zaten kütüphanede degil</string>
     <string name="my_library">Kütüphanem</string>
+    <string name="others">diğer</string>
+    <string name="THERE_IS_NO_SEARCH_RESULT">Sonuç bulunamadı.</string>
+    <string name="please_write_something">Lütfen arama çubuğuna bir şeyler yazın</string>
+
+    <string name="have_no_favorite_movies">Henüz favori filminiz bulunmamaktadır</string>
+    <string name="have_no_watched_movies">Henüz izlenen filminiz bulunmamaktadır</string>
+    <string name="have_no_will_watched_movies">Henüz izlenecek filminiz bulunmamaktadır</string>
+    <string name="have_no_all_movies">Kütüphanenizde henüz film bulunmamaktadır</string>
+
+    <string name="high_rated_first">Oylamasi yüksek olanlar önce</string>
+    <string name="low_rated_first">Oylamasi düşük olanlar önce</string>
+    <string name="favorites_first">Favoriler önce</string>
+    <string name="watched_first">İzlenenler önce</string>
+    <string name="will_watch_first">İzlenecekler önce</string>
+
+    <string name="total_fil_count">Toplam film sayısı:</string>
+
+    <string name="comment_exist">Yorumunuz var</string>
+    <string name="comment_not_exist">Yorumunuz yok</string>
 
     <string name="trending_movies">Trend Filmler</string>
     <string name="popular_movies">Popüler Filmler</string>
@@ -59,4 +81,8 @@
     <string name="upcoming_movies">Yaklaşan Filmler</string>
     <string name="now_playing_movies">Vizyondakiler</string>
     <string name="by_genre_movies">Türlere Göre</string>
+
+    <string name="in_favorites">Favorilerde</string>
+    <string name="in_watched">İzlendi</string>
+    <string name="in_will_watched">İzlenecek</string>
 </resources>

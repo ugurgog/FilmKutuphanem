@@ -39,6 +39,7 @@ public class NetworkUtils {
     private final static String TMDB_NOW_PLAYING_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
     private final static String TMDB_GENRE_LIST_BASE_URL = "https://api.themoviedb.org/3/genre/movie/list";
     private final static String TMDB_GENRE_LIST_DETAIL_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    private final static String TMDB_LIST_BASE_URL = "https://api.themoviedb.org/3/list";
 
     private final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
     private final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
@@ -183,6 +184,24 @@ public class NetworkUtils {
         }
         return url;
     }
+
+    public static URL buildTop250Url(int listId) {
+        Uri builtUri = Uri.parse(TMDB_LIST_BASE_URL + "/" + listId).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .build();
+
+        System.out.println("builtUri:" + builtUri.toString());
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
 
     public static URL buildMovieDetailUrl(int movieId) {
         String detailUrl = TMDB_DETAIL_BASE_URL + movieId;
