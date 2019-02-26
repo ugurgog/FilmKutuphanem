@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:17.1.2'
 
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.2'
+    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
 }
 
 apply plugin: 'com.google.gms.google-services'

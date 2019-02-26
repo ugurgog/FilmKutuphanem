@@ -56,7 +56,7 @@
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <!--<RatingBar
                     android:id="@+id/rb_movie_rating"
@@ -86,24 +86,22 @@
                     app:srb_rating="2.5"
                     android:layout_gravity="center"/>-->
 
-                <com.willy.ratingbar.ScaleRatingBar
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/scaleRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srb_numStars="10"
-                    app:srb_starWidth="20dp"
-                    app:srb_starHeight="20dp"
-                    app:srb_starPadding="7dp"
-                    app:srb_stepSize="0.5"
-                    app:srb_isIndicator="false"
-                    app:srb_clickable="true"
-                    app:srb_scrollable="true"
+                    android:layout_gravity="center"
                     app:srb_clearRatingEnabled="true"
+                    app:srb_clickable="true"
                     app:srb_drawableEmpty="@drawable/icon_star_not_filled"
                     app:srb_drawableFilled="@drawable/icon_star_filled"
-                    android:layout_gravity="center">
-                </com.willy.ratingbar.ScaleRatingBar>
+                    app:srb_isIndicator="false"
+                    app:srb_numStars="10"
+                    app:srb_scrollable="true"
+                    app:srb_starHeight="20dp"
+                    app:srb_starPadding="7dp"
+                    app:srb_starWidth="20dp"
+                    app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
 
                 <Button
                     android:id="@+id/btn_favorites"
@@ -150,9 +148,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:text="@string/add_comment_about_film"
                     android:textColor="#fff"
-                    android:textSize="22sp"
-                    android:text="@string/add_comment_about_film"/>
+                    android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/edtComment"
@@ -187,8 +185,8 @@
                         android:layout_weight="1"
                         android:text="@string/add"
                         android:textAllCaps="false"
-                        android:textSize="16sp"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
 
                     <Button
                         android:id="@+id/btnRemove"
@@ -198,12 +196,27 @@
                         android:layout_weight="1"
                         android:text="@string/remove"
                         android:textAllCaps="false"
-                        android:textSize="16sp"
-                        android:textColor="#ffffff"/>
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    ads:adSize="SMART_BANNER"
+                    ads:adUnitId="@string/ADMOB_BANNER_AD_UNIT_ID"></com.google.android.gms.ads.AdView>
+
+            </RelativeLayout>
 
 
         </LinearLayout>

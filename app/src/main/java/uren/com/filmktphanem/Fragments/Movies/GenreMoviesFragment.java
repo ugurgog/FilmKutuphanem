@@ -64,7 +64,7 @@ public class GenreMoviesFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
-    int spanCount = 2;
+    int spanCount = 3;
     private Genre genre;
 
     public GenreMoviesFragment(Genre genre) {
@@ -149,7 +149,7 @@ public class GenreMoviesFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        setSpanCount();
+        //setSpanCount();
         gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);
@@ -183,7 +183,7 @@ public class GenreMoviesFragment extends BaseFragment {
         });
     }
 
-    private void setSpanCount() {
+    /*private void setSpanCount() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -193,7 +193,7 @@ public class GenreMoviesFragment extends BaseFragment {
         } else if (width > 700) {
             spanCount = 3;
         }
-    }
+    }*/
 
     private void setUpRecyclerView(List<Movie> movieList) {
         loading = true;

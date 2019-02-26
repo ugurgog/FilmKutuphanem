@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Library.LibraryUpdateFragment;
+import uren.com.filmktphanem.Fragments.Library.ShowSelectedPhotoFragment;
 import uren.com.filmktphanem.Interfaces.OnLibraryEventCallback;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.Utils.ShapeUtil;
@@ -128,10 +129,19 @@ public class MovieDetailFragment extends BaseFragment {
 
         setAddLibraryBtn();
 
+        ivMoviePoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (movie != null && movie.getPosterLarge() != null &&
+                        !movie.getPosterLarge().trim().isEmpty())
+                    mFragmentNavigation.pushFragment(new ShowSelectedPhotoFragment(movie.getPosterLarge()));
+            }
+        });
+
         return mView;
     }
 
-    private void setLibraryBtnText(){
+    private void setLibraryBtnText() {
         String txtBtnFavorites = null;
 
         if (favoritesDbHelper.isInMyLibrary(movieId)) {
@@ -169,24 +179,14 @@ public class MovieDetailFragment extends BaseFragment {
                         new OnLibraryEventCallback() {
                             @Override
                             public void onReturn(String value) {
-                                if(value.equals(TYPE_ADDED))
+                                if (value.equals(TYPE_ADDED))
                                     Toast.makeText(getContext(), getResources().getString(R.string.movie_added), Toast.LENGTH_SHORT);
-                                else if(value.equals(TYPE_DELETED))
+                                else if (value.equals(TYPE_DELETED))
                                     Toast.makeText(getContext(), getResources().getString(R.string.movie_deleted), Toast.LENGTH_SHORT);
-                                else if(value.equals(TYPE_UPDATED))
+                                else if (value.equals(TYPE_UPDATED))
                                     Toast.makeText(getContext(), getResources().getString(R.string.movie_updated), Toast.LENGTH_SHORT);
                             }
                         }));
-
-                /*if (isInFavorites() && removeFromFavorites()) {
-                    Toast toast = Toast.makeText(getContext(),getResources().getString(R.string.favorites_removed_1)+" '" + movie.getTitle() + "' " + getResources().getString(R.string.favorites_removed_2), duration);
-                    toast.show();
-                    btn_favorites.setText(getResources().getString(R.string.add_to_favorites));
-                } else if (addToFavorites()) {
-                    Toast toast = Toast.makeText(getContext(), getResources().getString(R.string.favorites_added_1)+" '" + movie.getTitle() + "' "+getResources().getString(R.string.favorites_added_2), duration);
-                    toast.show();
-                    btn_favorites.setText(getResources().getString(R.string.remove_from_favorites));
-                }*/
             }
         });
     }

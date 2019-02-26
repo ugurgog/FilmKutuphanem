@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.BaseRatingBar;
 import com.willy.ratingbar.ScaleRatingBar;
@@ -46,6 +48,7 @@ import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.Interfaces.OnLibraryEventCallback;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.Utils.ShapeUtil;
 import uren.com.filmktphanem.data.FavoritesDbHelper;
 import uren.com.filmktphanem.data.MyLibraryItem;
@@ -79,6 +82,8 @@ public class LibraryUpdateFragment extends BaseFragment {
     Button btnRemove;
     @BindView(R.id.scaleRatingBar)
     ScaleRatingBar scaleRatingBar;
+    @BindView(R.id.adView)
+    AdView adView;
 
     private MyLibraryItem myLibraryItem;
     private boolean isInLibrary;
@@ -128,6 +133,9 @@ public class LibraryUpdateFragment extends BaseFragment {
 
     private void initVariables() {
         dbHelper = new FavoritesDbHelper(getContext());
+        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
+        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void checkMovieInLibrary() {
@@ -256,6 +264,16 @@ public class LibraryUpdateFragment extends BaseFragment {
 
     @SuppressLint("ClickableViewAccessibility")
     private void addListeners() {
+
+        iv_movie_poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myLibraryItem != null && myLibraryItem.getPosterLarge() != null &&
+                        !myLibraryItem.getPosterLarge().trim().isEmpty())
+                    mFragmentNavigation.pushFragment(new ShowSelectedPhotoFragment(myLibraryItem.getPosterLarge()));
+            }
+        });
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
