@@ -39,10 +39,24 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
+                <Button
+                    android:id="@+id/btnViewDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/view_movie_details"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/tv_movie_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="32sp" />
@@ -99,7 +113,7 @@
                     app:srb_numStars="10"
                     app:srb_scrollable="true"
                     app:srb_starHeight="20dp"
-                    app:srb_starPadding="7dp"
+                    app:srb_starPadding="5dp"
                     app:srb_starWidth="20dp"
                     app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
 

@@ -204,7 +204,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
             cvMovieItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mFragmentNavigation.pushFragment(new MovieDetailFragment(movieList.get(position).getMovieId()));
+                    mFragmentNavigation.pushFragment(new MovieDetailFragment(movieList.get(position).getMovieId(), true));
                 }
             });
         }

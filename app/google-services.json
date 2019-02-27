@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "464697841161-9m524jpqivf5t0lvkv89k9m3jjshqgqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uren.com.filmktphanem",
+            "certificate_hash": "835135492279180c8c9d6517641665756f89cf21"
+          }
+        },
+        {
           "client_id": "464697841161-5482acl5gk6an2are1b6bhj5hk3bv1na.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464697841161-5482acl5gk6an2are1b6bhj5hk3bv1na.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

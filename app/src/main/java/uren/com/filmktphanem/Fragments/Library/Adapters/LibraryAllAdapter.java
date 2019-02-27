@@ -83,7 +83,7 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             llMain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mFragmentNavigation.pushFragment(new LibraryUpdateFragment(myLibraryItem, true,
+                    mFragmentNavigation.pushFragment(new LibraryUpdateFragment(myLibraryItem, true, true,
                             new OnLibraryEventCallback() {
                                 @Override
                                 public void onReturn(String value) {

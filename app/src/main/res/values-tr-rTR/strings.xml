@@ -99,4 +99,6 @@
     <string name="in_favorites">Favorilerde</string>
     <string name="in_watched">İzlendi</string>
     <string name="in_will_watched">İzlenecek</string>
+
+    <string name="view_movie_details">Film detaylarını görüntüle</string>
 </resources>

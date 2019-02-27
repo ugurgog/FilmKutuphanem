@@ -45,6 +45,7 @@ import uren.com.filmktphanem.AsyncFunctions.TMDBGenreListProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Movies.Adapters.GenreListAdapter;
 import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
+import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.Interfaces.OnLibraryEventCallback;
 import uren.com.filmktphanem.R;
@@ -82,6 +83,8 @@ public class LibraryUpdateFragment extends BaseFragment {
     Button btnRemove;
     @BindView(R.id.scaleRatingBar)
     ScaleRatingBar scaleRatingBar;
+    @BindView(R.id.btnViewDetail)
+    Button btnViewDetail;
     @BindView(R.id.adView)
     AdView adView;
 
@@ -89,16 +92,18 @@ public class LibraryUpdateFragment extends BaseFragment {
     private boolean isInLibrary;
     private FavoritesDbHelper dbHelper;
     private OnLibraryEventCallback onLibraryEventCallback;
+    private boolean showViewDetail;
 
     private int inFavorites = 0;
     private int watched = 0;
     private int willWatched = 0;
     private float rateValue = 0.0f;
 
-    public LibraryUpdateFragment(MyLibraryItem myLibraryItem, boolean isInLibrary, OnLibraryEventCallback onLibraryEventCallback) {
+    public LibraryUpdateFragment(MyLibraryItem myLibraryItem, boolean isInLibrary, boolean showViewDetail, OnLibraryEventCallback onLibraryEventCallback) {
         this.myLibraryItem = myLibraryItem;
         this.isInLibrary = isInLibrary;
         this.onLibraryEventCallback = onLibraryEventCallback;
+        this.showViewDetail = showViewDetail;
     }
 
     @Override
@@ -148,6 +153,14 @@ public class LibraryUpdateFragment extends BaseFragment {
 
     private void setButtonsInitialValues() {
 
+        if (showViewDetail) {
+            btnViewDetail.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DimGray),
+                    getContext().getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 80, 2));
+            btnViewDetail.setVisibility(View.VISIBLE);
+        }else {
+            btnViewDetail.setVisibility(View.GONE);
+        }
+
         if (isInLibrary) {
             btnAdd.setText(getResources().getString(R.string.update));
 
@@ -157,7 +170,7 @@ public class LibraryUpdateFragment extends BaseFragment {
                 willWatched = myLibraryItem.getWillWatch();
 
                 rateValue = myLibraryItem.getMyRate();
-                scaleRatingBar.setRating( myLibraryItem.getMyRate());
+                scaleRatingBar.setRating(myLibraryItem.getMyRate());
 
                 if (inFavorites == 1)
                     btn_favorites.setText(getResources().getString(R.string.remove_from_favorites));
@@ -360,6 +373,14 @@ public class LibraryUpdateFragment extends BaseFragment {
             public void onRatingChange(BaseRatingBar ratingBar, float rating) {
                 rateValue = rating;
                 Log.d("xxxx", "ScaleRatingBar onRatingChange: " + rating);
+            }
+        });
+
+        btnViewDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (myLibraryItem != null)
+                    mFragmentNavigation.pushFragment(new MovieDetailFragment(myLibraryItem.getMovieId(), false));
             }
         });
 

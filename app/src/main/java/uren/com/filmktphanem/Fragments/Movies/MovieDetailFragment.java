@@ -94,9 +94,11 @@ public class MovieDetailFragment extends BaseFragment {
     private FavoritesDbHelper favoritesDbHelper;
     private MyLibraryItem myLibraryItem;
     private boolean isInLibrary = false;
+    private boolean showAddButton;
 
-    public MovieDetailFragment(int movieId) {
+    public MovieDetailFragment(int movieId, boolean showAddButton) {
         this.movieId = movieId;
+        this.showAddButton = showAddButton;
     }
 
     @Override
@@ -144,6 +146,13 @@ public class MovieDetailFragment extends BaseFragment {
     private void setLibraryBtnText() {
         String txtBtnFavorites = null;
 
+        if(showAddButton)
+            btn_favorites.setVisibility(View.VISIBLE);
+        else {
+            btn_favorites.setVisibility(View.GONE);
+            return;
+        }
+
         if (favoritesDbHelper.isInMyLibrary(movieId)) {
             isInLibrary = true;
             txtBtnFavorites = getResources().getString(R.string.update_in_library);
@@ -175,7 +184,7 @@ public class MovieDetailFragment extends BaseFragment {
                             movie.getPosterSmall(), movie.getPosterLarge(), movie.getBackDropLarge());
                 }
 
-                mFragmentNavigation.pushFragment(new LibraryUpdateFragment(myLibraryItem, isInLibrary,
+                mFragmentNavigation.pushFragment(new LibraryUpdateFragment(myLibraryItem, isInLibrary, false,
                         new OnLibraryEventCallback() {
                             @Override
                             public void onReturn(String value) {

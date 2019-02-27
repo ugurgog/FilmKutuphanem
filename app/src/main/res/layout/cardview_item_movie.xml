@@ -16,7 +16,7 @@
             android:id="@+id/iv_movie_poster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
+            android:background="@color/Black"
             android:scaleType="fitCenter" />
 
     </LinearLayout>
