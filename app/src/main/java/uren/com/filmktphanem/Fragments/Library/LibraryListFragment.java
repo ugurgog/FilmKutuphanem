@@ -22,8 +22,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.willy.ratingbar.BaseRatingBar;
-import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;

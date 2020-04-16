@@ -22,6 +22,9 @@ import uren.com.filmktphanem.FirstOpen.Adapters.AppIntroductionAdapter;
 import uren.com.filmktphanem.MainActivity;
 import uren.com.filmktphanem.R;
 
+import static uren.com.filmktphanem.Constants.StringConstants.FIRST_OPEN_CHECK;
+import static uren.com.filmktphanem.Constants.StringConstants.FIRST_OPEN_VAL;
+
 
 public class AppIntroActivity extends AppCompatActivity {
 
@@ -32,9 +35,6 @@ public class AppIntroActivity extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor loginPrefsEditor;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -54,23 +54,14 @@ public class AppIntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
-        /*appIntroSession = new AppIntroSession(this);
-        if (!appIntroSession.isFirstTimeLaunch()) {
-            launchHomeScreen();
-            finish();
-        }*/
+        SharedPreferences sharedPreferences = getSharedPreferences(FIRST_OPEN_VAL, MODE_PRIVATE);
+        SharedPreferences.Editor loginPrefsEditor = sharedPreferences.edit();
 
-        sharedPreferences = getSharedPreferences("firstOpen", MODE_PRIVATE);
-        loginPrefsEditor = sharedPreferences.edit();
-
-        loginPrefsEditor.putBoolean("check", true);
-        loginPrefsEditor.commit();
+        loginPrefsEditor.putBoolean(FIRST_OPEN_CHECK, true);
+        loginPrefsEditor.apply();
 
         // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         setContentView(R.layout.activity_app_intro);
         Fabric.with(this, new Crashlytics());
@@ -178,10 +169,8 @@ public class AppIntroActivity extends AppCompatActivity {
     };
 
     private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.TRANSPARENT);
     }
 }

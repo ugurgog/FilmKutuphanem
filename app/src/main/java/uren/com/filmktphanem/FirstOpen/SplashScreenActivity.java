@@ -15,6 +15,9 @@ import io.fabric.sdk.android.Fabric;
 import uren.com.filmktphanem.MainActivity;
 import uren.com.filmktphanem.R;
 
+import static uren.com.filmktphanem.Constants.StringConstants.FIRST_OPEN_CHECK;
+import static uren.com.filmktphanem.Constants.StringConstants.FIRST_OPEN_VAL;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     ImageView imageView;
@@ -37,9 +40,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void checkPreferences(){
-        sharedPreferences = getSharedPreferences("firstOpen", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(FIRST_OPEN_VAL, MODE_PRIVATE);
 
-        if(sharedPreferences.getBoolean("check", false)){
+        if(sharedPreferences.getBoolean(FIRST_OPEN_CHECK, false)){
             startMainActivity();
         }else {
             startAppIntroActivity();

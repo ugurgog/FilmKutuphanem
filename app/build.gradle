@@ -16,6 +16,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            //resValue("string", "DB_PASSWORD_favorites", "1234")
+            resValue("string", "PORT_NUMBER", "8080")
+        }
     }
     aaptOptions {
         cruncherEnabled = false
@@ -64,5 +69,9 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:1.2.6'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'jp.wasabeef:blurry:2.1.1'
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+
 }
 apply plugin: 'com.google.gms.google-services'

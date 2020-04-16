@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,8 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 FavoritesContract.FavoritesEntry.COLUMN_MY_COMMENT + " STRING , " +
                 FavoritesContract.FavoritesEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 "); ";
+
+        Log.i("SQL", "SQL_CREATE_FAVORITES_TABLE");
 
         sqLiteDatabase.execSQL(SQL_CREATE_FAVORITES_TABLE);
     }

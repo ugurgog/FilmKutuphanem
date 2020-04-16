@@ -35,4 +35,8 @@ public class StringConstants {
 
     public static final String ORDER_BY_ASC = "ASC";
     public static final String ORDER_BY_DESC = "DESC";
+
+    //Shared preferences variables
+    public static final String FIRST_OPEN_VAL = "FIRST_OPEN";
+    public static final String FIRST_OPEN_CHECK = "FIRST_OPEN_CHECK";
 }
