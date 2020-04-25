@@ -2,6 +2,7 @@ package uren.com.filmktphanem.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -23,8 +24,10 @@ import java.util.List;
 
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
+import uren.com.filmktphanem.Interfaces.OnLibraryEventCallback;
 import uren.com.filmktphanem.Interfaces.ReturnCallback;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.data.FavoritesDbHelper;
 import uren.com.filmktphanem.models.Movie;
 
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Filterable {
@@ -35,6 +38,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
     private BaseFragment.FragmentNavigation mFragmentNavigation;
     View view;
     private ReturnCallback searchResultCallback;
+    private FavoritesDbHelper dbHelper;
 
     public static final int VIEW_PROG = 0;
     public static final int VIEW_ITEM = 1;
@@ -45,6 +49,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
         this.movieList = new ArrayList<Movie>();
         this.orgMovieList = new ArrayList<Movie>();
         this.mFragmentNavigation = mFragmentNavigation;
+        dbHelper = new FavoritesDbHelper(context);
     }
 
     @Override
@@ -185,6 +190,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         CardView cvMovieItem;
         ImageView ivMoviePoster;
+        ImageView existLibImgv;
         Movie movie;
         int position;
 
@@ -196,6 +202,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
             cvMovieItem = view.findViewById(R.id.cv_movie_item);
             cvMovieItem.setBackgroundColor(Color.parseColor("#000000"));
             ivMoviePoster = view.findViewById(R.id.iv_movie_poster);
+            existLibImgv = view.findViewById(R.id.existLibImgv);
 
             // Set animation on imageview
             Animation fadeInAnimation = AnimationUtils.loadAnimation(cvMovieItem.getContext(), R.anim.fade_in);
@@ -204,7 +211,12 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
             cvMovieItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mFragmentNavigation.pushFragment(new MovieDetailFragment(movieList.get(position).getMovieId(), true));
+                    mFragmentNavigation.pushFragment(new MovieDetailFragment(movieList.get(position).getMovieId(), true, new OnLibraryEventCallback() {
+                        @Override
+                        public void onReturn(String value) {
+                            updateAdapterWithPosition(position);
+                        }
+                    }));
                 }
             });
         }
@@ -212,10 +224,25 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
         public void setData(Movie movie, int position) {
             this.movie = movie;
             this.position = position;
-            Glide.with(context)
-                    .load(movie.getPosterSmall())
-                    .apply(RequestOptions.fitCenterTransform())
-                    .into(ivMoviePoster);
+            setMovieImage();
+            setInLibOrNot();
+        }
+
+        private void setMovieImage() {
+            if (movie != null && movie.getPosterSmall() != null)
+                Glide.with(context)
+                        .load(movie.getPosterSmall())
+                        .apply(RequestOptions.fitCenterTransform())
+                        .into(ivMoviePoster);
+        }
+
+        private void setInLibOrNot() {
+            if (movie != null) {
+                if (dbHelper.isInMyLibrary(movie.getMovieId()))
+                    existLibImgv.setColorFilter(context.getResources().getColor(R.color.LimeGreen, null), PorterDuff.Mode.SRC_IN);
+                else
+                    existLibImgv.setColorFilter(context.getResources().getColor(R.color.Red, null), PorterDuff.Mode.SRC_IN);
+            }
         }
     }
 }

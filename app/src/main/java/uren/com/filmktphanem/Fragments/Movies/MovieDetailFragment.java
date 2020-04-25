@@ -95,10 +95,12 @@ public class MovieDetailFragment extends BaseFragment {
     private MyLibraryItem myLibraryItem;
     private boolean isInLibrary = false;
     private boolean showAddButton;
+    private OnLibraryEventCallback onLibraryEventCallback;
 
-    public MovieDetailFragment(int movieId, boolean showAddButton) {
+    public MovieDetailFragment(int movieId, boolean showAddButton, OnLibraryEventCallback onLibraryEventCallback) {
         this.movieId = movieId;
         this.showAddButton = showAddButton;
+        this.onLibraryEventCallback = onLibraryEventCallback;
     }
 
     @Override
@@ -188,12 +190,7 @@ public class MovieDetailFragment extends BaseFragment {
                         new OnLibraryEventCallback() {
                             @Override
                             public void onReturn(String value) {
-                                if (value.equals(TYPE_ADDED))
-                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_added), Toast.LENGTH_SHORT);
-                                else if (value.equals(TYPE_DELETED))
-                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_deleted), Toast.LENGTH_SHORT);
-                                else if (value.equals(TYPE_UPDATED))
-                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_updated), Toast.LENGTH_SHORT);
+                                onLibraryEventCallback.onReturn(value);
                             }
                         }));
             }

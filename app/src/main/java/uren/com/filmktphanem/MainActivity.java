@@ -126,7 +126,6 @@ public class MainActivity extends FragmentActivity implements
         initTab();
     }
 
-
     private void initTab() {
         if (bottomTabLayout != null) {
             for (int i = 0; i < TABS.length; i++) {

@@ -380,7 +380,12 @@ public class LibraryUpdateFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (myLibraryItem != null)
-                    mFragmentNavigation.pushFragment(new MovieDetailFragment(myLibraryItem.getMovieId(), false));
+                    mFragmentNavigation.pushFragment(new MovieDetailFragment(myLibraryItem.getMovieId(), false, new OnLibraryEventCallback() {
+                        @Override
+                        public void onReturn(String value) {
+
+                        }
+                    }));
             }
         });
 
