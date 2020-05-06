@@ -7,11 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,10 +23,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 import com.willy.ratingbar.BaseRatingBar;
 import com.willy.ratingbar.ScaleRatingBar;
@@ -85,8 +81,6 @@ public class LibraryUpdateFragment extends BaseFragment {
     ScaleRatingBar scaleRatingBar;
     @BindView(R.id.btnViewDetail)
     Button btnViewDetail;
-    @BindView(R.id.adView)
-    AdView adView;
 
     private MyLibraryItem myLibraryItem;
     private boolean isInLibrary;
@@ -108,7 +102,7 @@ public class LibraryUpdateFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.GONE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.GONE);
         super.onStart();
     }
 
@@ -138,9 +132,6 @@ public class LibraryUpdateFragment extends BaseFragment {
 
     private void initVariables() {
         dbHelper = new FavoritesDbHelper(getContext());
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
-        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void checkMovieInLibrary() {
@@ -380,7 +371,12 @@ public class LibraryUpdateFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (myLibraryItem != null)
-                    mFragmentNavigation.pushFragment(new MovieDetailFragment(myLibraryItem.getMovieId(), false));
+                    mFragmentNavigation.pushFragment(new MovieDetailFragment(myLibraryItem.getMovieId(), false, new OnLibraryEventCallback() {
+                        @Override
+                        public void onReturn(String value) {
+
+                        }
+                    }));
             }
         });
 

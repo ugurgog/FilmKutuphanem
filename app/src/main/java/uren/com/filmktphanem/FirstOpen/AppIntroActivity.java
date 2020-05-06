@@ -3,17 +3,18 @@ package uren.com.filmktphanem.FirstOpen;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -100,6 +101,7 @@ public class AppIntroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int current = getItem(+1);
+
                 if (current < layouts.length)
                     viewPager.setCurrentItem(current);
                 else

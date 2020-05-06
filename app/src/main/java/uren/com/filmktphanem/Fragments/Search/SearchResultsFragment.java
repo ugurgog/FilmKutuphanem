@@ -5,10 +5,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +14,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,9 +45,6 @@ public class SearchResultsFragment extends BaseFragment {
 
     View mView;
 
-    @BindView(R.id.adView)
-    AdView adView;
-
     private String searchQuery;
     private TextView tvErrorMessage;
     private TextView tvResultsTitle;
@@ -66,7 +61,7 @@ public class SearchResultsFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
-    int spanCount = 3;
+    int spanCount = 2;
 
     public SearchResultsFragment(String searchQuery) {
         this.searchQuery = searchQuery;
@@ -74,7 +69,7 @@ public class SearchResultsFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -106,8 +101,6 @@ public class SearchResultsFragment extends BaseFragment {
         pbLoadingIndicator = mView.findViewById(R.id.pb_loading_indicator);
         tvResultsTitle = mView.findViewById(R.id.tv_results_title);
         rvMovieList = mView.findViewById(R.id.rv_movie_list);
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
         tvResultsTitle.setText(searchQuery);
     }
 
@@ -139,14 +132,14 @@ public class SearchResultsFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        //setSpanCount();
+        setSpanCount();
         gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         rvMovieList.setLayoutManager(gridLayoutManager);
         rvMovieList.setAdapter(rvAdapter);
         setRecyclerViewScroll();
     }
 
-    /*private void setSpanCount() {
+    private void setSpanCount() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -156,7 +149,7 @@ public class SearchResultsFragment extends BaseFragment {
         } else if (width > 700) {
             spanCount = 3;
         }
-    }*/
+    }
 
     private void showRecyclerView() {
         tvErrorMessage.setVisibility(View.INVISIBLE);

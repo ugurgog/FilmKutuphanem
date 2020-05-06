@@ -4,10 +4,6 @@ package uren.com.filmktphanem.Fragments.Search;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,16 +42,13 @@ public class SearchFragment extends BaseFragment {
     private EditText etSearchBox;
     private Button btnSearchMovie;
 
-    @BindView(R.id.adView)
-    AdView adView;
-
     public SearchFragment() {
 
     }
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -83,15 +76,12 @@ public class SearchFragment extends BaseFragment {
     private void initVariables() {
         etSearchBox = mView.findViewById(R.id.et_search_box);
         btnSearchMovie = mView.findViewById(R.id.btn_search_movie);
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
     }
 
     private void addListeners() {
         btnSearchMovie.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (etSearchBox.getText() != null && etSearchBox.getText().toString() != null &&
-                        !etSearchBox.getText().toString().trim().isEmpty())
+                if (etSearchBox.getText() != null && !etSearchBox.getText().toString().trim().isEmpty())
                     submitSearch();
                 else
                     Toast.makeText(getContext(), getResources().getString(R.string.please_write_something), Toast.LENGTH_SHORT);

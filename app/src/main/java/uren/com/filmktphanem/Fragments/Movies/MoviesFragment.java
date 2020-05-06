@@ -3,10 +3,6 @@ package uren.com.filmktphanem.Fragments.Movies;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -55,8 +51,6 @@ public class MoviesFragment extends BaseFragment implements View.OnClickListener
     LinearLayout llByGenre;
     @BindView(R.id.llTop250)
     LinearLayout llTop250;
-    @BindView(R.id.adView)
-    AdView adView;
 
     public MoviesFragment() {
 
@@ -80,7 +74,7 @@ public class MoviesFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -97,8 +91,6 @@ public class MoviesFragment extends BaseFragment implements View.OnClickListener
         llNowPlaying.setOnClickListener(this);
         llByGenre.setOnClickListener(this);
         llTop250.setOnClickListener(this);
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
     }
 
 

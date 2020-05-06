@@ -2,14 +2,11 @@ package uren.com.filmktphanem.models;
 
 import java.util.ArrayList;
 
-/**
- * Created by Bram on 17/03/2018.
- */
-
 public class Movie {
 
     private int movieId;
     private String title;
+    private String originalTitle;
     private String posterPath;
     private String posterSmall;
     private String posterLarge;
@@ -19,6 +16,7 @@ public class Movie {
     private String overview;
     private String releaseDate;
     private String trailerUrl;
+    private String behindSceneUrl;
     private ArrayList<String> genres;
     private ArrayList<String> productionCompanies;
     private ArrayList<Crew> crew;
@@ -39,6 +37,13 @@ public class Movie {
         this.setPosters(posterPath);
     }
 
+    public Movie(int movieId, String posterPath, String title, String originalTitle) {
+        this.movieId = movieId;
+        this.setPosters(posterPath);
+        this.title = title;
+        this.originalTitle = originalTitle;
+    }
+
     /**
      * Inits a movie used in the detail activity.
      * @param movieId the movie id
@@ -55,7 +60,9 @@ public class Movie {
      * @param crew the movie crew
      * @param trailerId the movie YouTube id
      */
-    public Movie(int movieId, String title, String posterPath, String backDropPath, Integer runTime, double rating, String overview, String releaseDate, ArrayList<String> genres, ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew, String trailerId) {
+    public Movie(int movieId, String title, String posterPath, String backDropPath, Integer runTime,
+                 double rating, String overview, String releaseDate, ArrayList<String> genres,
+                 ArrayList<String> productionCompanies, ArrayList<Cast> cast, ArrayList<Crew> crew, String trailerId, String behindSceneId) {
         this.movieId = movieId;
         this.title = title;
         this.runTime = runTime;
@@ -69,9 +76,12 @@ public class Movie {
         this.posterPath = posterPath;
         setPosters(posterPath);
         setBackDrops(backDropPath);
-        if (trailerId != null) {
+
+        if (trailerId != null)
             setTrailerUrl(trailerId);
-        }
+
+        if(behindSceneId != null)
+            setBehindSceneUrl(behindSceneId);
     }
 
     public int getMovieId() {
@@ -168,6 +178,14 @@ public class Movie {
      */
     private void setTrailerUrl(String trailerId) {
         trailerUrl =  YT_MOVIE_BASE_URL + "?v=" + trailerId;
+    }
+
+    public String getBehindSceneUrl() {
+        return behindSceneUrl;
+    }
+
+    public void setBehindSceneUrl(String behindSceneId) {
+        behindSceneUrl =  YT_MOVIE_BASE_URL + "?v=" + behindSceneId;
     }
 }
 

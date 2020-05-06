@@ -2,9 +2,6 @@ package uren.com.filmktphanem.Fragments.Movies.Adapters;
 
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -35,11 +34,8 @@ public class GenreListAdapter extends RecyclerView.Adapter<GenreListAdapter.Genr
 
     @Override
     public GenreListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = null;
-
-        itemView = LayoutInflater.from(parent.getContext())
+        View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_genre_item, parent, false);
-
         return new GenreListHolder(itemView);
     }
 

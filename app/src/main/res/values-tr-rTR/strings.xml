@@ -8,6 +8,10 @@
         <item>Kütüphane</item>
     </array>
 
+    <string name="tab_movies">Filmler</string>
+    <string name="tab_search">Ara</string>
+    <string name="tab_library">Kütüphane</string>
+
     <string name="favorites">Favoriler</string>
     <string name="error_message">Sonuçlar alınamadı, lütfen tekrar deneyin.</string>
     <string name="search_a_movie">Film ara</string>
@@ -20,6 +24,7 @@
     <string name="producers">Yapımcılar</string>
     <string name="trailer">Fragman</string>
     <string name="watch_trailer">Fragmanı İzle</string>
+    <string name="watch_behind_scene">Kamera Arkası İzle</string>
     <string name="cast">Oyuncular</string>
     <string name="crew">Ekip</string>
     <string name="favorite_movies">Favori Filmler</string>
@@ -32,13 +37,13 @@
     <string name="favorites_removed_2">favorilerinden</string>
     <string name="favorites_added_1">Eklendi</string>
     <string name="favorites_added_2">favorilerine</string>
-    <string name="minutes">dakika</string>
     <string name="unknown">Onbekend</string>
     <string name="results_heading">için sonuçlar</string>
     <string name="no_favorite_movies">Favori filmin yok. Bir filmin ayrıntı sayfasına giderek bir tane ekleyin.</string>
     <string name="no_description">Açıklama mevcut değil</string>
     <string name="no_trailer">Fragman mevcut değil</string>
     <string name="add_my_library">Kütüphaneme Ekle</string>
+    <string name="view_all_movies">Tüm Filmlerini Görüntüle</string>
     <string name="update_in_library">Kütüphanemde Güncelle</string>
     <string name="rate_movie">Oy Ver</string>
     <string name="add_to_watched">İzlenenlere Ekle</string>
@@ -56,7 +61,6 @@
     <string name="movie_not_in_library">Bu film zaten kütüphanede degil</string>
     <string name="my_library">Kütüphanem</string>
     <string name="others">diğer</string>
-    <string name="THERE_IS_NO_SEARCH_RESULT">Sonuç bulunamadı.</string>
     <string name="please_write_something">Lütfen arama çubuğuna bir şeyler yazın</string>
 
     <string name="have_no_favorite_movies">Henüz favori filminiz bulunmamaktadır</string>
@@ -64,17 +68,16 @@
     <string name="have_no_will_watched_movies">Henüz izlenecek filminiz bulunmamaktadır</string>
     <string name="have_no_all_movies">Kütüphanenizde henüz film bulunmamaktadır</string>
 
+    <string name="birth_day">Doğum Günü: </string>
+    <string name="death_day">Ölüm Tarihi: </string>
+    <string name="place_of_birth">Doğum Yeri: </string>
+    <string name="biograhpy">Biografi</string>
+
     <string name="high_rated_first">Oylamasi yüksek olanlar önce</string>
     <string name="low_rated_first">Oylamasi düşük olanlar önce</string>
     <string name="favorites_first">Favoriler önce</string>
     <string name="watched_first">İzlenenler önce</string>
     <string name="will_watch_first">İzlenecekler önce</string>
-
-    <string name="ok">TAMAM</string>
-    <string name="next">İleri</string>
-    <string name="close">Kapat</string>
-    <string name="SKIP">GEÇ</string>
-    <string name="GOT_IT">ANLADIM</string>
 
     <string name="list_movies">Film Listeleme</string>
     <string name="search_movies">Film Arama</string>
@@ -95,10 +98,269 @@
     <string name="upcoming_movies">Yaklaşan Filmler</string>
     <string name="now_playing_movies">Vizyondakiler</string>
     <string name="by_genre_movies">Türlere Göre</string>
+    <string name="by_top_twohundred">Top 250</string>
 
     <string name="in_favorites">Favorilerde</string>
     <string name="in_watched">İzlendi</string>
     <string name="in_will_watched">İzlenecek</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="search">Ara</string>
+    <string name="FACEBOOK">FACEBOOK</string>
+    <string name="CONTACTS">BAĞLANTILAR</string>
+    <string name="error">Hata:</string>
+    <string name="errorUpper">HATA</string>
+    <string name="addPersonToGroup">Katılımcı Ekle</string>
+    <string name="selectLeastOneFriend">En az 1 kişi seçmelisiniz!</string>
+    <string name="selectOneFriend">Lütfen 1 arkadaşınızı seçiniz!</string>
+    <string name="selectOneGroup">Please select a group!</string>
+    <string name="addGroupName">Grup adı ekle</string>
+    <string name="pleaseWriteGroupName">Grup adı boş olamaz!</string>
+    <string name="deviceHasNoCamera">Cihazın kamerası yok!</string>
+    <string name="writeGroupName">Grup adını yazın…</string>
+    <string name="defineGroupNameAndIcon">Grup adı ve simgesi belirleyin</string>
+    <string name="participant"> katılımcı</string>
+    <string name="constantItem">adet</string>
+    <string name="adminText">  Grup Yöneticisi  </string>
+    <string name="selectPicture">Resim Seçin</string>
+    <string name="openCamera">Kamerayı Aç</string>
+    <string name="openGallery">Galeriden Seç</string>
+    <string name="REMOVE_PHOTO">Fotoğrafı kaldır</string>
+    <string name="EDIT">Düzenle</string>
+    <string name="chooseProfilePhoto">Profil fotoğrafı seçin</string>
+    <string name="CHOOSE_GROUP_PHOTO">Grup fotoğrafı seçin</string>
+    <string name="areYouSureExitFromGroup">Gruptan çıkmak istediğinize emin misiniz?</string>
+    <string name="upperYes">EVET</string>
+    <string name="lowerYes">Evet</string>
+    <string name="upperNo">HAYIR</string>
+    <string name="removeFromGroup">  Gruptan Çikar</string>
+    <string name="createdAt">Oluşturuldu:</string>
+    <string name="completedAt">Tamamlandı:</string>
+    <string name="changeAsAdmin">Admin olarak değiştir</string>
+    <string name="secondShort">sn</string>
+    <string name="writetaskdesc">Bir şeyler yazın…</string>
+    <string name="UPDATING">Güncelleniyor…</string>
+    <string name="VIEW_PENDING_REQUEST">Gelen Istekleri Görüntüle</string>
+    <string name="PHONE_NUM">Telefon Numarası</string>
+    <string name="SELECT_COUNTRY">Ülke Seç</string>
+    <string name="COUNTRY_NAME">Ülke Adı</string>
+    <string name="WRITE_PHONE_NUMBER">Telefon numarasını yazın</string>
+    <string name="PLEASE_WRITE_VERIFICATION_CODE">Şu numaraya gönderdiğimiz 6 haneli onay kodunu giriniz : </string>
+    <string name="SEND_VERIFICATION_CODE_AGAIN">Kodu Tekrar Gönder</string>
+    <string name="CHANGE_PHONE_NUMBER">Numarayı Değiştir</string>
+    <string name="INVALID_VERIFICATION_CODE_ENTERED">Hatalı kod girişi yapıldı</string>
+    <string name="VERIFY">Doğrula</string>
+    <string name="REMAINING_TIME">Kalan Süre : </string>
+    <string name="NOT_ENTERED_VERIFY_CODE_IN_TIME">Size verilen süre içinde kodu girmediniz. Lütfen tekrar kodu gönderiniz!</string>
+    <string name="UPDATE_IS_SUCCESSFUL">Güncelendi</string>
+    <string name="THERE_IS_NO_SEARCH_RESULT">Hiç bir sonuç bulunamadı.</string>
+    <string name="TAKE_SCREENSHOT">Ekran görüntüsü al</string>
+    <string name="CIRCLE_THE_PROBLEM">Sorunu daire içine al</string>
+    <string name="SCREENSHOT">Çek</string>
+    <string name="searchGroup">Grup Ara</string>
+    <string name="searchContact">Kişi Ara</string>
+
+    <string name="searchUser">Kullanıcı arayın…</string>
+    <string name="IN_GROUP">Grupta</string>
+    <string name="REMOVE">Çıkar</string>
+    <string name="REMOVE_FOLLOWER_TITLE">Arkadaşı Çıkar?</string>
+    <string name="REMOVE_FOLLOWER_MESSAGE">Bu kişiyi arkadaşlardan çıkarmak istediğinize emin misiniz?</string>
+    <string name="SEARCH_FRIENDS">Arkadaşlarda ara…</string>
+    <string name="USER_NOT_FOUND">Kullanıcı bulunamadı.</string>
+    <string name="GROUP_NOT_FOUND">Grup bulunamadı.</string>
+    <string name="cancelSendedRequest">Gönderilen arkadaşlık isteği geri çekilecek. Onaylıyor musunuz?</string>
+    <string name="searchUsers">Kullanıcı Ara</string>
+
+    <string name="profile">Profil</string>
+    <string name="editProfile">Profili Düzenle</string>
+    <string name="save">Kaydet</string>
+    <string name="cancel">İptal</string>
+    <string name="giveNewName">Yeni Grup İsmi Girin</string>
+    <string name="ok">TAMAM</string>
+    <string name="next">İleri</string>
+    <string name="close">Kapat</string>
+
+    <!-- Whose for will be shared -->
+    <string name="groupsShareText">Gruplar</string>
+    <string name="tasksmyassigned">Benim atadığım görevler</string>
+    <string name="tasksmyassignedDesc">Görevler</string>
+
+    <!-- Location Settings constants-->
+    <string name="gpsSettings">GPS Ayarları</string>
+    <string name="gpsSettingMessage">GPS etkin değil. Konumu etkinleştirmek ve almak için ayarlara tıklayın, lütfen GPS"i açtıktan sonra uygulamayı tekrar başlatın.</string>
+    <string name="settings">Ayarlar</string>
+
+    <!-- Share tab item constants-->
+
+    <!-- Time constants-->
+    <string name="seconds">saniye</string>
+    <string name="minutes">dakika</string>
+    <string name="hours">saat</string>
+    <string name="days">gün</string>
+    <string name="weeks">hafta</string>
+    <string name="months">ay</string>
+    <string name="years">yıl</string>
+
+    <string name="signOut">Çıkış yap</string>
+    <string name="invite">Davet Et</string>
+    <string name="request_sended">İstek gönderildi</string>
+    <string name="PENDING_REQUESTS">Bekleyen Istekler</string>
+    <string name="THERE_IS_NO_PENDING_REQUEST">Bekleyen isteğiniz bulunmamaktadır</string>
+    <string name="CONTACT_INVITE_MESSAGE">My Duties uygulaması ile grup ve arkadaş görevlerini takip etmek ister misin? Uygulamayı bu linkten indirebilirsin:</string>
+    <string name="INVITE_YOUR_FRIENDS">Arkadaşlarını Davet Et</string>
+    <string name="ADD_YOUR_FRIENDS">Arkadaşlarını Ekle</string>
+    <string name="ACCOUNT">Hesap</string>
+    <string name="CHANGE_PASSWORD">Şifreyi Değiştir</string>
+    <string name="SUPPORT">Destek</string>
+    <string name="HELP_CENTER">Uygulama Hakkında</string>
+    <string name="REPORT_PROBLEM">Sorun Bildir</string>
+    <string name="CONTACT_FRIENDS">Rehber Kişileri</string>
+    <string name="VERSION">Versiyon</string> 
+    <string name="ABOUT_APP">Film Kütüphanem: Uygulama hakkında herhangi
+        bir sorunuz ya da öneriniz var ise lütfen bize yazın.
+    </string>
+    <string name="authoremail">mydutiess@gmail.com</string> 
+    <string name="signInWithGoogle">Google ile giriş yap</string>
+    <string name="googleSignInFailed">Google oturum açma başarısız oldu</string>
+
+    <!-- Change Password variables-->
+    <string name="CURRENT_PASSWORD">Mevcut şifre</string>
+    <string name="NEW_PASSWORD">Yeni şifre</string>
+    <string name="NEW_PASSWORD_AGAIN">Yeni şifre, tekrar</string>
+
+    <!-- LoginActivity Constants-->
+    // Uygulama alanlari
+    <string name="username">Kullanıcı Adı</string>
+    <string name="email">Email</string>
+    <string name="password">Şifre</string>
+    <string name="login">Giriş</string>
+    <string name="createAccount">Kaydol</string>
+    <string name="forgetPassword">Şifremi unuttum?</string>
+    <string name="register">Kaydol</string>
+    <string name="sendLink">Link Gönder</string>
+    <string name="forgetPassText">Mail adresinize göndereceğimiz link ile şifrenizi sıfırlayabilirsiniz.</string>
+    <string name="rememberMe">Beni Hatırla</string>
+
+    <!-- User edit constants constants-->
+    <string name="PERSONAL_INFORMATION">Kişisel Bilgilerim</string>
+    <string name="NAME">İsim</string>
+    <string name="PHONE">Telefon</string>
+
+    // Mesajlar-Uyarılar
+    <string name="UNEXPECTED_ERROR">Beklenmeyen bir hata oluştu!</string>
+    <string name="UNKNOWN_ERROR">İşlem tamamlanamadı!</string>
+    <string name="EMAIL_ERR_REQUIRED">Email boş olamaz!</string>
+    <string name="EMAIL_ERR_INVALID">Geçerli bir email adresi giriniz</string>
+    <string name="PASSWORD_ERR_REQUIRED">Şifre boş olamaz!</string>
+    <string name="PASSWORD_ERR_LENGTH">Şifre en az 6 karakter olmalıdır!</string>
+    <string name="USERNAME_ERR_REQUIRED">Kullanıcı adı boş olamaz!</string>
+    <string name="CHECK_PASSWORD_VALIDATION_VALUE">Doğrulama alanı hatali. Tekrar kontrol ediniz.</string>
+    <string name="COLLISION_EXCEPTION">E-mail adresi kayıtlı. Lütfen başka e-mail adresi giriniz.</string>
+    <string name="INVALID_CREDENTIALS">Email veya şifre yanlış..</string>
+    <string name="INVALID_USER">Email adresi tanımlı değil..</string>
+    <string name="REGISTERING_USER">"Hesap oluşturuluyor.."</string>
+    <string name="LOGGING_USER">"Giriş yapılıyor.."</string>
+    <string name="PLEASE_WAIT">"Lütfen bekleyiniz.."</string>
+    <string name="PASSWORD_LINK_SEND_SUCCESS">Şifre sıfırlama linki e-mail adresinize gönderildi.</string>
+    <string name="PASSWORD_LINK_SEND_FAIL">Şifre gönderme başarısız, lütfen tekrar deneyiniz.</string>
+    <string name="taskAssignSuccessful">Task assignment completed.</string>
+    <string name="PASSWORD_IS_CHANGED">Şifre değiştirildi</string>
+    <string name="CURRENT_PASSWORD_INCORRECT">Mevcut şifre hatalı</string>
+    <string name="CAN_YOU_SPECIFY_THE_PROBLEM">Problemi kısaca belirtebilir misiniz?</string>
+    <string name="PROBLEM_NOTIFY_DESCRIPTION">Karşılaşmış olduğunuz problemi ya da geliştirmemizi istediklerinizi bildirerek bize yardımcı olabilirsiniz.</string>
+    <string name="REPORT_PROBLEM_OR_COMMENT">Sorun Bildir</string>
+    <string name="serverError">Teknik Hata !</string>
+    <string name="GIVE_PERMISSION_TO_SEE_CONTACT_FRIENDS">Arkadaşlarınızı görmek için kişilere erişim izni vermelisiniz</string>
+    <string name="GOT_IT">ANLADIM</string>
+    <string name="CHECK_YOUR_INTERNET_CONNECTION">Lütfen internet bağlantınızı kontrol ediniz!</string>
+    <string name="TRY_AGAIN_AFTER_CHECK_YOUR_NETWORK">Internet baglantınızı kontrol ettikten sonra tekrar deneyiniz.</string>
+    <string name="TRY_AGAIN">Tekrar Deneyin</string>
+    <string name="SKIP">GEÇ</string>
+    <string name="FORGOT_YOUR_PASSWORD">Şifreni mi unuttun?</string>
+    <string name="THANKS_FOR_FEEDBACK">Geri bildiriminiz için teşekkür ederiz. En kısa sürede aksiyon almaya çalışacağız.</string>
+    <string name="TODAY">Bugün</string>
+    <string name="YESTERDAY">Dün</string>
+    <string name="ACCEPT">Onayla</string>
+    <string name="REJECT">Reddet</string>
+
+
+    <string name="loading">Yükleniyor…</string>
+    <string name="delete">Sil</string>
+    <string name="fixed">Fixed</string>
+    <string name="rateus">Bizi Değerlendir</string>
+    <string name="commentFailed">Google Play kurulu değil</string><![CDATA[ 
+
+    ]]>
+    <string name="WRITE_YOUR_NAME">İsim yazın..</string>
+    <string name="WRITE_USERNAME">Kullanıcı adını yazın..</string>
+    <string name="WRITE_EMAIL">Email adresinizi yazın..</string>
+    <string name="TYPE_FOR_ADD_PHONE">Tel no eklemek için dokunun…</string>
+
+    <array name="months">
+        <item>Ocak</item>
+        <item>Şubat</item>
+        <item>Mart</item>
+        <item>Nisan</item>
+        <item>Mayıs</item>
+        <item>Haziran</item>
+        <item>Temmuz</item>
+        <item>Ağustos</item>
+        <item>Eylül</item>
+        <item>Ekim</item>
+        <item>Kasım</item>
+        <item>Aralık</item>
+    </array>
+
+    <!-- Exception mesajları -->
+
+    <string name="waiting_task">Bekleyen</string>
+    <string name="completed_task">Tamamlanan</string>
+    <string name="group_task">Grup</string>
+
+    <string name="task_completed">Tamamlandı</string>
+    <string name="call_user">Ara</string>
+
+    <string name="undefined_user">Tanımsız Kullanıcı</string>
+    <string name="friends">Arkadaşlar</string>
+
+    <string name="addFriend">Ekle</string>
+    <string name="acceptReq">Kabul Et</string>
+    <string name="friend">Arkadaş</string>
+
+    <string name="typeToAddText">Bir şeyler yaz…</string>
+    <string name="phoneNotDefined">Telefon bilgisi henüz tanımlanmadı.</string>
+
+    <string name="remind">Hatırlat</string>
+    <string name="urgent">Acil</string>
+    <string name="closed">Kapalı</string>
+
+    <string name="markAsUrgent">Acil yap</string>
+    <string name="editTaskText">Açıklamayı Düzenle</string>
+
+    <string name="adminLogin">Admin Sayfası</string>
+    <string name="problems">Problemler</string>
+    <string name="viewUncompletedProblems">Bekleyen Problemleri Gör</string>
+    <string name="viewCompletedProblems">Tamamlanmış Problemleri Gör</string>
+
+    <string name="you">Sen</string>
+
+
+
+
+
+
 
     <string name="view_movie_details">Film detaylarını görüntüle</string>
 </resources>

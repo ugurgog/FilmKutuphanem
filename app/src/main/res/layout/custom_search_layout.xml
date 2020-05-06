@@ -26,7 +26,7 @@
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.7"
-                    android:src="@drawable/icon_search" />
+                    android:src="@drawable/icon_search_white" />
 
                 <EditText
                     android:layout_width="0dp"
@@ -36,7 +36,7 @@
                     android:layout_weight="8"
                     android:background="@null"
                     android:id="@+id/searchEdittext"
-                    android:textColorHint="@color/Silver"
+                    android:textColorHint="@color/White"
                     android:textColor="@color/White"
                     android:hint="@string/search_movie" />
 

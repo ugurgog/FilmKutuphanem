@@ -32,7 +32,8 @@ import java.util.Scanner;
  */
 public class NetworkUtils {
 
-    private final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    //private final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    private final static String TMDB_TRENDING_BASE_URL = "https://api.themoviedb.org/3/trending/movie/week";
     private final static String TMDB_POPULER_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
     private final static String TMDB_TOP_RATED_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated";
     private final static String TMDB_UPCOMING_BASE_URL = "https://api.themoviedb.org/3/movie/upcoming";
@@ -43,6 +44,8 @@ public class NetworkUtils {
 
     private final static String TMDB_SEARCH_BASE_URL = "https://api.themoviedb.org/3/search/movie";
     private final static String TMDB_DETAIL_BASE_URL = "https://api.themoviedb.org/3/movie/";
+    private final static String TMDB_PERSON_DETAIL_BASE_URL = "https://api.themoviedb.org/3/person/";
+
     private final static String PARAM_QUERY = "query";
     private final static String PARAM_API_KEY = "api_key";
     private final static String PARAM_PAGE = "page";
@@ -53,6 +56,13 @@ public class NetworkUtils {
     private final static String VALUE_APPEND_TO_RESPONSE = "videos,casts";
     private final static String PARAM_LANGUAGE = "language";
     private final static String PARAM_WITH_GENRES = "with_genres";
+
+    public final static String LANG_EN = "en";
+    public final static String LANG_TR = "tr";
+
+    private final static String TWITTER_URL = "https://www.twitter.com/";
+    private final static String FACEBOOK_URL = "https://www.facebook.com/";
+    private final static String INSTAGRAM_URL = "https://www.facebook.com/";
 
     public static URL buildSearchUrl(String TMDBSearchQuery, int page) {
         Uri builtUri = Uri.parse(TMDB_SEARCH_BASE_URL).buildUpon()
@@ -110,6 +120,54 @@ public class NetworkUtils {
                 .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
                 .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
                 .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildPersonDetailUrl(int personId, String language) {
+        String detailUrl = TMDB_PERSON_DETAIL_BASE_URL + personId;
+        Uri builtUri = Uri.parse(detailUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, language)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildPersonExternalInfoUrl(int personId) {
+        String detailUrl = TMDB_PERSON_DETAIL_BASE_URL + personId + "/external_ids";
+        Uri builtUri = Uri.parse(detailUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildPersonMoviesUrl(int personId) {
+        String detailUrl = TMDB_PERSON_DETAIL_BASE_URL + personId + "/movie_credits";
+        Uri builtUri = Uri.parse(detailUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
                 .build();
 
         URL url = null;
@@ -242,15 +300,27 @@ public class NetworkUtils {
         }
     }
 
-    private static String getLanguage() {
+    public static String getLanguage() {
         String language = Locale.getDefault().getLanguage();
         if (language.equals("nl")) {
             return "nl";
         } else if (language.equals("de")) {
             return "de";
-        } else if (language.equals("tr")) {
-            return "tr";
+        } else if (language.equals(LANG_TR)) {
+            return LANG_TR;
         }
-        return "en";
+        return LANG_EN;
+    }
+
+    public static String getTwitterUrl() {
+        return TWITTER_URL;
+    }
+
+    public static String getFacebookUrl() {
+        return FACEBOOK_URL;
+    }
+
+    public static String getInstagramUrl() {
+        return INSTAGRAM_URL;
     }
 }

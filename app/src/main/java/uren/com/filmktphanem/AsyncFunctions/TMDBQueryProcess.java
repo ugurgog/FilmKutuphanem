@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uren.com.filmktphanem.Interfaces.OnEventListener;
+import uren.com.filmktphanem.Utils.dataModelUtil.MovieUtil;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
 
@@ -63,9 +64,9 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
         if (s != null && !s.equals("")) {
             try {
                 if (type.equals(TYPE_TOP_250))
-                    parseListMovies(s);
+                    mCallBack.onSuccess(MovieUtil.parseMovies(s, "items"));
                 else
-                    parseMovies(s);
+                    mCallBack.onSuccess(MovieUtil.parseMovies(s, "results"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -89,43 +90,5 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
             TMDBURL = NetworkUtils.buildNowPlayingUrl(pageCount);
         else if (type.equals(TYPE_TOP_250))
             TMDBURL = NetworkUtils.buildTop250Url(634);
-    }
-
-    private void parseMovies(String moviesJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(moviesJSONString);
-        JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
-        List<Movie> movies = new ArrayList<>();
-
-        // Loop throught the JSON array results
-        for (int i = 0; i < moviesJSONArray.length(); i++) {
-            JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            if (!movieJSONObject.isNull("poster_path")) {
-                String posterPath = movieJSONObject.getString("poster_path");
-                int movieId = movieJSONObject.getInt("id");
-
-                // Add new movie object to the movie array
-                movies.add(new Movie(movieId, posterPath));
-            }
-        }
-        mCallBack.onSuccess(movies);
-    }
-
-    private void parseListMovies(String moviesJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(moviesJSONString);
-        JSONArray moviesJSONArray = resultJSONObject.getJSONArray("items");
-        List<Movie> movies = new ArrayList<>();
-
-        // Loop throught the JSON array results
-        for (int i = 0; i < moviesJSONArray.length(); i++) {
-            JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-            if (!movieJSONObject.isNull("poster_path")) {
-                String posterPath = movieJSONObject.getString("poster_path");
-                int movieId = movieJSONObject.getInt("id");
-
-                // Add new movie object to the movie array
-                movies.add(new Movie(movieId, posterPath));
-            }
-        }
-        mCallBack.onSuccess(movies);
     }
 }

@@ -1,16 +1,27 @@
 package uren.com.filmktphanem;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.PorterDuff;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
@@ -23,12 +34,15 @@ import uren.com.filmktphanem.Fragments.Library.LibraryListFragment;
 import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
 import uren.com.filmktphanem.Fragments.Movies.MoviesFragment;
 import uren.com.filmktphanem.Fragments.Search.SearchFragment;
+import uren.com.filmktphanem.Utils.AdMobUtils;
 
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_DOWN_TO_UP;
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_LEFT_TO_RIGHT;
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_RIGHT_TO_LEFT;
 import static uren.com.filmktphanem.Constants.StringConstants.ANIMATE_UP_TO_DOWN;
 import static uren.com.filmktphanem.FragmentControllers.FragNavController.TAB1;
+import static uren.com.filmktphanem.FragmentControllers.FragNavController.TAB2;
+import static uren.com.filmktphanem.FragmentControllers.FragNavController.TAB3;
 
 
 public class MainActivity extends FragmentActivity implements
@@ -41,16 +55,9 @@ public class MainActivity extends FragmentActivity implements
     public TabLayout bottomTabLayout;
     public LinearLayout tabMainLayout;
 
-    private int selectedTabColor, unSelectedTabColor;
-
     public String ANIMATION_TAG;
 
     public FragNavTransactionOptions transactionOptions;
-
-    private int[] mTabIconsSelected = {
-            R.drawable.icon_movies,
-            R.drawable.icon_search,
-            R.drawable.icon_library};
 
     public String[] TABS;
 
@@ -58,14 +65,21 @@ public class MainActivity extends FragmentActivity implements
 
     private FragmentHistory fragmentHistory;
 
+    private AdView adView;
+
+    private LinearLayout linearLayoutOne ;
+    private LinearLayout linearLayout2 ;
+    private LinearLayout linearLayout3;
+
+    private ImageView imgv1;
+    private ImageView imgv2;
+    private ImageView imgv3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Fabric.with(this, new Crashlytics());
-
-        unSelectedTabColor = this.getResources().getColor(R.color.White);
-        selectedTabColor = this.getResources().getColor(R.color.OrangeRed);
 
         initValues();
 
@@ -123,7 +137,10 @@ public class MainActivity extends FragmentActivity implements
         contentFrame = findViewById(R.id.content_frame);
         tabMainLayout = findViewById(R.id.tabMainLayout);
         TABS = getResources().getStringArray(R.array.tab_name);
+        adView = findViewById(R.id.adView);
         initTab();
+        MobileAds.initialize(MainActivity.this, getResources().getString(R.string.ADMOB_APP_ID));
+        AdMobUtils.loadBannerAd(adView);
     }
 
 
@@ -131,16 +148,24 @@ public class MainActivity extends FragmentActivity implements
         if (bottomTabLayout != null) {
             for (int i = 0; i < TABS.length; i++) {
                 bottomTabLayout.addTab(bottomTabLayout.newTab());
-                TabLayout.Tab tab = bottomTabLayout.getTabAt(i);
-
-                if (tab != null) {
-                    tab.setIcon(mTabIconsSelected[i]);
-                    tab.setText(TABS[i]);
-                }
-                bottomTabLayout.getTabAt(0).getIcon().setColorFilter(selectedTabColor, PorterDuff.Mode.SRC_IN);
+                //TabLayout.Tab tab = bottomTabLayout.getTabAt(i);
             }
-
         }
+
+        @SuppressLint("InflateParams") View headerView = ((LayoutInflater) Objects.requireNonNull(getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
+                .inflate(R.layout.custom_tab, null, false);
+
+        linearLayoutOne = headerView.findViewById(R.id.ll);
+        linearLayout2 = headerView.findViewById(R.id.ll2);
+        linearLayout3 = headerView.findViewById(R.id.ll3);
+
+        imgv1 = headerView.findViewById(R.id.imgv1);
+        imgv2 = headerView.findViewById(R.id.imgv2);
+        imgv3 = headerView.findViewById(R.id.imgv3);
+
+        Objects.requireNonNull(bottomTabLayout.getTabAt(0)).setCustomView(linearLayoutOne);
+        Objects.requireNonNull(bottomTabLayout.getTabAt(1)).setCustomView(linearLayout2);
+        Objects.requireNonNull(bottomTabLayout.getTabAt(2)).setCustomView(linearLayout3);
     }
 
     public void onStart() {
@@ -238,11 +263,29 @@ public class MainActivity extends FragmentActivity implements
 
         for (int i = 0; i < TABS.length; i++) {
             TabLayout.Tab selectedTab = bottomTabLayout.getTabAt(i);
+            GradientDrawable drawable = (GradientDrawable)selectedTab.getCustomView().getBackground();
 
-            if (currentTab != i) {
-                selectedTab.getIcon().setColorFilter(unSelectedTabColor, PorterDuff.Mode.SRC_IN);
-            } else {
-                selectedTab.getIcon().setColorFilter(selectedTabColor, PorterDuff.Mode.SRC_IN);
+            if (currentTab != i)
+                drawable.setColor(getResources().getColor(R.color.DarkGray));
+            else {
+                selectedTab.getCustomView().startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.tab_anim));
+
+                switch (i){
+                    case TAB1:
+                        drawable.setColor(getResources().getColor(R.color.gplus_color_2));
+                        imgv1.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.tab_rotate_anim));
+                        break;
+                    case TAB2:
+                        drawable.setColor(getResources().getColor(R.color.gplus_color_3));
+                        imgv2.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.tab_rotate_anim));
+                        break;
+                    case TAB3:
+                        drawable.setColor(getResources().getColor(R.color.gplus_color_4));
+                        imgv3.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.tab_rotate_anim));
+                        break;
+                    default:
+                        drawable.setColor(getResources().getColor(R.color.DarkGray)); break;
+                }
             }
         }
     }
@@ -278,16 +321,15 @@ public class MainActivity extends FragmentActivity implements
 
     }
 
-
     @Override
     public Fragment getRootFragment(int index) {
         switch (index) {
 
             case TAB1:
                 return new MoviesFragment();
-            case FragNavController.TAB2:
+            case TAB2:
                 return new SearchFragment();
-            case FragNavController.TAB3:
+            case TAB3:
                 return new LibraryListFragment();
 
         }
@@ -297,6 +339,5 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public void onFragmentTransaction(Fragment fragment, FragNavController.TransactionType
             transactionType) {
-
     }
 }

@@ -4,10 +4,6 @@ package uren.com.filmktphanem.Fragments.Movies;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -52,8 +50,6 @@ public class GenreMoviesFragment extends BaseFragment {
     ProgressBar pbLoadingIndicator;
     @BindView(R.id.tvMovieType)
     TextView tvMovieType;
-    @BindView(R.id.adView)
-    AdView adView;
 
     private int pastVisibleItems, visibleItemCount, totalItemCount;
     private GridLayoutManager gridLayoutManager;
@@ -73,7 +69,7 @@ public class GenreMoviesFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -102,9 +98,6 @@ public class GenreMoviesFragment extends BaseFragment {
 
     private void initVariables() {
         setGenreType();
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
-        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setGenreType() {
@@ -149,7 +142,7 @@ public class GenreMoviesFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        //setSpanCount();
+        setSpanCount();
         gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);
@@ -183,7 +176,7 @@ public class GenreMoviesFragment extends BaseFragment {
         });
     }
 
-    /*private void setSpanCount() {
+    private void setSpanCount() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -193,7 +186,7 @@ public class GenreMoviesFragment extends BaseFragment {
         } else if (width > 700) {
             spanCount = 3;
         }
-    }*/
+    }
 
     private void setUpRecyclerView(List<Movie> movieList) {
         loading = true;

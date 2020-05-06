@@ -12,12 +12,6 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +25,13 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -48,9 +49,12 @@ import butterknife.ButterKnife;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Library.LibraryUpdateFragment;
 import uren.com.filmktphanem.Fragments.Library.ShowSelectedPhotoFragment;
+import uren.com.filmktphanem.Fragments.Person.PersonFragment;
 import uren.com.filmktphanem.Interfaces.OnLibraryEventCallback;
+import uren.com.filmktphanem.Interfaces.ReturnCallback;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.Utils.ShapeUtil;
+import uren.com.filmktphanem.Utils.dataModelUtil.MovieUtil;
 import uren.com.filmktphanem.adapters.CastRecyclerViewAdapter;
 import uren.com.filmktphanem.adapters.CrewRecyclerViewAdapter;
 import uren.com.filmktphanem.data.FavoritesContract;
@@ -88,6 +92,7 @@ public class MovieDetailFragment extends BaseFragment {
     private RecyclerView rvCast;
     private RecyclerView rvCrew;
     private Button btnTrailer;
+    private Button btn_behind_scenes;
     private int movieId;
     private Movie movie;
     private SQLiteDatabase mDatabase;
@@ -95,15 +100,17 @@ public class MovieDetailFragment extends BaseFragment {
     private MyLibraryItem myLibraryItem;
     private boolean isInLibrary = false;
     private boolean showAddButton;
+    private OnLibraryEventCallback onLibraryEventCallback;
 
-    public MovieDetailFragment(int movieId, boolean showAddButton) {
+    public MovieDetailFragment(int movieId, boolean showAddButton, OnLibraryEventCallback onLibraryEventCallback) {
         this.movieId = movieId;
         this.showAddButton = showAddButton;
+        this.onLibraryEventCallback = onLibraryEventCallback;
     }
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -188,12 +195,7 @@ public class MovieDetailFragment extends BaseFragment {
                         new OnLibraryEventCallback() {
                             @Override
                             public void onReturn(String value) {
-                                if (value.equals(TYPE_ADDED))
-                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_added), Toast.LENGTH_SHORT);
-                                else if (value.equals(TYPE_DELETED))
-                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_deleted), Toast.LENGTH_SHORT);
-                                else if (value.equals(TYPE_UPDATED))
-                                    Toast.makeText(getContext(), getResources().getString(R.string.movie_updated), Toast.LENGTH_SHORT);
+                                onLibraryEventCallback.onReturn(value);
                             }
                         }));
             }
@@ -223,6 +225,7 @@ public class MovieDetailFragment extends BaseFragment {
         tvCrew = mView.findViewById(R.id.tv_crew);
         tvCast = mView.findViewById(R.id.tv_cast);
         btnTrailer = mView.findViewById(R.id.btn_trailer);
+        btn_behind_scenes = mView.findViewById(R.id.btn_behind_scenes);
         favoritesDbHelper = new FavoritesDbHelper(getContext());
     }
 
@@ -251,93 +254,6 @@ public class MovieDetailFragment extends BaseFragment {
     private void showErrorMessage() {
         llMovieInfoHolder.setVisibility(View.GONE);
         tvErrorMessage.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Parse the json string data to a valid Movie object.
-     *
-     * @param movieJSONString
-     */
-    private void parseMovieData(String movieJSONString) throws JSONException {
-        // Get JSON values
-        JSONObject movieJSONObject = new JSONObject(movieJSONString);
-
-        int movieId = movieJSONObject.getInt("id");
-        String movieTitle = movieJSONObject.getString("title");
-
-        String moviePosterPath = null;
-        if (!movieJSONObject.isNull("poster_path")) {
-            moviePosterPath = movieJSONObject.getString("poster_path");
-        }
-
-        String movieBackDropPath = null;
-        if (!movieJSONObject.isNull("backdrop_path")) {
-            movieBackDropPath = movieJSONObject.getString("backdrop_path");
-        }
-
-        Integer movieRunTime = null;
-        if (!movieJSONObject.isNull("runtime")) {
-            movieRunTime = movieJSONObject.getInt("runtime");
-        }
-
-        double movieRating = movieJSONObject.getDouble("vote_average");
-
-        String movieOverview = null;
-        if (!movieJSONObject.isNull("overview") && movieJSONObject.getString("overview").trim().length() > 0) {
-            movieOverview = movieJSONObject.getString("overview");
-        }
-
-        String movieReleaseDate = null;
-        if (!movieJSONObject.isNull("release_date")) {
-            movieReleaseDate = movieJSONObject.getString("release_date");
-        }
-        // Get movie categories
-        ArrayList<String> movieGenres = new ArrayList<String>();
-        JSONArray movieGenresJSONArray = movieJSONObject.getJSONArray("genres");
-        for (int i = 0; i < movieGenresJSONArray.length(); i++) {
-            JSONObject movieGenreJSONObject = movieGenresJSONArray.getJSONObject(i);
-            movieGenres.add(movieGenreJSONObject.getString("name"));
-        }
-
-        // Get production companies
-        ArrayList<String> movieProductionCompanies = new ArrayList<String>();
-        JSONArray movieProductionCompaniesJSONArray = movieJSONObject.getJSONArray("production_companies");
-        for (int i = 0; i < movieProductionCompaniesJSONArray.length(); i++) {
-            JSONObject movieProductionCompanyJSONObject = movieProductionCompaniesJSONArray.getJSONObject(i);
-            movieProductionCompanies.add(movieProductionCompanyJSONObject.getString("name"));
-        }
-
-        JSONObject castsJSONObject = movieJSONObject.getJSONObject("casts");
-
-        // Get cast
-        ArrayList<Cast> cast = new ArrayList<Cast>();
-        JSONArray castJSONArray = castsJSONObject.getJSONArray("cast");
-        for (int i = 0; i < castJSONArray.length(); i++) {
-            JSONObject castJSONObject = castJSONArray.getJSONObject(i);
-            cast.add(new Cast(castJSONObject.getString("name"), castJSONObject.getString("character"), castJSONObject.getString("profile_path")));
-        }
-
-        // Get crew
-        ArrayList<Crew> crew = new ArrayList<Crew>();
-        JSONArray crewJSONArray = castsJSONObject.getJSONArray("crew");
-        for (int i = 0; i < crewJSONArray.length(); i++) {
-            JSONObject crewJSONObject = crewJSONArray.getJSONObject(i);
-            crew.add(new Crew(crewJSONObject.getString("name"), crewJSONObject.getString("job"), crewJSONObject.getString("profile_path")));
-        }
-
-        // Get first trailer
-        String trailerId = null;
-        JSONObject videoJSONObject = movieJSONObject.getJSONObject("videos");
-        JSONArray videoJSONArray = videoJSONObject.getJSONArray("results");
-        for (int i = 0; i < videoJSONArray.length(); i++) {
-            if (videoJSONArray.getJSONObject(i).getString("type").equals("Trailer")) {
-                trailerId = videoJSONArray.getJSONObject(i).getString("key");
-                break;
-            }
-        }
-
-        // Initialize movie
-        movie = new Movie(movieId, movieTitle, moviePosterPath, movieBackDropPath, movieRunTime, movieRating, movieOverview, movieReleaseDate, movieGenres, movieProductionCompanies, cast, crew, trailerId);
     }
 
     /**
@@ -373,6 +289,9 @@ public class MovieDetailFragment extends BaseFragment {
         } else {
             tvMovieReleaseDate.setText(R.string.unknown);
         }
+
+        if(movie.getBehindSceneUrl() == null || movie.getBehindSceneUrl().isEmpty())
+            btn_behind_scenes.setVisibility(View.GONE);
 
         Glide.with(getContext())
                 .load(movie.getPosterLarge())
@@ -421,7 +340,13 @@ public class MovieDetailFragment extends BaseFragment {
 
         // Casts
         if (movie.getCast().size() > 0) {
-            CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getContext(), movie.getCast());
+            CastRecyclerViewAdapter castAdapter = new CastRecyclerViewAdapter(getContext(), movie.getCast(), new ReturnCallback() {
+                @Override
+                public void onReturn(Object object) {
+                    int castId = (int) object;
+                    mFragmentNavigation.pushFragment(new PersonFragment(castId));
+                }
+            });
             LinearLayoutManager castLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
             rvCast.setLayoutManager(castLayoutManager);
             rvCast.setAdapter(castAdapter);
@@ -457,6 +382,18 @@ public class MovieDetailFragment extends BaseFragment {
             btnTrailer.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.btn_disabled));
         }
 
+        // Movie Behind secenes
+        final String behindSecenesUrl = movie.getBehindSceneUrl();
+        if (behindSecenesUrl != null) {
+            btn_behind_scenes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(behindSecenesUrl));
+                    startActivity(i);
+                }
+            });
+        }
     }
 
     private Boolean isInFavorites() {
@@ -509,7 +446,7 @@ public class MovieDetailFragment extends BaseFragment {
             if (s != null && !s.equals("")) {
                 showMovieDetails();
                 try {
-                    parseMovieData(s);
+                    movie = MovieUtil.parseMovieData(s);
                     bindMovieData();
 
                 } catch (JSONException e) {
@@ -521,5 +458,6 @@ public class MovieDetailFragment extends BaseFragment {
             }
         }
     }
+
 
 }

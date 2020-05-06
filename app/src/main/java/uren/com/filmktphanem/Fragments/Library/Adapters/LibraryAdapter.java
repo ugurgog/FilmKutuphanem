@@ -3,8 +3,6 @@ package uren.com.filmktphanem.Fragments.Library.Adapters;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -41,6 +41,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryH
     private List<MyLibraryItem> orgLibraryItemList;
     private BaseFragment.FragmentNavigation mFragmentNavigation;
     private ReturnCallback searchResultCallback;
+    private int commentLength = 100;
 
     public LibraryAdapter(Context context, List<MyLibraryItem> myLibraryItemList, BaseFragment.FragmentNavigation mFragmentNavigation) {
         this.context = context;
@@ -131,12 +132,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryH
         private void setCommentArea() {
             if (myLibraryItem != null && myLibraryItem.getMyComment() != null &&
                     !myLibraryItem.getMyComment().isEmpty()) {
-                tvCommentEx.setText(context.getResources().getString(R.string.comment_exist));
-                tvCommentEx.setTextColor(context.getResources().getColor(R.color.LightGreen));
-            } else {
-                tvCommentEx.setText(context.getResources().getString(R.string.comment_not_exist));
-                tvCommentEx.setTextColor(context.getResources().getColor(R.color.Red));
-            }
+                tvCommentEx.setVisibility(View.VISIBLE);
+                tvCommentEx.setText(getShortenComment(myLibraryItem.getMyComment()));
+            } else
+                tvCommentEx.setVisibility(View.GONE);
         }
 
         private void setRatingBar() {
@@ -149,6 +148,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryH
             if (myLibraryItem != null) {
                 tvRate.setText(Float.toString(scaleRatingBar.getRating()));
             }
+        }
+
+        private String getShortenComment(String comment){
+            if(comment.length() > commentLength)
+                return comment.substring(0,commentLength).concat("...");
+
+            return comment;
         }
     }
 

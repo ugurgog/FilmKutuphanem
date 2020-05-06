@@ -5,11 +5,6 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -23,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +63,6 @@ public class LibraryFragment extends BaseFragment {
     TextView tvMovieType;
     @BindView(R.id.imgvSettings)
     ImageView imgvSettings;
-    @BindView(R.id.adView)
-    AdView adView;
 
     private String type;
     private FavoritesDbHelper dbHelper;
@@ -82,7 +77,7 @@ public class LibraryFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.GONE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.GONE);
         super.onStart();
     }
 
@@ -113,9 +108,6 @@ public class LibraryFragment extends BaseFragment {
     private void initVariables() {
         dbHelper = new FavoritesDbHelper(getContext());
         myLibraryItemList = new ArrayList<>();
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
-        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setTitle() {

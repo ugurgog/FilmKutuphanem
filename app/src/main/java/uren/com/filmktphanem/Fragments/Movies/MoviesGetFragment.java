@@ -4,10 +4,6 @@ package uren.com.filmktphanem.Fragments.Movies;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -38,6 +36,8 @@ import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
 
+
+
 @SuppressLint("ValidFragment")
 public class MoviesGetFragment extends BaseFragment {
 
@@ -51,8 +51,6 @@ public class MoviesGetFragment extends BaseFragment {
     ProgressBar pbLoadingIndicator;
     @BindView(R.id.tvMovieType)
     TextView tvMovieType;
-    @BindView(R.id.adView)
-    AdView adView;
 
     private int pastVisibleItems, visibleItemCount, totalItemCount;
     private GridLayoutManager gridLayoutManager;
@@ -63,7 +61,7 @@ public class MoviesGetFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
-    int spanCount = 3;
+    int spanCount = 2;
     private String type;
 
     public MoviesGetFragment(String type) {
@@ -72,7 +70,6 @@ public class MoviesGetFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -101,9 +98,6 @@ public class MoviesGetFragment extends BaseFragment {
 
     private void initVariables() {
         setMovieType();
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
-        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setMovieType() {
@@ -170,7 +164,7 @@ public class MoviesGetFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        //setSpanCount();
+        setSpanCount();
         gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uren.com.filmktphanem.Interfaces.OnEventListener;
+import uren.com.filmktphanem.Utils.dataModelUtil.MovieUtil;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
 
@@ -62,7 +63,7 @@ public class TMDBSearchMovieProcess extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String s) {
         if (s != null && !s.equals("")) {
             try {
-                parseMovies(s);
+                mCallBack.onSuccess(MovieUtil.parseMovies(s, "results"));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -78,20 +79,4 @@ public class TMDBSearchMovieProcess extends AsyncTask<Void, Void, String> {
             TMDBURL = NetworkUtils.buildSearchUrl(query, pageCount);
     }
 
-    private void parseMovies(String moviesJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(moviesJSONString);
-        JSONArray moviesJSONArray = resultJSONObject.getJSONArray("results");
-        List<Movie> movies = new ArrayList<>();
-
-        for (int i = 0; i < moviesJSONArray.length(); i++) {
-            JSONObject movieJSONObject = new JSONObject(moviesJSONArray.get(i).toString());
-
-            if (!movieJSONObject.isNull("poster_path")) {
-                String posterPath = movieJSONObject.getString("poster_path");
-                int movieId = movieJSONObject.getInt("id");
-                movies.add(new Movie(movieId, posterPath));
-            }
-        }
-        mCallBack.onSuccess(movies);
-    }
 }

@@ -3,10 +3,6 @@ package uren.com.filmktphanem.Fragments.Movies;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 
@@ -33,7 +31,6 @@ import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.Utils.AdMobUtils;
-import uren.com.filmktphanem.data.NetworkUtils;
 
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
@@ -53,8 +50,6 @@ public class GenreListFragment extends BaseFragment {
     TextView tvErrorMessage;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.adView)
-    AdView adView;
 
     private List<Genre> genreList;
     private LinearLayoutManager mLayoutManager;
@@ -66,7 +61,7 @@ public class GenreListFragment extends BaseFragment {
 
     @Override
     public void onStart() {
-        getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
+        //getActivity().findViewById(R.id.tabMainLayout).setVisibility(View.VISIBLE);
         super.onStart();
     }
 
@@ -95,9 +90,6 @@ public class GenreListFragment extends BaseFragment {
 
     private void initVariables() {
         genreList = new ArrayList<>();
-        MobileAds.initialize(getContext(), getResources().getString(R.string.ADMOB_APP_ID));
-        AdMobUtils.loadBannerAd(adView);
-        AdMobUtils.loadInterstitialAd(getContext());
     }
 
     private void setLayoutManager() {
