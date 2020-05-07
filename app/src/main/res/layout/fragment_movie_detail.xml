@@ -125,33 +125,50 @@
                     android:id="@+id/btn_trailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"
                     android:layout_marginBottom="15dp"
-                    android:text="@string/watch_trailer"
-                    android:textSize="16sp"
-                    android:height="40dp"
+                    android:height="30dp"
+                    android:background="@drawable/btn_styling"
                     android:maxHeight="40dp"
                     android:minHeight="40dp"
-                    android:background="@drawable/btn_styling"/>
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="@string/watch_trailer"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/btn_behind_scenes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
                     android:layout_gravity="center"
-                    android:textColor="#ffffff"
                     android:layout_marginBottom="15dp"
-                    android:text="@string/watch_behind_scene"
-                    android:textSize="16sp"
-                    android:height="40dp"
+                    android:height="30dp"
+                    android:background="@drawable/btn_styling"
                     android:maxHeight="40dp"
                     android:minHeight="40dp"
-                    android:background="@drawable/btn_styling"/>
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="@string/watch_behind_scene"
+                    android:textColor="@color/White"
+                    android:textAllCaps="false"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_view_similar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:maxHeight="40dp"
+                    android:minHeight="40dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="@string/view_similar_movies"
+                    android:textColor="@color/White"
+                    android:textAllCaps="false"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

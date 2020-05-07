@@ -1,6 +1,5 @@
 package uren.com.filmktphanem.Fragments.Movies;
 
-
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,22 +23,19 @@ import uren.com.filmktphanem.AsyncFunctions.TMDBQueryProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
-import uren.com.filmktphanem.Utils.AdMobUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.models.Movie;
 
-import static uren.com.filmktphanem.Constants.StringConstants.TYPE_BY_GENRE;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_SIMILAR_MOVIES;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_250;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_UPCOMING;
 
-
-
 @SuppressLint("ValidFragment")
-public class MoviesGetFragment extends BaseFragment {
+public class SimilarMoviesFragment extends BaseFragment {
 
     View mView;
 
@@ -61,11 +57,12 @@ public class MoviesGetFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
-    int spanCount = 2;
-    private String type;
 
-    public MoviesGetFragment(String type) {
-        this.type = type;
+    int spanCount = 2;
+    private Movie movie;
+
+    public SimilarMoviesFragment(Movie movie) {
+        this.movie = movie;
     }
 
     @Override
@@ -97,33 +94,7 @@ public class MoviesGetFragment extends BaseFragment {
     }
 
     private void initVariables() {
-        setMovieType();
-    }
-
-    private void setMovieType() {
-
-        switch (type) {
-            case TYPE_TRENDING:
-                tvMovieType.setText(getResources().getString(R.string.trending_movies));
-                break;
-            case TYPE_POPULAR:
-                tvMovieType.setText(getResources().getString(R.string.popular_movies));
-                break;
-            case TYPE_TOP_RATED:
-                tvMovieType.setText(getResources().getString(R.string.top_rated_movies));
-                break;
-            case TYPE_UPCOMING:
-                tvMovieType.setText(getResources().getString(R.string.upcoming_movies));
-                break;
-            case TYPE_NOW_PLAYING:
-                tvMovieType.setText(getResources().getString(R.string.now_playing_movies));
-                break;
-            case TYPE_TOP_250:
-                tvMovieType.setText(getResources().getString(R.string.by_top_twohundred));
-                break;
-            default:
-                break;
-        }
+        tvMovieType.setText(movie.getTitle().concat(" : ").concat(getContext().getResources().getString(R.string.similar_movies)));
     }
 
     private void getTMDBQuery() {
@@ -147,7 +118,7 @@ public class MoviesGetFragment extends BaseFragment {
                 if (loadCode == CODE_FIRST_LOAD)
                     pbLoadingIndicator.setVisibility(View.VISIBLE);
             }
-        }, pageCount, type, 0);
+        }, pageCount, TYPE_SIMILAR_MOVIES, movie.getMovieId());
 
         tmdbQueryProcess.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

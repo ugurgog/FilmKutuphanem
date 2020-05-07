@@ -29,7 +29,11 @@
     <string name="favorite_movies">Favorite Movies</string>
     <string name="watched_movies">Watched Movies</string>
     <string name="will_watched_movies">Will Watch Movies</string>
+    <string name="watched">Watched</string>
+    <string name="will_watched">Will Watch</string>
     <string name="all_movies">All Movies</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="view_similar_movies">View Similar Movies</string>
     <string name="remove_from_favorites">Remove from my favorites</string>
     <string name="add_to_favorites">Add to my favorites</string>
     <string name="favorites_removed_1">Removed</string>
@@ -37,6 +41,7 @@
     <string name="favorites_added_1">Added</string>
     <string name="favorites_added_2">to your favorites</string>
     <string name="unknown">Onbekend</string>
+    <string name="recommended_movies">Recommended For You</string>
     <string name="results_heading">results for</string>
     <string name="no_favorite_movies">You don\'t have any favorite movies. Add one by going to a movie\'s detail page.</string>
     <string name="no_description">No description available</string>

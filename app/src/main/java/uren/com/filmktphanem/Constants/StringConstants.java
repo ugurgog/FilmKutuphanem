@@ -17,6 +17,8 @@ public class StringConstants {
     public static final String TYPE_NOW_PLAYING = "now_playing";
     public static final String TYPE_BY_GENRE = "by_genre";
     public static final String TYPE_TOP_250 = "top_250";
+    public static final String TYPE_SIMILAR_MOVIES= "similar_movies";
+    public static final String TYPE_RECOMMENDED_MOVIES= "recommended";
 
     //Orientation constants
     public static final int ORIENTATION_LEFT_RIGHT = 0;

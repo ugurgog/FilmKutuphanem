@@ -110,6 +110,15 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
         }
     }
 
+    public void removeAll()  {
+        if(movieList != null)
+            movieList.clear();
+        if(orgMovieList != null)
+            orgMovieList.clear();
+
+        notifyDataSetChanged();
+    }
+
     public void addProgressLoading() {
         if (getItemViewType(movieList.size() - 1) != VIEW_PROG) {
             movieList.add(null);

@@ -17,6 +17,8 @@ import uren.com.filmktphanem.models.Movie;
 
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_NOW_PLAYING;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_POPULAR;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_RECOMMENDED_MOVIES;
+import static uren.com.filmktphanem.Constants.StringConstants.TYPE_SIMILAR_MOVIES;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_250;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TOP_RATED;
 import static uren.com.filmktphanem.Constants.StringConstants.TYPE_TRENDING;
@@ -29,11 +31,13 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
     private int pageCount;
     private String type;
     private URL TMDBURL = null;
+    private int movieId;
 
-    public TMDBQueryProcess(OnEventListener callback, int pageCount, String type) {
+    public TMDBQueryProcess(OnEventListener callback, int pageCount, String type, int movieId) {
         mCallBack = callback;
         this.pageCount = pageCount;
         this.type = type;
+        this.movieId = movieId;
     }
 
     @Override
@@ -90,5 +94,9 @@ public class TMDBQueryProcess extends AsyncTask<Void, Void, String> {
             TMDBURL = NetworkUtils.buildNowPlayingUrl(pageCount);
         else if (type.equals(TYPE_TOP_250))
             TMDBURL = NetworkUtils.buildTop250Url(634);
+        else if(type.equals(TYPE_SIMILAR_MOVIES))
+            TMDBURL = NetworkUtils.buildSimilarMoviesUrl(movieId, pageCount);
+        else if (type.equals(TYPE_RECOMMENDED_MOVIES))
+            TMDBURL = NetworkUtils.buildRecommendedMoviesUrl(movieId,pageCount);
     }
 }

@@ -66,8 +66,11 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
         TextView tvMovieName;
         TextView tvCommentEx;
         TextView tvRate;
-        TextView tvFavorites;
-        TextView tvIzlendi;
+
+
+        TextView imgvFavorites;
+        TextView imgvWillWatch;
+        TextView imgvWatched;
 
         public LibraryHolder(View view) {
             super(view);
@@ -78,8 +81,16 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             tvMovieName = view.findViewById(R.id.tvMovieName);
             tvCommentEx = view.findViewById(R.id.tvCommentEx);
             tvRate = view.findViewById(R.id.tvRate);
-            tvFavorites = view.findViewById(R.id.tvFavorites);
-            tvIzlendi = view.findViewById(R.id.tvIzlendi);
+            imgvFavorites = view.findViewById(R.id.btnFavorites);
+            imgvWatched = view.findViewById(R.id.btnWatched);
+            imgvWillWatch = view.findViewById(R.id.btnWillWatch);
+
+            imgvFavorites.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_4, null),
+                    context.getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 2));
+            imgvWillWatch.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_2, null),
+                    context.getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 2));
+            imgvWatched.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_3, null),
+                    context.getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 2));
 
             llMain.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,7 +120,7 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             setCommentArea();
             setRatingBar();
             setMyRateValue();
-            setButtons();
+            setImages();
         }
 
         private void setImage() {
@@ -135,8 +146,8 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
         private void setCommentArea() {
             if (myLibraryItem != null && myLibraryItem.getMyComment() != null &&
                     !myLibraryItem.getMyComment().isEmpty()) {
-                tvCommentEx.setText(context.getResources().getString(R.string.comment_exist));
-                tvCommentEx.setTextColor(context.getResources().getColor(R.color.LightGreen));
+                tvCommentEx.setText(myLibraryItem.getMyComment());
+                tvCommentEx.setTextColor(context.getResources().getColor(R.color.White));
             } else {
                 tvCommentEx.setText(context.getResources().getString(R.string.comment_not_exist));
                 tvCommentEx.setTextColor(context.getResources().getColor(R.color.Red));
@@ -155,29 +166,23 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             }
         }
 
-        private void setButtons(){
+        private void setImages(){
             if (myLibraryItem != null){
-                tvFavorites.setTextColor(context.getResources().getColor(R.color.Red));
 
                 if(myLibraryItem.getInFavorites() == 1)
-                    tvFavorites.setVisibility(View.VISIBLE);
+                    imgvFavorites.setVisibility(View.VISIBLE);
                 else
-                    tvFavorites.setVisibility(View.GONE);
+                    imgvFavorites.setVisibility(View.GONE);
 
-                if(myLibraryItem.getWatched() == 1) {
-                    tvIzlendi.setVisibility(View.VISIBLE);
-                    tvIzlendi.setText(context.getResources().getString(R.string.in_watched));
-                    tvIzlendi.setTextColor(context.getResources().getColor(R.color.DodgerBlue));
-                }else {
-                    if(myLibraryItem.getWillWatch() == 1){
-                        tvIzlendi.setVisibility(View.VISIBLE);
-                        tvIzlendi.setText(context.getResources().getString(R.string.in_will_watched));
-                        tvIzlendi.setTextColor(context.getResources().getColor(R.color.MediumTurquoise));
-                    }else {
-                        tvIzlendi.setVisibility(View.GONE);
-                    }
+                if(myLibraryItem.getWatched() == 1)
+                    imgvWatched.setVisibility(View.VISIBLE);
+                else
+                    imgvWatched.setVisibility(View.GONE);
 
-                }
+                if(myLibraryItem.getWillWatch() == 1)
+                    imgvWillWatch.setVisibility(View.VISIBLE);
+                else
+                    imgvWillWatch.setVisibility(View.GONE);
             }
         }
     }

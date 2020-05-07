@@ -13,6 +13,7 @@ import java.util.List;
 
 import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
+import uren.com.filmktphanem.Utils.dataModelUtil.MovieUtil;
 import uren.com.filmktphanem.data.NetworkUtils;
 import uren.com.filmktphanem.models.Movie;
 
@@ -59,7 +60,7 @@ public class TMDBGenreListProcess extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String s) {
         if (s != null && !s.equals("")) {
             try {
-                parseGenreList(s);
+                mCallBack.onSuccess(MovieUtil.parseGenreList(s));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -68,21 +69,5 @@ public class TMDBGenreListProcess extends AsyncTask<Void, Void, String> {
         } else {
             mCallBack.onFailure(mException);
         }
-    }
-
-    private void parseGenreList(String genresJSONString) throws JSONException {
-        JSONObject resultJSONObject = new JSONObject(genresJSONString);
-        JSONArray genres1JSONArray = resultJSONObject.getJSONArray("genres");
-        List<Genre> genres = new ArrayList<>();
-
-        for (int i = 0; i < genres1JSONArray.length(); i++) {
-            JSONObject genreJSONObject = new JSONObject(genres1JSONArray.get(i).toString());
-            if (!genreJSONObject.isNull("id") && !genreJSONObject.isNull("name")) {
-                String genreName = genreJSONObject.getString("name");
-                int genreId = genreJSONObject.getInt("id");
-                genres.add(new Genre(genreId, genreName));
-            }
-        }
-        mCallBack.onSuccess(genres);
     }
 }

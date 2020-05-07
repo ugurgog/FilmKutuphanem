@@ -93,6 +93,7 @@ public class MovieDetailFragment extends BaseFragment {
     private RecyclerView rvCrew;
     private Button btnTrailer;
     private Button btn_behind_scenes;
+    private Button btn_view_similar;
     private int movieId;
     private Movie movie;
     private SQLiteDatabase mDatabase;
@@ -226,7 +227,11 @@ public class MovieDetailFragment extends BaseFragment {
         tvCast = mView.findViewById(R.id.tv_cast);
         btnTrailer = mView.findViewById(R.id.btn_trailer);
         btn_behind_scenes = mView.findViewById(R.id.btn_behind_scenes);
+        btn_view_similar = mView.findViewById(R.id.btn_view_similar);
         favoritesDbHelper = new FavoritesDbHelper(getContext());
+
+        btn_view_similar.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DimGray, null),
+                getContext().getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 30, 2));
     }
 
     /**
@@ -394,6 +399,13 @@ public class MovieDetailFragment extends BaseFragment {
                 }
             });
         }
+
+        btn_view_similar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragmentNavigation.pushFragment(new SimilarMoviesFragment(movie));
+            }
+        });
     }
 
     private Boolean isInFavorites() {

@@ -164,7 +164,7 @@ public class PersonFragment extends BaseFragment {
         btnViewAllMovies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mFragmentNavigation.pushFragment(new PersonMoviesFragment(person.getId(), person.getName()));
             }
         });
     }

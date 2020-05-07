@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import uren.com.filmktphanem.Fragments.Movies.Models.Genre;
 import uren.com.filmktphanem.models.Cast;
 import uren.com.filmktphanem.models.Crew;
 import uren.com.filmktphanem.models.Movie;
@@ -31,6 +32,22 @@ public class MovieUtil {
             }
         }
         return movies;
+    }
+
+    public static List<Genre> parseGenreList(String genresJSONString) throws JSONException {
+        JSONObject resultJSONObject = new JSONObject(genresJSONString);
+        JSONArray genres1JSONArray = resultJSONObject.getJSONArray("genres");
+        List<Genre> genres = new ArrayList<>();
+
+        for (int i = 0; i < genres1JSONArray.length(); i++) {
+            JSONObject genreJSONObject = new JSONObject(genres1JSONArray.get(i).toString());
+            if (!genreJSONObject.isNull("id") && !genreJSONObject.isNull("name")) {
+                String genreName = genreJSONObject.getString("name");
+                int genreId = genreJSONObject.getInt("id");
+                genres.add(new Genre(genreId, genreName));
+            }
+        }
+        return genres;
     }
 
     public static Movie parseMovieData(String movieJSONString) throws JSONException {

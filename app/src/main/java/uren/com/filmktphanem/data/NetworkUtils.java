@@ -278,6 +278,40 @@ public class NetworkUtils {
         return url;
     }
 
+    public static URL buildSimilarMoviesUrl(int movieId, int page) {
+        String detailUrl = TMDB_DETAIL_BASE_URL + movieId + "/similar";
+        Uri builtUri = Uri.parse(detailUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static URL buildRecommendedMoviesUrl(int movieId, int page) {
+        String detailUrl = TMDB_DETAIL_BASE_URL + movieId + "/recommendations";
+        Uri builtUri = Uri.parse(detailUrl).buildUpon()
+                .appendQueryParameter(PARAM_API_KEY, VALUE_API_KEY)
+                .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
+                .appendQueryParameter(PARAM_LANGUAGE, getLanguage())
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
