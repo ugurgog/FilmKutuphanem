@@ -84,6 +84,7 @@
 
     <string name="high_rated_first">High-rated ones before</string>
     <string name="low_rated_first">Low-rated ones before</string>
+    <string name="based_name">By Name</string>
     <string name="favorites_first">Favorites first</string>
     <string name="watched_first">Watched first</string>
     <string name="will_watch_first">Will watch first</string>

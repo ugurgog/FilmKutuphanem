@@ -208,6 +208,10 @@ public class LibraryFragment extends BaseFragment {
                                 orderByValue = ORDER_BY_ASC;
                                 getLibraryList();
                                 break;
+                            case R.id.basedName:
+                                getLibraryList();
+                                libraryAdapter.orderByName();
+                                break;
                         }
                         return false;
                     }

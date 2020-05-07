@@ -80,6 +80,7 @@
 
     <string name="high_rated_first">Oylamasi yüksek olanlar önce</string>
     <string name="low_rated_first">Oylamasi düşük olanlar önce</string>
+    <string name="based_name">İsme Göre</string>
     <string name="favorites_first">Favoriler önce</string>
     <string name="watched_first">İzlenenler önce</string>
     <string name="will_watch_first">İzlenecekler önce</string>

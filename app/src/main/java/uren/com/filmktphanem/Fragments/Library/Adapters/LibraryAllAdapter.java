@@ -20,6 +20,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import uren.com.filmktphanem.Fragments.BaseFragment;
@@ -186,6 +188,18 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             }
         }
     }
+
+    public void orderByName(){
+        Collections.sort(myLibraryItemList, comparatorFilter);
+        notifyDataSetChanged();
+    }
+
+    private Comparator<MyLibraryItem> comparatorFilter = new Comparator<MyLibraryItem>() {
+        @Override
+        public int compare(MyLibraryItem o1, MyLibraryItem o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    };
 
     @Override
     public void onBindViewHolder(final LibraryHolder holder, final int position) {
