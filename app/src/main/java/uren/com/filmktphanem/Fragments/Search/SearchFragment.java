@@ -155,7 +155,7 @@ public class SearchFragment extends BaseFragment {
 
     public int getRandomMovieId(){
         if(myLibraryItemList.size() == 0)
-            return 20453; //3 idiots
+            return 278; //Shawsank redemption
         else if(myLibraryItemList.size() <= 2)
             return myLibraryItemList.get(0).getMovieId();
         else{
