@@ -42,6 +42,7 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
     private List<MyLibraryItem> orgLibraryItemList;
     private BaseFragment.FragmentNavigation mFragmentNavigation;
     private ReturnCallback searchResultCallback;
+    private int commentLength = 100;
 
     public LibraryAllAdapter(Context context, List<MyLibraryItem> myLibraryItemList, BaseFragment.FragmentNavigation mFragmentNavigation) {
         this.context = context;
@@ -87,12 +88,12 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
             imgvWatched = view.findViewById(R.id.btnWatched);
             imgvWillWatch = view.findViewById(R.id.btnWillWatch);
 
-            imgvFavorites.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_4, null),
-                    context.getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 2));
-            imgvWillWatch.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_2, null),
-                    context.getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 2));
-            imgvWatched.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_3, null),
-                    context.getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 2));
+            imgvFavorites.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_4),
+                    context.getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 2));
+            imgvWillWatch.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_2),
+                    context.getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 2));
+            imgvWatched.setBackground(ShapeUtil.getShape(context.getResources().getColor(R.color.gplus_color_3),
+                    context.getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 2));
 
             llMain.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,12 +149,17 @@ public class LibraryAllAdapter extends RecyclerView.Adapter<LibraryAllAdapter.Li
         private void setCommentArea() {
             if (myLibraryItem != null && myLibraryItem.getMyComment() != null &&
                     !myLibraryItem.getMyComment().isEmpty()) {
-                tvCommentEx.setText(myLibraryItem.getMyComment());
-                tvCommentEx.setTextColor(context.getResources().getColor(R.color.White));
-            } else {
-                tvCommentEx.setText(context.getResources().getString(R.string.comment_not_exist));
-                tvCommentEx.setTextColor(context.getResources().getColor(R.color.Red));
-            }
+                tvCommentEx.setVisibility(View.VISIBLE);
+                tvCommentEx.setText(getShortenComment(myLibraryItem.getMyComment()));
+            } else
+                tvCommentEx.setVisibility(View.GONE);
+        }
+
+        private String getShortenComment(String comment){
+            if(comment.length() > commentLength)
+                return comment.substring(0,commentLength).concat("...");
+
+            return comment;
         }
 
         private void setRatingBar() {

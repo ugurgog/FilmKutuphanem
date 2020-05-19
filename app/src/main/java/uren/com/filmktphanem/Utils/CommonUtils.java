@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -278,21 +279,17 @@ public class CommonUtils {
         return drawable;
     }
 
-    public static void showKeyboard(Context context, boolean showKeyboard, EditText editText) {
+    public static int getSpanCount(Activity activity) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        if (showKeyboard) {
-            InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(context).getSystemService(Context.INPUT_METHOD_SERVICE);
-            Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        } else {
-            InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(context).getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            Objects.requireNonNull(imm).hideSoftInputFromWindow(editText.getWindowToken(), 0);
-            editText.setFocusable(false);
-            editText.setFocusableInTouchMode(true);
+        int spanCount = 3;
+        int width = displayMetrics.widthPixels;
+        if (width > 1400) {
+            spanCount = 3;
+        } else if (width > 700) {
+            spanCount = 2;
         }
-    }
-
-    public static void hideExceptionLayout(RelativeLayout mainExceptionLayout) {
-        mainExceptionLayout.setVisibility(View.GONE);
+        return spanCount;
     }
 }

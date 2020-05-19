@@ -113,18 +113,18 @@ public class LoginActivity extends AppCompatActivity
     }
 
     public void setShapes() {
-        emailET.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent, null),
-                getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 4));
-        passwordET.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent, null),
-                getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 4));
-        btnLogin.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.colorPrimary, null),
-                getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 4));
-        llGoogleSignIn.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.GoogleLogin, null),
-                getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 4));
-        forgetPasswordBtn.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent, null),
-                getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 4));
-        createAccBtn.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent, null),
-                getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 20, 4));
+        emailET.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent),
+                getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 4));
+        passwordET.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent),
+                getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 4));
+        btnLogin.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.colorPrimary),
+                getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 4));
+        llGoogleSignIn.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.GoogleLogin),
+                getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 4));
+        forgetPasswordBtn.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent),
+                getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 4));
+        createAccBtn.setBackground(ShapeUtil.getShape(getResources().getColor(R.color.transparent),
+                getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 20, 4));
     }
 
     private void initVariables() {

@@ -1,6 +1,7 @@
 package uren.com.filmktphanem.Fragments.Movies;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -23,6 +24,7 @@ import uren.com.filmktphanem.AsyncFunctions.TMDBQueryProcess;
 import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.CommonUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.models.Movie;
 
@@ -58,7 +60,6 @@ public class SimilarMoviesFragment extends BaseFragment {
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
 
-    int spanCount = 2;
     private Movie movie;
 
     public SimilarMoviesFragment(Movie movie) {
@@ -135,23 +136,10 @@ public class SimilarMoviesFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        setSpanCount();
-        gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
+        gridLayoutManager = new GridLayoutManager(getContext(), CommonUtils.getSpanCount(getActivity()));
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);
         setRecyclerViewScroll();
-    }
-
-    private void setSpanCount() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        int width = displayMetrics.widthPixels;
-        if (width > 1400) {
-            spanCount = 5;
-        } else if (width > 700) {
-            spanCount = 3;
-        }
     }
 
     private void setRecyclerViewScroll() {

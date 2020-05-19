@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,280 +22,286 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:paddingTop="25dp"
                 android:text="@string/my_library"
                 android:textColor="#ffffff"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:fontFamily="@font/lato_family"/>
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_marginTop="5dp">
 
-                <!--Favorite movies-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
+                    <!--Favorite movies-->
                     <LinearLayout
-                        android:id="@+id/llFavorites"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/imgvFavorites"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="5dp" />
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/llFavorites"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
-                            <TextView
+                            <ImageView
+                                android:id="@+id/imgvFavorites"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:padding="5dp" />
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/favorite_movies"
-                                android:textColor="@color/White"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tvFavorites"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="dsdsdsdsdsd"
-                                android:textColor="@color/White"
-                                android:textSize="15sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/favorite_movies"
+                                    android:textColor="@color/White"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/tvfavtot"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/DodgerBlue"
-                                android:textSize="13sp" />
+                                <TextView
+                                    android:id="@+id/tvFavorites"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/White"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tvfavtot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/DodgerBlue"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.6dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/White" />
+
+
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/White" />
-
-
-                </LinearLayout>
-
-                <!--Watched movies-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
+                    <!--Watched movies-->
                     <LinearLayout
-                        android:id="@+id/llWatched"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/imgvWatched"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="5dp" />
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/llWatched"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
+                            <ImageView
+                                android:id="@+id/imgvWatched"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:padding="5dp" />
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/watched_movies"
-                                android:textColor="@color/White"
-                                android:textSize="20sp"
-                                android:textStyle="bold"/>
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tvWatched"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="dsdsdsdsdsd"
-                                android:textColor="@color/White"
-                                android:textSize="15sp" />
 
-                            <TextView
-                                android:id="@+id/tvwatchedtot"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/DodgerBlue"
-                                android:textSize="13sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/watched_movies"
+                                    android:textColor="@color/White"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/tvWatched"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/White"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tvwatchedtot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/DodgerBlue"
+                                    android:text=""
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.6dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/White" />
+
+
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/White" />
-
-
-                </LinearLayout>
-
-                <!--Will Watch movies-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
+                    <!--Will Watch movies-->
                     <LinearLayout
-                        android:id="@+id/llWillWatch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:id="@+id/imgvWillWatch"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="5dp" />
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/llWillWatch"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
+                            <ImageView
+                                android:id="@+id/imgvWillWatch"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:padding="5dp" />
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/will_watched_movies"
-                                android:textColor="@color/White"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tvWillWatch"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="dsdsdsdsdsd"
-                                android:textColor="@color/White"
-                                android:textSize="15sp" />
 
-                            <TextView
-                                android:id="@+id/tvwillwatchtot"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/DodgerBlue"
-                                android:textSize="13sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/will_watched_movies"
+                                    android:textColor="@color/White"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvWillWatch"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/White"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tvwillwatchtot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/DodgerBlue"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.6dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/White" />
+
+
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/White" />
-
-
-                </LinearLayout>
-
-                <!--All movies-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
+                    <!--All movies-->
                     <LinearLayout
-                        android:id="@+id/llAll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-
-                        <ImageView
-                            android:id="@+id/imgvAll"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="5dp" />
+                        android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/llAll"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:padding="10dp">
 
-                            <TextView
+
+                            <ImageView
+                                android:id="@+id/imgvAll"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:padding="5dp" />
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/all_movies"
-                                android:textColor="@color/White"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tvAll"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="dsdsdsdsdsd"
-                                android:textColor="@color/White"
-                                android:textSize="15sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/all_movies"
+                                    android:textColor="@color/White"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/tvalltot"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/DodgerBlue"
-                                android:textSize="13sp" />
+                                <TextView
+                                    android:id="@+id/tvAll"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="@color/White"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/tvalltot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/DodgerBlue"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
+                        <!--<View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.6dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/White" />-->
+
+
                     </LinearLayout>
-
-                    <!--<View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.6dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/White" />-->
-
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </ScrollView>
+
+
 
         </LinearLayout>
 

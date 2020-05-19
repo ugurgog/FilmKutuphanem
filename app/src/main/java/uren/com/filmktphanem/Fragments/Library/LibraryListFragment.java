@@ -152,6 +152,7 @@ public class LibraryListFragment extends BaseFragment {
     private void setImages() {
         //Favorites
         if (favoritesList != null && favoritesList.size() > 0) {
+            tvFavorites.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(favoritesList.get(0).getPosterLarge())
                     .apply(RequestOptions.circleCropTransform())
@@ -163,7 +164,7 @@ public class LibraryListFragment extends BaseFragment {
                 tvFavorites.setText(favoritesList.get(0).getName() + " + " +
                         String.valueOf((favoritesList.size() - 1)) + " " + getResources().getString(R.string.others));
         } else {
-            tvFavorites.setText(getResources().getString(R.string.have_no_favorite_movies));
+            tvFavorites.setVisibility(View.GONE);
             Glide.with(getContext())
                     .load(R.drawable.icon_no_movie)
                     .apply(RequestOptions.circleCropTransform())
@@ -172,6 +173,7 @@ public class LibraryListFragment extends BaseFragment {
 
         //Watched
         if (watchedList != null && watchedList.size() > 0) {
+            tvWatched.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(watchedList.get(0).getPosterLarge())
                     .apply(RequestOptions.circleCropTransform())
@@ -183,7 +185,7 @@ public class LibraryListFragment extends BaseFragment {
                 tvWatched.setText(watchedList.get(0).getName() + " + " +
                         String.valueOf((watchedList.size() - 1)) + " " + getResources().getString(R.string.others));
         } else {
-            tvWatched.setText(getResources().getString(R.string.have_no_watched_movies));
+            tvWatched.setVisibility(View.GONE);
             Glide.with(getContext())
                     .load(R.drawable.icon_no_movie)
                     .apply(RequestOptions.circleCropTransform())
@@ -192,6 +194,7 @@ public class LibraryListFragment extends BaseFragment {
 
         //Will Watched
         if (willWatchedList != null && willWatchedList.size() > 0) {
+            tvWillWatch.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(willWatchedList.get(0).getPosterLarge())
                     .apply(RequestOptions.circleCropTransform())
@@ -203,7 +206,7 @@ public class LibraryListFragment extends BaseFragment {
                 tvWillWatch.setText(willWatchedList.get(0).getName() + " + " +
                         String.valueOf((willWatchedList.size() - 1)) + " " + getResources().getString(R.string.others));
         } else {
-            tvWillWatch.setText(getResources().getString(R.string.have_no_will_watched_movies));
+            tvWillWatch.setVisibility(View.GONE);
             Glide.with(getContext())
                     .load(R.drawable.icon_no_movie)
                     .apply(RequestOptions.circleCropTransform())
@@ -212,6 +215,7 @@ public class LibraryListFragment extends BaseFragment {
 
         //All
         if (allList != null && allList.size() > 0) {
+            tvAll.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(allList.get(0).getPosterLarge())
                     .apply(RequestOptions.circleCropTransform())
@@ -223,7 +227,7 @@ public class LibraryListFragment extends BaseFragment {
                 tvAll.setText(allList.get(0).getName() + " + " +
                         String.valueOf((allList.size() - 1)) + " " + getResources().getString(R.string.others));
         } else {
-            tvAll.setText(getResources().getString(R.string.have_no_all_movies));
+            tvAll.setVisibility(View.GONE);
             Glide.with(getContext())
                     .load(R.drawable.icon_no_movie)
                     .apply(RequestOptions.circleCropTransform())

@@ -41,6 +41,7 @@ import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.MainActivity;
 import uren.com.filmktphanem.R;
 import uren.com.filmktphanem.Utils.AdMobUtils;
+import uren.com.filmktphanem.Utils.CommonUtils;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.FavoritesDbHelper;
 import uren.com.filmktphanem.data.MyLibraryItem;
@@ -71,7 +72,6 @@ public class SearchFragment extends BaseFragment {
     private static final int CODE_FIRST_LOAD = 0;
     private static final int CODE_MORE_LOAD = 1;
     private int loadCode = CODE_FIRST_LOAD;
-    int spanCount = 2;
 
     private FavoritesDbHelper dbHelper;
     private List<MyLibraryItem> myLibraryItemList;
@@ -156,7 +156,7 @@ public class SearchFragment extends BaseFragment {
     public int getRandomMovieId(){
         if(myLibraryItemList.size() == 0)
             return 278; //Shawsank redemption
-        else if(myLibraryItemList.size() <= 2)
+        else if(myLibraryItemList.size() == 1)
             return myLibraryItemList.get(0).getMovieId();
         else{
             Random rand = new Random();
@@ -218,23 +218,10 @@ public class SearchFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        setSpanCount();
-        gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
+        gridLayoutManager = new GridLayoutManager(getContext(), CommonUtils.getSpanCount(getActivity()));
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);
         setRecyclerViewScroll();
-    }
-
-    private void setSpanCount() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        int width = displayMetrics.widthPixels;
-        if (width > 1400) {
-            spanCount = 5;
-        } else if (width > 700) {
-            spanCount = 3;
-        }
     }
 
     private void setRecyclerViewScroll() {

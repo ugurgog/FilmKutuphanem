@@ -4,9 +4,9 @@
 
     <solid android:color="@color/LightGrey" />
 
-    <!--stroke
+    <stroke
         android:width="2dp"
-        android:color="@color/Black" /-->
+        android:color="@color/Black" />
 
     <corners
         android:bottomLeftRadius="60dp"

@@ -28,6 +28,7 @@ import uren.com.filmktphanem.Fragments.BaseFragment;
 import uren.com.filmktphanem.Fragments.Movies.MovieDetailFragment;
 import uren.com.filmktphanem.Interfaces.OnEventListener;
 import uren.com.filmktphanem.R;
+import uren.com.filmktphanem.Utils.CommonUtils;
 import uren.com.filmktphanem.Utils.dataModelUtil.MovieUtil;
 import uren.com.filmktphanem.adapters.MovieRecyclerViewAdapter;
 import uren.com.filmktphanem.data.NetworkUtils;
@@ -49,7 +50,6 @@ public class PersonMoviesFragment extends BaseFragment {
     private GridLayoutManager gridLayoutManager;
     private MovieRecyclerViewAdapter rvAdapter;
 
-    int spanCount = 2;
     private int personId;
     private String name;
 
@@ -138,21 +138,8 @@ public class PersonMoviesFragment extends BaseFragment {
 
     private void populateRecyclerView() {
         rvAdapter = new MovieRecyclerViewAdapter(getContext(), mFragmentNavigation);
-        setSpanCount();
-        gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
+        gridLayoutManager = new GridLayoutManager(getContext(), CommonUtils.getSpanCount(getActivity()));
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(rvAdapter);
-    }
-
-    private void setSpanCount() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        int width = displayMetrics.widthPixels;
-        if (width > 1400) {
-            spanCount = 5;
-        } else if (width > 700) {
-            spanCount = 3;
-        }
     }
 }

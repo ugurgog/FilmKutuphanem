@@ -230,8 +230,8 @@ public class MovieDetailFragment extends BaseFragment {
         btn_view_similar = mView.findViewById(R.id.btn_view_similar);
         favoritesDbHelper = new FavoritesDbHelper(getContext());
 
-        btn_view_similar.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DimGray, null),
-                getContext().getResources().getColor(R.color.White, null), GradientDrawable.RECTANGLE, 30, 2));
+        btn_view_similar.setBackground(ShapeUtil.getShape(getContext().getResources().getColor(R.color.DimGray),
+                getContext().getResources().getColor(R.color.White), GradientDrawable.RECTANGLE, 30, 2));
     }
 
     /**

@@ -35,7 +35,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/White"
                     android:textSize="22sp"
-                    android:text="Will Smith"
                     android:gravity="center"
                     android:fontFamily="@font/lato_family"/>
 
@@ -64,7 +63,6 @@
                         android:textAlignment="textStart"
                         android:textColor="#ffffff"
                         android:textSize="17sp"
-                        android:text="1983-08-11"
                         android:textStyle="italic"/>
 
                 </LinearLayout>
@@ -94,7 +92,6 @@
                         android:textAlignment="textStart"
                         android:textColor="#ffffff"
                         android:textSize="17sp"
-                        android:text="1983-04-11"
                         android:textStyle="italic"/>
 
                 </LinearLayout>
@@ -124,7 +121,6 @@
                         android:textAlignment="textStart"
                         android:textColor="#ffffff"
                         android:textSize="17sp"
-                        android:text="Melbourne, Victoria, Australia"
                         android:textStyle="italic"/>
 
                 </LinearLayout>
@@ -155,7 +151,6 @@
                         android:textColor="#ffffff"
                         android:textSize="17sp"
                         android:layout_marginTop="5dp"
-                        android:text="Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy "
                         android:textStyle="italic"/>
 
                 </LinearLayout>
@@ -198,7 +193,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#ffffff"
                         android:textSize="13sp"
-                        android:text="/chrishemtworth"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/lato_family" />
@@ -226,7 +220,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#ffffff"
                         android:textSize="13sp"
-                        android:text="/chrishemtworth"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/lato_family" />
@@ -254,7 +247,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#ffffff"
                         android:textSize="13sp"
-                        android:text="/chrishemtworth"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/lato_family" />

@@ -152,8 +152,10 @@ public class MainActivity extends FragmentActivity implements
             }
         }
 
-        @SuppressLint("InflateParams") View headerView = ((LayoutInflater) Objects.requireNonNull(getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
-                .inflate(R.layout.custom_tab, null, false);
+        //@SuppressLint("InflateParams") View headerView = ((LayoutInflater) Objects.requireNonNull(getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
+        //        .inflate(R.layout.custom_tab, null, false);
+
+        View headerView = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_tab, null);
 
         linearLayoutOne = headerView.findViewById(R.id.ll);
         linearLayout2 = headerView.findViewById(R.id.ll2);

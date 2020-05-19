@@ -259,9 +259,9 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter implements Fi
         private void setInLibOrNot() {
             if (movie != null) {
                 if (dbHelper.isInMyLibrary(movie.getMovieId()))
-                    llExistLib.setBackgroundColor(context.getResources().getColor(R.color.LimeGreen, null));
+                    llExistLib.setBackgroundColor(context.getResources().getColor(R.color.LimeGreen));
                 else
-                    llExistLib.setBackgroundColor(context.getResources().getColor(R.color.Red, null));
+                    llExistLib.setBackgroundColor(context.getResources().getColor(R.color.Red));
             }
         }
     }
